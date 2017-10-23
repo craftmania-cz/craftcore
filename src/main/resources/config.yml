@@ -1,0 +1,32 @@
+# Napojeni na SQL
+sql:
+ hostname: host
+ port: 3306
+ database: database
+ username: user
+ password: password
+
+# Nastaveni SQL
+settings:
+ minimumConnections: 2
+ maximumConnections: 5
+ timeout: 30000
+
+# ProxyJoin Bungee
+# Pouze hraci s touto IP se budou moct pripojit
+proxy-ips:
+ - '0.0.0.1'
+
+# Povolene IP, ktere se mohou pripojit mimo BungeeCord
+disable-ips:
+ - '0.0.0.1'
+
+######################################
+
+# ID serveru pro statistiky
+server: Survival
+
+# Prometheus statistiky
+prometheus:
+ state: false
+ port: 9225

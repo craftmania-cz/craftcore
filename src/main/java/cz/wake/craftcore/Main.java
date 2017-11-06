@@ -5,7 +5,9 @@ import com.comphenix.protocol.ProtocolManager;
 import cz.wake.craftcore.listener.extended.*;
 import cz.wake.craftcore.services.prometheus.MetricsController;
 import cz.wake.craftcore.tasks.TpsPollerTask;
+import cz.wake.craftcore.utils.Log;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.eclipse.jetty.server.Server;
@@ -32,6 +34,7 @@ public class Main extends JavaPlugin {
 
         // Bungee ID z configu
         idServer = getConfig().getString("server");
+        Log.withPrefix("Server zaevidovany jako: " + idServer);
 
         //Detekce TPS
         //TODO: Volitelný
@@ -39,17 +42,17 @@ public class Main extends JavaPlugin {
 
         // Nastaveni Prometheus serveru
         if (getConfig().getBoolean("prometheus.state")) {
-            //Log.withPrefix("Probehne aktivace Prometheus endpointu a TPS detekce!");
+            Log.withPrefix("Probehne aktivace Prometheus endpointu a TPS detekce!");
             getServer().getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), new TpsPollerTask(), 0, 40);
             int port = getConfig().getInt("prometheus.port");
             server = new Server(port);
             server.setHandler(new MetricsController(this));
             try {
                 server.start();
-                //Log.withPrefix("Spusten Prometheus endpoint na portu " + port);
+                Log.withPrefix("Spusten Prometheus endpoint na portu " + port);
             } catch (Exception e) {
-                //log.error("", e);
-                //Log.withPrefix("Nelze spustit Jetty Endpoint pro Prometheus.");
+                Log.withPrefix("Nelze spustit Jetty Endpoint pro Prometheus.");
+                e.printStackTrace();
             }
         }
 
@@ -62,8 +65,7 @@ public class Main extends JavaPlugin {
             try {
                 server.stop();
             } catch (Exception e) {
-                //TODO: log
-                //log.error("", e);
+                e.printStackTrace();
             }
         }
 
@@ -79,8 +81,9 @@ public class Main extends JavaPlugin {
 
         if(pm.isPluginEnabled("ProtocolLib")){
             registerPacketListeners();
+            Log.withPrefix("Registrace Packet eventu s ProtocolLibs.");
         } else{
-            //TODO: Log o vypnuti
+            Log.withPrefix(ChatColor.RED + "Registrace Packet eventu je deaktivovana! Chybi ProtocolLibs!");
         }
     }
 

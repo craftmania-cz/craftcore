@@ -1,5 +1,8 @@
 package cz.wake.craftcore;
 
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
+import cz.wake.craftcore.listener.extended.*;
 import cz.wake.craftcore.services.prometheus.MetricsController;
 import cz.wake.craftcore.tasks.TpsPollerTask;
 import org.bukkit.Bukkit;
@@ -73,6 +76,12 @@ public class Main extends JavaPlugin {
 
     private void loadListeners() {
         PluginManager pm = getServer().getPluginManager();
+
+        if(pm.isPluginEnabled("ProtocolLib")){
+            registerPacketListeners();
+        } else{
+            //TODO: Log o vypnuti
+        }
     }
 
     private void loadCommands() {
@@ -80,5 +89,16 @@ public class Main extends JavaPlugin {
 
     public String getIdServer() {
         return idServer;
+    }
+
+    private void registerPacketListeners() {
+        ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
+
+        protocolManager.addPacketListener(new PlayerCameraChangeEventListener(this));
+        protocolManager.addPacketListener(new PlayerListUpdateEventListener(this));
+        protocolManager.addPacketListener(new PlayerOpenSignEditorEventListener(this));
+        protocolManager.addPacketListener(new PlayerChangeGameStateListener(this));
+        protocolManager.addPacketListener(new PlayerReceiveStatisticsEventListener(this));
+        protocolManager.addPacketListener(new PlayerReceiveMessageEventListener(this));
     }
 }

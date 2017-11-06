@@ -3,3 +3,4 @@ version: 0.1
 description: API for Craftmania.cz
 author: MrWakeCZ
 main: cz.wake.craftcore.Main
+softdepend: [ProtocolLib]

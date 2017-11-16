@@ -37,8 +37,9 @@ public class Main extends JavaPlugin {
         Log.withPrefix("Server zaevidovany jako: " + idServer);
 
         //Detekce TPS
-        //TODO: Volitelný
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new TpsPollerTask(), 100L, 1L);
+        if(getConfig().getBoolean("tps-detector")){
+            Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new TpsPollerTask(), 100L, 1L);
+        }
 
         // Nastaveni Prometheus serveru
         if (getConfig().getBoolean("prometheus.state")) {
@@ -96,7 +97,6 @@ public class Main extends JavaPlugin {
 
     private void registerPacketListeners() {
         ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
-
         protocolManager.addPacketListener(new PlayerCameraChangeEventListener(this));
         protocolManager.addPacketListener(new PlayerListUpdateEventListener(this));
         protocolManager.addPacketListener(new PlayerOpenSignEditorEventListener(this));

@@ -23,6 +23,9 @@ disable-ips:
 
 ######################################
 
+# Volitelná detekce TPS
+tps-detector: false
+
 # ID serveru pro statistiky
 server: Survival
 

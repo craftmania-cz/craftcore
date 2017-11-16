@@ -1,10 +1,12 @@
 package cz.wake.craftcore.services.prometheus;
 
 import cz.wake.craftcore.Main;
+import cz.wake.craftcore.utils.Log;
 import io.prometheus.client.CollectorRegistry;
 import io.prometheus.client.Gauge;
 import io.prometheus.client.exporter.common.TextFormat;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.eclipse.jetty.server.Request;
 import org.eclipse.jetty.server.handler.AbstractHandler;
@@ -26,7 +28,6 @@ public class MetricsController extends AbstractHandler {
 
     private final Main plugin;
 
-    //TODO: ID SERVER
     private Gauge players = Gauge.build().name(Main.getInstance().getIdServer() + "_players_total").help("Online and offline players").labelNames("state").create().register();
     private Gauge loadedChunks = Gauge.build().name(Main.getInstance().getIdServer() + "_loaded_chunks_total").help("Chunks loaded per world").labelNames("world").create().register();
     private Gauge playersOnline = Gauge.build().name(Main.getInstance().getIdServer() + "_players_online_total").help("Players currently online per world").labelNames("world").create().register();
@@ -90,8 +91,7 @@ public class MetricsController extends AbstractHandler {
 
             baseRequest.setHandled(true);
         } catch (InterruptedException | ExecutionException e) {
-            //TODO: Log
-            //Log.withPrefix(ChatColor.RED + "Nelze se pripojit na Prometheus server!");
+            Log.withPrefix(ChatColor.RED + "Nelze se pripojit na Prometheus server!");
             e.printStackTrace();
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }

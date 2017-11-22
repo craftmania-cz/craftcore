@@ -2,6 +2,7 @@ package cz.wake.craftcore;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import cz.wake.craftcore.api.CoreAPI;
 import cz.wake.craftcore.listener.extended.*;
 import cz.wake.craftcore.services.prometheus.MetricsController;
 import cz.wake.craftcore.sql.SQLManager;

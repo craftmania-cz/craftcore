@@ -21,8 +21,6 @@ proxy-ips:
 disable-ips:
  - '0.0.0.1'
 
-######################################
-
 # Volitelná detekce TPS
 tps-detector: false
 

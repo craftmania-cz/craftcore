@@ -4,6 +4,7 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import cz.wake.craftcore.listener.extended.*;
 import cz.wake.craftcore.services.prometheus.MetricsController;
+import cz.wake.craftcore.sql.SQLManager;
 import cz.wake.craftcore.tasks.TpsPollerTask;
 import cz.wake.craftcore.utils.Log;
 import org.bukkit.Bukkit;
@@ -16,6 +17,7 @@ public class Main extends JavaPlugin {
 
     private Server server;
     private String idServer;
+    private SQLManager sql;
 
     private static Main instance;
 
@@ -31,6 +33,9 @@ public class Main extends JavaPlugin {
         // Register eventu a prikazu
         loadListeners();
         loadCommands();
+
+        // HikariCP
+        initDatabase();
 
         // Bungee ID z configu
         idServer = getConfig().getString("server");
@@ -70,6 +75,9 @@ public class Main extends JavaPlugin {
             }
         }
 
+        // Deaktivace HikariCP
+        sql.onDisable();
+
         instance = null;
     }
 
@@ -103,5 +111,13 @@ public class Main extends JavaPlugin {
         protocolManager.addPacketListener(new PlayerChangeGameStateListener(this));
         protocolManager.addPacketListener(new PlayerReceiveStatisticsEventListener(this));
         protocolManager.addPacketListener(new PlayerReceiveMessageEventListener(this));
+    }
+
+    private void initDatabase() {
+        sql = new SQLManager(this);
+    }
+
+    public SQLManager getSQL() {
+        return this.sql;
     }
 }

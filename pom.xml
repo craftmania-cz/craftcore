@@ -101,10 +101,18 @@
             <artifactId>simpleclient_common</artifactId>
             <version>0.0.22</version>
         </dependency>
+        <!-- ProtocolLib API -->
         <dependency>
             <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib-API</artifactId>
             <version>4.3.0</version>
+        </dependency>
+        <!-- HakariCP Library -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>2.6.1</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     

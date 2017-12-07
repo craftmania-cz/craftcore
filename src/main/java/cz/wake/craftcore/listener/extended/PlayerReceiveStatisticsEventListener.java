@@ -5,7 +5,7 @@ import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.WrappedStatistic;
-import cz.wake.craftcore.events.PlayerReceiveStatisticsEvent;
+import cz.wake.craftcore.events.spigot.PlayerReceiveStatisticsEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 

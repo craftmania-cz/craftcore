@@ -6,7 +6,7 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.reflect.StructureModifier;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
-import cz.wake.craftcore.events.PlayerListUpdateEvent;
+import cz.wake.craftcore.events.spigot.PlayerListUpdateEvent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;

@@ -4,7 +4,7 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
-import cz.wake.craftcore.events.PlayerElderGuardianEffectEvent;
+import cz.wake.craftcore.events.spigot.PlayerElderGuardianEffectEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 

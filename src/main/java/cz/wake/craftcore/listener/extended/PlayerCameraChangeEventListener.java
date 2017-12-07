@@ -2,7 +2,7 @@ package cz.wake.craftcore.listener.extended;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.*;
-import cz.wake.craftcore.events.PlayerCameraChangeEvent;
+import cz.wake.craftcore.events.spigot.PlayerCameraChangeEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;

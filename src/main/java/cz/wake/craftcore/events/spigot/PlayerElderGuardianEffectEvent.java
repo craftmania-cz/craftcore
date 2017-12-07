@@ -1,4 +1,4 @@
-package cz.wake.craftcore.events;
+package cz.wake.craftcore.events.spigot;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;

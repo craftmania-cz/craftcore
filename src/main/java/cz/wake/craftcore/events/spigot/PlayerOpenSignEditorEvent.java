@@ -1,4 +1,4 @@
-package cz.wake.craftcore.events;
+package cz.wake.craftcore.events.spigot;
 
 import com.comphenix.protocol.wrappers.ChunkPosition;
 import org.bukkit.entity.Player;

@@ -1,4 +1,4 @@
-package cz.wake.craftcore.events;
+package cz.wake.craftcore.events.spigot;
 
 import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.entity.Player;

@@ -7,7 +7,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
-import cz.wake.craftcore.events.PlayerReceiveMessageEvent;
+import cz.wake.craftcore.events.spigot.PlayerReceiveMessageEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 

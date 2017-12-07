@@ -2,14 +2,17 @@ package cz.wake.craftcore;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import cz.wake.craftcore.api.CoreAPI;
 import cz.wake.craftcore.listener.extended.*;
+import cz.wake.craftcore.listener.worldguard.WGRegionEventsListener;
 import cz.wake.craftcore.services.prometheus.MetricsController;
 import cz.wake.craftcore.sql.SQLManager;
 import cz.wake.craftcore.tasks.TpsPollerTask;
 import cz.wake.craftcore.utils.Log;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.eclipse.jetty.server.Server;
@@ -19,6 +22,8 @@ public class Main extends JavaPlugin {
     private Server server;
     private String idServer;
     private SQLManager sql;
+    private WGRegionEventsListener wgListener;
+    private WorldGuardPlugin wgPlugin;
 
     private static Main instance;
 
@@ -37,6 +42,17 @@ public class Main extends JavaPlugin {
 
         // HikariCP
         initDatabase();
+
+        // WorldGuard Addons
+        this.wgPlugin = this.getWGPlugin();
+        if (this.wgPlugin != null) {
+            this.wgListener = new WGRegionEventsListener(this, this.wgPlugin);
+            this.getServer().getPluginManager().registerEvents(this.wgListener, this.wgPlugin);
+            System.out.println("[CraftCore] Detekce WorldGuard");
+            System.out.println("[CraftCore] Pridavne Eventy byly aktivovany!");
+        } else {
+            System.out.println("[CraftCore] WorldGuard neni detekovan! Eventy nebudou aktivni!");
+        }
 
         // Bungee ID z configu
         idServer = getConfig().getString("server");
@@ -120,5 +136,13 @@ public class Main extends JavaPlugin {
 
     public SQLManager getSQL() {
         return this.sql;
+    }
+
+    private WorldGuardPlugin getWGPlugin() {
+        final Plugin plugin = this.getServer().getPluginManager().getPlugin("WorldGuard");
+        if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {
+            return null;
+        }
+        return (WorldGuardPlugin)plugin;
     }
 }

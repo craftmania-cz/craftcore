@@ -4,4 +4,4 @@ description: API for Craftmania.cz
 author: MrWakeCZ
 main: cz.wake.craftcore.Main
 depend: [Multiverse-Core]
-softdepend: [ProtocolLib]
+softdepend: [ProtocolLib,WorldGuard]

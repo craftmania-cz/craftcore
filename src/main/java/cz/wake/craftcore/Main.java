@@ -41,17 +41,17 @@ public class Main extends JavaPlugin {
         loadCommands();
 
         // HikariCP
-        initDatabase();
+        //initDatabase();
 
         // WorldGuard Addons
         this.wgPlugin = this.getWGPlugin();
         if (this.wgPlugin != null) {
             this.wgListener = new WGRegionEventsListener(this, this.wgPlugin);
             this.getServer().getPluginManager().registerEvents(this.wgListener, this.wgPlugin);
-            System.out.println("[CraftCore] Detekce WorldGuard");
-            System.out.println("[CraftCore] Pridavne Eventy byly aktivovany!");
+            Log.withPrefix("Detekce WorldGuard");
+            Log.withPrefix("Pridavne Eventy byly aktivovany!");
         } else {
-            System.out.println("[CraftCore] WorldGuard neni detekovan! Eventy nebudou aktivni!");
+            Log.withPrefix("WorldGuard neni detekovan! Eventy nebudou aktivni!");
         }
 
         // Bungee ID z configu
@@ -93,7 +93,7 @@ public class Main extends JavaPlugin {
         }
 
         // Deaktivace HikariCP
-        sql.onDisable();
+        //sql.onDisable();
 
         instance = null;
     }

@@ -54,9 +54,6 @@ public class SlackApi {
 
     }
 
-    /**
-     * Prepare Message and send to Slack
-     */
     public void call(SlackMessage message) {
         if (message != null) {
             this.send(message.prepare());

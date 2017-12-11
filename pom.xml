@@ -47,6 +47,17 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <show>private</show>
+                    <nohelp>true</nohelp>
+                    <reportOutputDirectory>${project.reporting.outputDirectory}/javadoc</reportOutputDirectory>
+                    <destDir>javadoc</destDir>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

@@ -3,7 +3,6 @@ package cz.wake.craftcore;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import cz.wake.craftcore.api.CoreAPI;
 import cz.wake.craftcore.listener.extended.*;
 import cz.wake.craftcore.listener.worldguard.WGRegionEventsListener;
 import cz.wake.craftcore.services.prometheus.MetricsController;

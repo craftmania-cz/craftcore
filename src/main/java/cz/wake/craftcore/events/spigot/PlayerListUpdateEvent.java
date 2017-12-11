@@ -13,7 +13,13 @@ public class PlayerListUpdateEvent extends PlayerEvent implements Cancellable {
     private BaseComponent[] header;
     private BaseComponent[] footer;
 
-    //TODO: xxx
+    /**
+     * Fired when the server sends to player the tablist header & footer
+     * This will never fire on a vanilla server
+     * @param who The receipient of the player list header & footer packet
+     * @param header The header of the player list
+     * @param footer The footer of the player list
+     */
     public PlayerListUpdateEvent(Player who, BaseComponent[] header, BaseComponent[] footer) {
         super(who);
         this.header = header;

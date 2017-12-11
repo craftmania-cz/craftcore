@@ -6,28 +6,25 @@ import org.bukkit.ChatColor;
 public class Log {
 
     /**
-     * Metoda zasilajici do konzole zpravu s preddefinovanym prefixem CraftCore
-     *
-     * @param text Text zprávy
+     * Sends message into console with predefined prefix CraftCore
+     * @param text Message
      */
     public static void withPrefix(String text) {
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[CraftCore] " + ChatColor.WHITE + text);
     }
 
     /**
-     * Metoda zasilajici do konzole zpravu s vlastnim prefixem.
-     *
+     * Sends message into console with own prefix
      * @param customPrefix Prefix
-     * @param text Text zprávy
+     * @param text Message
      */
     public static void withCustomPrefix (String customPrefix, String text){
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[" + customPrefix + "]" + ChatColor.WHITE + text);
     }
 
     /**
-     * Zprava zasilajici do konzole text bez prefixu a formátování
-     *
-     * @param text Text zprávy
+     * Sends message into console without any formats and prefix
+     * @param text Message
      */
     public static void normalMessage(String text) {
         Bukkit.getConsoleSender().sendMessage(text);

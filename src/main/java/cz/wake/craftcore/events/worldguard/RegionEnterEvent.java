@@ -10,6 +10,13 @@ public class RegionEnterEvent extends RegionEvent implements Cancellable {
     private boolean cancelled;
     private boolean cancellable;
 
+    /**
+     * Fired when a player entered into registred WorldGuard region.
+     * @param region Name entered region
+     * @param player The player that enter
+     * @param movement Type of movement
+     * @param parent Event of entering
+     */
     public RegionEnterEvent(final ProtectedRegion region, final Player player, final MovementWay movement, final PlayerEvent parent) {
         super(region, player, movement, parent);
         this.cancelled = false;

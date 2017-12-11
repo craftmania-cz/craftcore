@@ -6,10 +6,19 @@ public class TpsPollerTask implements Runnable {
     public static long[] TICKS = new long[600];
     public static long LAST_TICK = 0L;
 
+    /**
+     * Returns server TPS in last 5 seconds
+     * @return TPS
+     */
     public static double getTPS() {
         return getTPS(100);
     }
 
+    /**
+     * Returns server TPS for custom value
+     * @param ticks Amount of ticks that to be counted
+     * @return TPS
+     */
     public static double getTPS(int ticks) {
         if (TICK_COUNT < ticks) {
             return 20.0D;
@@ -20,6 +29,11 @@ public class TpsPollerTask implements Runnable {
         return ticks / (elapsed / 1000.0D);
     }
 
+    /**
+     * Returns amount of ticks that elapsed from start of counting
+     * @param tickID Ticks IDs
+     * @return Time in miliseconds
+     */
     public static long getElapsed(int tickID) {
         if (TICK_COUNT - tickID >= TICKS.length) {
         }
@@ -28,6 +42,7 @@ public class TpsPollerTask implements Runnable {
         return System.currentTimeMillis() - time;
     }
 
+    /* Starter for main process */
     public void run() {
         TICKS[(TICK_COUNT % TICKS.length)] = System.currentTimeMillis();
 

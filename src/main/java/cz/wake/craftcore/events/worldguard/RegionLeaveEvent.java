@@ -10,6 +10,13 @@ public class RegionLeaveEvent extends RegionEvent implements Cancellable {
     private boolean cancelled;
     private boolean cancellable;
 
+    /**
+     * Fired when a player leave WorldGuard region
+     * @param region Name leaved region
+     * @param player The player that enter
+     * @param movement Type of movement
+     * @param parent Event of leaving
+     */
     public RegionLeaveEvent(final ProtectedRegion region, final Player player, final MovementWay movement, final PlayerEvent parent) {
         super(region, player, movement, parent);
         this.cancelled = false;

@@ -40,7 +40,7 @@ public class Main extends JavaPlugin {
         loadCommands();
 
         // HikariCP
-        //initDatabase();
+        initDatabase();
 
         // WorldGuard Addons
         this.wgPlugin = this.getWGPlugin();

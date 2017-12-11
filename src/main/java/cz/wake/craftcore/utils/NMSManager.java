@@ -20,10 +20,8 @@ public class NMSManager {
     /**
      * Equals type array.
      *
-     * @param a
-     *            the a
-     * @param o
-     *            the o
+     * @param a the a
+     * @param o the o
      * @return true, if successful
      */
     public static boolean equalsTypeArray(Class<?>[] a, Class<?>[] o) {
@@ -40,7 +38,6 @@ public class NMSManager {
 
     /**
      * Gets the.
-     *
      * @return the NMS manager
      */
     public static NMSManager get() {
@@ -52,7 +49,6 @@ public class NMSManager {
 
     /**
      * Gets the.
-     *
      * @return the NMS manager
      */
     public static NMSManager getInstance() {
@@ -64,13 +60,9 @@ public class NMSManager {
 
     /**
      * Sets the.
-     *
-     * @param object
-     *            the object
-     * @param fieldName
-     *            the field name
-     * @param fieldValue
-     *            the field value
+     * @param object the object
+     * @param fieldName the field name
+     * @param fieldValue the field value
      * @return true, if successful
      */
     public static boolean set(Object object, String fieldName, Object fieldValue) {
@@ -92,11 +84,8 @@ public class NMSManager {
 
     /**
      * Class list equal.
-     *
-     * @param l1
-     *            the l 1
-     * @param l2
-     *            the l 2
+     * @param l1 the l 1
+     * @param l2 the l 2
      * @return true, if successful
      */
     public boolean ClassListEqual(Class<?>[] l1, Class<?>[] l2) {
@@ -115,11 +104,8 @@ public class NMSManager {
 
     /**
      * Gets the field.
-     *
-     * @param clazz
-     *            the clazz
-     * @param name
-     *            the name
+     * @param clazz the clazz
+     * @param name the name
      * @return the field
      */
     public Field getField(Class<?> clazz, String name) {
@@ -135,9 +121,7 @@ public class NMSManager {
 
     /**
      * Gets the handle.
-     *
-     * @param obj
-     *            the obj
+     * @param obj the obj
      * @return the handle
      */
     public Object getHandle(Object obj) {
@@ -151,13 +135,9 @@ public class NMSManager {
 
     /**
      * Gets the method.
-     *
-     * @param clazz
-     *            the clazz
-     * @param name
-     *            the name
-     * @param args
-     *            the args
+     * @param clazz the clazz
+     * @param name the name
+     * @param args the args
      * @return the method
      */
     public Method getMethod(Class<?> clazz, String name, Class<?>... args) {
@@ -172,13 +152,9 @@ public class NMSManager {
 
     /**
      * Gets the method.
-     *
-     * @param name
-     *            the name
-     * @param clazz
-     *            the clazz
-     * @param paramTypes
-     *            the param types
+     * @param name the name
+     * @param clazz the clazz
+     * @param paramTypes the param types
      * @return the method
      */
     public Method getMethod(String name, Class<?> clazz, Class<?>... paramTypes) {
@@ -194,9 +170,7 @@ public class NMSManager {
 
     /**
      * Gets the NMS class.
-     *
-     * @param className
-     *            the class name
+     * @param className the class name
      * @return the NMS class
      */
     public Class<?> getNMSClass(String className) {
@@ -213,23 +187,15 @@ public class NMSManager {
     /**
      * Gets the player field.
      *
-     * @param player
-     *            the player
-     * @param name
-     *            the name
+     * @param player the player
+     * @param name the name
      * @return the player field
-     * @throws SecurityException
-     *             the security exception
-     * @throws NoSuchMethodException
-     *             the no such method exception
-     * @throws NoSuchFieldException
-     *             the no such field exception
-     * @throws IllegalArgumentException
-     *             the illegal argument exception
-     * @throws IllegalAccessException
-     *             the illegal access exception
-     * @throws InvocationTargetException
-     *             the invocation target exception
+     * @throws SecurityException the security exception
+     * @throws NoSuchMethodException the no such method exception
+     * @throws NoSuchFieldException the no such field exception
+     * @throws IllegalArgumentException the illegal argument exception
+     * @throws IllegalAccessException the illegal access exception
+     * @throws InvocationTargetException the invocation target exception
      */
     public Object getPlayerField(Player player, String name) throws SecurityException, NoSuchMethodException,
             NoSuchFieldException, IllegalArgumentException, IllegalAccessException, InvocationTargetException {
@@ -242,8 +208,7 @@ public class NMSManager {
     /**
      * Gets the primitive type.
      *
-     * @param clazz
-     *            the clazz
+     * @param clazz the clazz
      * @return the primitive type
      */
     public Class<?> getPrimitiveType(Class<?> clazz) {
@@ -263,10 +228,8 @@ public class NMSManager {
     /**
      * Invoke method.
      *
-     * @param method
-     *            the method
-     * @param obj
-     *            the obj
+     * @param method the method
+     * @param obj the obj
      * @return the object
      */
     public Object invokeMethod(String method, Object obj) {
@@ -281,12 +244,9 @@ public class NMSManager {
     /**
      * Invoke method with args.
      *
-     * @param method
-     *            the method
-     * @param obj
-     *            the obj
-     * @param args
-     *            the args
+     * @param method the method
+     * @param obj the obj
+     * @param args the args
      * @return the object
      */
     public Object invokeMethodWithArgs(String method, Object obj, Object... args) {
@@ -301,8 +261,7 @@ public class NMSManager {
     /**
      * To primitive type array.
      *
-     * @param classes
-     *            the classes
+     * @param classes the classes
      * @return the class[]
      */
     public Class<?>[] toPrimitiveTypeArray(Class<?>[] classes) {

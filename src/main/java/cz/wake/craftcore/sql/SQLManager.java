@@ -18,6 +18,10 @@ public class SQLManager {
         pool.closePool();
     }
 
+    /**
+     * Getting HikariCP pool
+     * @return Main MySQL pool of CraftCore (HikariCP)
+     */
     public ConnectionPoolManager getPool() {
         return pool;
     }

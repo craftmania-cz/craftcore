@@ -26,8 +26,3 @@ tps-detector: false
 
 # ID serveru pro statistiky
 server: Survival
-
-# Prometheus statistiky
-prometheus:
- state: false
- port: 9225

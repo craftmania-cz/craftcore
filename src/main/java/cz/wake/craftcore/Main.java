@@ -5,7 +5,6 @@ import com.comphenix.protocol.ProtocolManager;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import cz.wake.craftcore.listener.extended.*;
 import cz.wake.craftcore.listener.worldguard.WGRegionEventsListener;
-import cz.wake.craftcore.services.prometheus.MetricsController;
 import cz.wake.craftcore.sql.SQLManager;
 import cz.wake.craftcore.tasks.TpsPollerTask;
 import cz.wake.craftcore.utils.Log;
@@ -62,37 +61,12 @@ public class Main extends JavaPlugin {
             Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new TpsPollerTask(), 100L, 1L);
         }
 
-        // Nastaveni Prometheus serveru
-        if (getConfig().getBoolean("prometheus.state")) {
-            Log.withPrefix("Probehne aktivace Prometheus endpointu a TPS detekce!");
-            getServer().getScheduler().scheduleSyncRepeatingTask(Main.getInstance(), new TpsPollerTask(), 0, 40);
-            int port = getConfig().getInt("prometheus.port");
-            server = new Server(port);
-            server.setHandler(new MetricsController(this));
-            try {
-                server.start();
-                Log.withPrefix("Spusten Prometheus endpoint na portu " + port);
-            } catch (Exception e) {
-                Log.withPrefix("Nelze spustit Jetty Endpoint pro Prometheus.");
-                e.printStackTrace();
-            }
-        }
-
     }
 
     public void onDisable() {
 
-        // Deaktivace Jetty portu
-        if (server != null) {
-            try {
-                server.stop();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
         // Deaktivace HikariCP
-        //sql.onDisable();
+        sql.onDisable();
 
         instance = null;
     }

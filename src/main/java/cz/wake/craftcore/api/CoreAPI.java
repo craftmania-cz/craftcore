@@ -19,7 +19,7 @@ public class CoreAPI {
      */
     public static SQLManager getSQL(){
         return Main.getInstance().getSQL();
-    }
+    } //TODO: Fix NPE
 
     /**
      * Metoda k ziskani IDcka serveru (podle configu)

@@ -173,7 +173,7 @@ public class NMSManager {
      * @param className the class name
      * @return the NMS class
      */
-    public Class<?> getNMSClass(String className) {
+    public static Class<?> getNMSClass(String className) {
         String fullName = "net.minecraft.server." + getVersion() + className;
         Class<?> clazz = null;
         try {
@@ -220,7 +220,7 @@ public class NMSManager {
      *
      * @return the version
      */
-    public String getVersion() {
+    public static String getVersion() {
         String name = Bukkit.getServer().getClass().getPackage().getName();
         return name.substring(name.lastIndexOf('.') + 1) + ".";
     }

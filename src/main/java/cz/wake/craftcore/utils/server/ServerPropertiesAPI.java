@@ -36,7 +36,7 @@ public class ServerPropertiesAPI {
 
     /**
      * Sets requested property in server.properties
-     * 
+     *
      * @param path Path to property
      * @param value Value to set
      * @return This class {@link #ServerPropertiesAPI()}

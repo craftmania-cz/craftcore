@@ -9,7 +9,7 @@ public class UtilBook {
 
     /**
      * Generate book
-     * 
+     *
      * @param p Player
      * @param slot Slot in invetory
      * @param Autor Autor that writes the book

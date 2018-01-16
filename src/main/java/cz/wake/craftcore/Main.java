@@ -3,6 +3,8 @@ package cz.wake.craftcore;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import cz.wake.craftcore.listener.basic.PlayerJoinListener;
+import cz.wake.craftcore.listener.basic.PlayerLeaveListener;
 import cz.wake.craftcore.listener.extended.*;
 import cz.wake.craftcore.listener.worldguard.WGRegionEventsListener;
 import cz.wake.craftcore.sql.SQLManager;
@@ -10,10 +12,14 @@ import cz.wake.craftcore.tasks.TpsPollerTask;
 import cz.wake.craftcore.utils.Log;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.eclipse.jetty.server.Server;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends JavaPlugin {
 
@@ -22,6 +28,7 @@ public class Main extends JavaPlugin {
     private SQLManager sql;
     private WGRegionEventsListener wgListener;
     private WorldGuardPlugin wgPlugin;
+    private static List<Player> effectPlayers = new ArrayList<>();
 
     private static Main instance;
 
@@ -81,6 +88,8 @@ public class Main extends JavaPlugin {
 
     private void loadListeners() {
         PluginManager pm = getServer().getPluginManager();
+        pm.registerEvents(new PlayerJoinListener(), this);
+        pm.registerEvents(new PlayerLeaveListener(), this);
 
         if (pm.isPluginEnabled("ProtocolLib")) {
             registerPacketListeners();
@@ -130,5 +139,17 @@ public class Main extends JavaPlugin {
         Log.normalMessage("/ /___/ /  / /_/ / __/ /_/ /___/ /_/ / /  /  __/");
         Log.normalMessage("\\____/_/   \\__,_/_/  \\__/\\____/\\____/_/   \\___/ ");
         Log.normalMessage("                                                ");
+    }
+
+    public List<Player> getEffectPlayers() {
+        return effectPlayers;
+    }
+
+    public void addEffectPlayers(Player p) {
+        effectPlayers.add(p);
+    }
+
+    public void removePlayer(Player p){
+        effectPlayers.remove(p);
     }
 }

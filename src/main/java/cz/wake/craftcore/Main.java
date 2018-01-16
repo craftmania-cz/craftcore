@@ -30,6 +30,9 @@ public class Main extends JavaPlugin {
         // Instance
         instance = this;
 
+        // Logo
+        startupLogo();
+
         // Config
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
@@ -58,6 +61,7 @@ public class Main extends JavaPlugin {
 
         //Detekce TPS
         if (getConfig().getBoolean("tps-detector")) {
+            Log.withPrefix("Detekce TPS byla zapnuta.");
             Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new TpsPollerTask(), 100L, 1L);
         }
 
@@ -117,5 +121,14 @@ public class Main extends JavaPlugin {
             return null;
         }
         return (WorldGuardPlugin) plugin;
+    }
+
+    private void startupLogo(){
+        Log.normalMessage("   ______           ______  ______              ");
+        Log.normalMessage("  / ____/________ _/ __/ /_/ ____/___  ________ ");
+        Log.normalMessage(" / /   / ___/ __ `/ /_/ __/ /   / __ \\/ ___/ _ \\");
+        Log.normalMessage("/ /___/ /  / /_/ / __/ /_/ /___/ /_/ / /  /  __/");
+        Log.normalMessage("\\____/_/   \\__,_/_/  \\__/\\____/\\____/_/   \\___/ ");
+        Log.normalMessage("                                                ");
     }
 }

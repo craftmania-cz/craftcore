@@ -1,4 +1,4 @@
-package cz.wake.craftcore.messages;
+package cz.wake.craftcore.messages.chat;
 
 public enum DefaultFontInfo {
 

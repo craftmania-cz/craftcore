@@ -16,7 +16,8 @@ public class PlayerListUpdateEvent extends PlayerEvent implements Cancellable {
     /**
      * Fired when the server sends to player the tablist header & footer
      * This will never fire on a vanilla server
-     * @param who The receipient of the player list header & footer packet
+     *
+     * @param who    The receipient of the player list header & footer packet
      * @param header The header of the player list
      * @param footer The footer of the player list
      */
@@ -28,6 +29,7 @@ public class PlayerListUpdateEvent extends PlayerEvent implements Cancellable {
 
     /**
      * Returns the player list header for this player
+     *
      * @return The player list header for this player
      */
     public BaseComponent[] getHeader() {
@@ -36,6 +38,7 @@ public class PlayerListUpdateEvent extends PlayerEvent implements Cancellable {
 
     /**
      * Returns the player list footer for this player
+     *
      * @return The player list footer for this player
      */
     public BaseComponent[] getFooter() {

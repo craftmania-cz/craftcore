@@ -14,7 +14,8 @@ public class PlayerReceiveStatisticsEvent extends PlayerEvent {
 
     /**
      * Fired when the server sends the client its statistics
-     * @param who The player receiving their statistics
+     *
+     * @param who        The player receiving their statistics
      * @param statistics The statistics {@code who} has. WrappedStatistic gives you access to both the name and the underlying NMS Statistic.
      * @see WrappedStatistic#getHandle()
      */
@@ -25,6 +26,7 @@ public class PlayerReceiveStatisticsEvent extends PlayerEvent {
 
     /**
      * Returns the amount of {@code statistic} the client has
+     *
      * @param statistic The statistic
      * @return How much of the statistic the client has
      */
@@ -34,6 +36,7 @@ public class PlayerReceiveStatisticsEvent extends PlayerEvent {
 
     /**
      * Returns the amount of the statistic the client has
+     *
      * @param name The statistic's name
      * @return How much of the statistic the client has
      * @see PlayerReceiveStatisticsEvent#getStatistic(WrappedStatistic)
@@ -44,6 +47,7 @@ public class PlayerReceiveStatisticsEvent extends PlayerEvent {
 
     /**
      * Returns a map of the client's statistics
+     *
      * @return A map of the client's statistics
      */
     public Map<WrappedStatistic, Integer> getStatistics() {

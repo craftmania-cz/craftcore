@@ -24,10 +24,9 @@ public class ServerPropertiesAPI {
             try {
                 ServerPropertiesAPI.minecraftServerClass = NMSManager.getNMSClass("MinecraftServer");
                 ServerPropertiesAPI.propertyManagerClass = NMSManager.getNMSClass("PropertyManager");
-                ServerPropertiesAPI.getServer = ServerPropertiesAPI.minecraftServerClass.getDeclaredMethod("getServer", (Class<?>[])new Class[0]);
-                ServerPropertiesAPI.getPropertyManager = ServerPropertiesAPI.minecraftServerClass.getDeclaredMethod("getPropertyManager", (Class<?>[])new Class[0]);
-            }
-            catch (Exception e) {
+                ServerPropertiesAPI.getServer = ServerPropertiesAPI.minecraftServerClass.getDeclaredMethod("getServer", (Class<?>[]) new Class[0]);
+                ServerPropertiesAPI.getPropertyManager = ServerPropertiesAPI.minecraftServerClass.getDeclaredMethod("getPropertyManager", (Class<?>[]) new Class[0]);
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             ServerPropertiesAPI.invoked = true;
@@ -37,7 +36,7 @@ public class ServerPropertiesAPI {
     /**
      * Sets requested property in server.properties
      *
-     * @param path Path to property
+     * @param path  Path to property
      * @param value Value to set
      * @return This class {@link #ServerPropertiesAPI()}
      */
@@ -45,10 +44,9 @@ public class ServerPropertiesAPI {
         try {
             final Method setProperty = ServerPropertiesAPI.propertyManagerClass.getDeclaredMethod("setProperty", String.class, Object.class);
             setProperty.invoke(ServerPropertiesAPI.getPropertyManager.invoke(ServerPropertiesAPI.getServer.invoke(null, new Object[0]), new Object[0]), path, value);
-            final Method savePropertiesFile = ServerPropertiesAPI.propertyManagerClass.getDeclaredMethod("savePropertiesFile", (Class<?>[])new Class[0]);
+            final Method savePropertiesFile = ServerPropertiesAPI.propertyManagerClass.getDeclaredMethod("savePropertiesFile", (Class<?>[]) new Class[0]);
             savePropertiesFile.invoke(ServerPropertiesAPI.getPropertyManager.invoke(ServerPropertiesAPI.getServer.invoke(null, new Object[0]), new Object[0]), new Object[0]);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return this;
@@ -65,10 +63,9 @@ public class ServerPropertiesAPI {
         Object object = null;
         try {
             final Field propertiesField = ServerPropertiesAPI.propertyManagerClass.getDeclaredField("properties");
-            final Properties properties = (Properties)propertiesField.get(ServerPropertiesAPI.getPropertyManager.invoke(ServerPropertiesAPI.getServer.invoke(null, new Object[0]), new Object[0]));
+            final Properties properties = (Properties) propertiesField.get(ServerPropertiesAPI.getPropertyManager.invoke(ServerPropertiesAPI.getServer.invoke(null, new Object[0]), new Object[0]));
             object = properties.getProperty(path);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return object;
@@ -83,10 +80,9 @@ public class ServerPropertiesAPI {
         Set<Map.Entry<Object, Object>> entries = null;
         try {
             final Field propertiesField = ServerPropertiesAPI.propertyManagerClass.getDeclaredField("properties");
-            final Properties properties = (Properties)propertiesField.get(ServerPropertiesAPI.getPropertyManager.invoke(ServerPropertiesAPI.getServer.invoke(null, new Object[0]), new Object[0]));
+            final Properties properties = (Properties) propertiesField.get(ServerPropertiesAPI.getPropertyManager.invoke(ServerPropertiesAPI.getServer.invoke(null, new Object[0]), new Object[0]));
             entries = properties.entrySet();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return entries;

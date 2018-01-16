@@ -1,7 +1,9 @@
 package cz.wake.craftcore.listener.extended;
 
 import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.events.*;
+import com.comphenix.protocol.events.ListenerPriority;
+import com.comphenix.protocol.events.PacketAdapter;
+import com.comphenix.protocol.events.PacketEvent;
 import cz.wake.craftcore.events.spigot.PlayerCameraChangeEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
@@ -23,20 +25,20 @@ public class PlayerCameraChangeEventListener extends PacketAdapter {
         Entity entity = null;
         Player player = event.getPlayer();
 
-        for(Entity entityWorld : player.getWorld().getEntities()) {
-            if(entityWorld.getEntityId() == entityId) {
+        for (Entity entityWorld : player.getWorld().getEntities()) {
+            if (entityWorld.getEntityId() == entityId) {
                 entity = entityWorld;
                 break;
             }
         }
 
-        if(entity == null) {
+        if (entity == null) {
             return;
         }
 
         PlayerCameraChangeEvent cameraEvent = new PlayerCameraChangeEvent(event.getPlayer(), entity);
         Bukkit.getPluginManager().callEvent(cameraEvent);
-        if(cameraEvent.isCancelled()) {
+        if (cameraEvent.isCancelled()) {
             Bukkit.getScheduler().runTask(plugin, () -> player.setSpectatorTarget(null));
         }
     }

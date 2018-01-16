@@ -9,13 +9,15 @@ import org.bukkit.entity.Player;
 
 public class BossBar {
 
-    /** The boss bar. */
+    /**
+     * The boss bar.
+     */
     public org.bukkit.boss.BossBar bossBar;
 
     /**
      * Instantiates a new boss bar.
      *
-     * @param msg the msg
+     * @param msg      the msg
      * @param barColor the bar color
      * @param barStyle the bar style
      * @param progress the progress
@@ -65,7 +67,7 @@ public class BossBar {
      * Send.
      *
      * @param player the player
-     * @param delay the delay
+     * @param delay  the delay
      */
     public void send(Player player, int delay) {
         bossBar.addPlayer(player);
@@ -99,6 +101,7 @@ public class BossBar {
 
     /**
      * Sets style of the bossbar
+     *
      * @param barStyle {@link BarStyle}
      */
     public void setStyle(String barStyle) {

@@ -1,20 +1,24 @@
 package cz.wake.craftcore.utils;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
 public class NMSManager {
 
-    /** The instance. */
+    /**
+     * The instance.
+     */
     private static NMSManager instance;
 
-    /** The Constant CORRESPONDING_TYPES. */
+    /**
+     * The Constant CORRESPONDING_TYPES.
+     */
     public static final Map<Class<?>, Class<?>> CORRESPONDING_TYPES = new HashMap<Class<?>, Class<?>>();
 
     /**
@@ -38,6 +42,7 @@ public class NMSManager {
 
     /**
      * Gets the.
+     *
      * @return the NMS manager
      */
     public static NMSManager get() {
@@ -49,6 +54,7 @@ public class NMSManager {
 
     /**
      * Gets the.
+     *
      * @return the NMS manager
      */
     public static NMSManager getInstance() {
@@ -60,8 +66,9 @@ public class NMSManager {
 
     /**
      * Sets the.
-     * @param object the object
-     * @param fieldName the field name
+     *
+     * @param object     the object
+     * @param fieldName  the field name
      * @param fieldValue the field value
      * @return true, if successful
      */
@@ -84,6 +91,7 @@ public class NMSManager {
 
     /**
      * Class list equal.
+     *
      * @param l1 the l 1
      * @param l2 the l 2
      * @return true, if successful
@@ -104,8 +112,9 @@ public class NMSManager {
 
     /**
      * Gets the field.
+     *
      * @param clazz the clazz
-     * @param name the name
+     * @param name  the name
      * @return the field
      */
     public Field getField(Class<?> clazz, String name) {
@@ -121,6 +130,7 @@ public class NMSManager {
 
     /**
      * Gets the handle.
+     *
      * @param obj the obj
      * @return the handle
      */
@@ -135,9 +145,10 @@ public class NMSManager {
 
     /**
      * Gets the method.
+     *
      * @param clazz the clazz
-     * @param name the name
-     * @param args the args
+     * @param name  the name
+     * @param args  the args
      * @return the method
      */
     public Method getMethod(Class<?> clazz, String name, Class<?>... args) {
@@ -152,8 +163,9 @@ public class NMSManager {
 
     /**
      * Gets the method.
-     * @param name the name
-     * @param clazz the clazz
+     *
+     * @param name       the name
+     * @param clazz      the clazz
      * @param paramTypes the param types
      * @return the method
      */
@@ -170,6 +182,7 @@ public class NMSManager {
 
     /**
      * Gets the NMS class.
+     *
      * @param className the class name
      * @return the NMS class
      */
@@ -188,13 +201,13 @@ public class NMSManager {
      * Gets the player field.
      *
      * @param player the player
-     * @param name the name
+     * @param name   the name
      * @return the player field
-     * @throws SecurityException the security exception
-     * @throws NoSuchMethodException the no such method exception
-     * @throws NoSuchFieldException the no such field exception
-     * @throws IllegalArgumentException the illegal argument exception
-     * @throws IllegalAccessException the illegal access exception
+     * @throws SecurityException         the security exception
+     * @throws NoSuchMethodException     the no such method exception
+     * @throws NoSuchFieldException      the no such field exception
+     * @throws IllegalArgumentException  the illegal argument exception
+     * @throws IllegalAccessException    the illegal access exception
      * @throws InvocationTargetException the invocation target exception
      */
     public Object getPlayerField(Player player, String name) throws SecurityException, NoSuchMethodException,
@@ -229,7 +242,7 @@ public class NMSManager {
      * Invoke method.
      *
      * @param method the method
-     * @param obj the obj
+     * @param obj    the obj
      * @return the object
      */
     public Object invokeMethod(String method, Object obj) {
@@ -245,8 +258,8 @@ public class NMSManager {
      * Invoke method with args.
      *
      * @param method the method
-     * @param obj the obj
-     * @param args the args
+     * @param obj    the obj
+     * @param args   the args
      * @return the object
      */
     public Object invokeMethodWithArgs(String method, Object obj, Object... args) {

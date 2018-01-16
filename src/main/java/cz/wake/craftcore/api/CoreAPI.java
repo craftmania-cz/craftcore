@@ -11,7 +11,7 @@ public class CoreAPI {
      *
      * @return Main.getInstance()
      */
-    public static Main getCoreInstance(){
+    public static Main getCoreInstance() {
         return Main.getInstance();
     }
 
@@ -21,7 +21,7 @@ public class CoreAPI {
      * @return SQLManager
      */
     @NeedTesting
-    public SQLManager getSQL(){
+    public SQLManager getSQL() {
         return Main.getInstance().getSQL();
     } //TODO: Fix NPE
 
@@ -30,7 +30,7 @@ public class CoreAPI {
      *
      * @return ID serveru
      */
-    public static String getIdServer(){
+    public static String getIdServer() {
         return Main.getInstance().getIdServer();
     }
 }

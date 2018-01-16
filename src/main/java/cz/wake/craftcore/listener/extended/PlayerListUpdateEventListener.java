@@ -24,7 +24,7 @@ public class PlayerListUpdateEventListener extends PacketAdapter {
                 ComponentSerializer.parse(chatComponents.read(0).getJson()),
                 ComponentSerializer.parse(chatComponents.read(1).getJson()));
         Bukkit.getPluginManager().callEvent(listUpdateEvent);
-        if(listUpdateEvent.isCancelled()) {
+        if (listUpdateEvent.isCancelled()) {
             event.setCancelled(true);
         }
     }

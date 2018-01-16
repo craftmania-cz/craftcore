@@ -11,6 +11,7 @@ public class PlayerElderGuardianEffectEvent extends PlayerEvent implements Cance
 
     /**
      * Fired when a player is inflicted with mining fatigue from an elder guardian.
+     *
      * @param who The player receiving the elder guardian effect.
      */
     public PlayerElderGuardianEffectEvent(Player who) {
@@ -35,6 +36,7 @@ public class PlayerElderGuardianEffectEvent extends PlayerEvent implements Cance
      * Sets whether to cancel the event. If the event is cancelled, the client will still be inflicted
      * with mining fatigue but they will not recieve the effect of the elder guardian traversing from
      * the top of their window to the bottom.
+     *
      * @param b Whether to cancel the event.
      */
     @Override

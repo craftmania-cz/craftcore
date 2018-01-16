@@ -57,7 +57,7 @@ public class Main extends JavaPlugin {
         Log.withPrefix("Server zaevidovany jako: " + idServer);
 
         //Detekce TPS
-        if(getConfig().getBoolean("tps-detector")){
+        if (getConfig().getBoolean("tps-detector")) {
             Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new TpsPollerTask(), 100L, 1L);
         }
 
@@ -78,10 +78,10 @@ public class Main extends JavaPlugin {
     private void loadListeners() {
         PluginManager pm = getServer().getPluginManager();
 
-        if(pm.isPluginEnabled("ProtocolLib")){
+        if (pm.isPluginEnabled("ProtocolLib")) {
             registerPacketListeners();
             Log.withPrefix("Registrace Packet eventu s ProtocolLibs.");
-        } else{
+        } else {
             Log.withPrefix(ChatColor.RED + "Registrace Packet eventu je deaktivovana! Chybi ProtocolLibs!");
         }
     }
@@ -116,6 +116,6 @@ public class Main extends JavaPlugin {
         if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {
             return null;
         }
-        return (WorldGuardPlugin)plugin;
+        return (WorldGuardPlugin) plugin;
     }
 }

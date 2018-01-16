@@ -20,6 +20,7 @@ public class SQLManager {
 
     /**
      * Getting HikariCP pool
+     *
      * @return Main MySQL pool of CraftCore (HikariCP)
      */
     public ConnectionPoolManager getPool() {

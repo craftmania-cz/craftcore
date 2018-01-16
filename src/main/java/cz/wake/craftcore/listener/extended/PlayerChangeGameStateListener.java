@@ -17,10 +17,10 @@ public class PlayerChangeGameStateListener extends PacketAdapter {
     @Override
     public void onPacketSending(PacketEvent event) {
         int reason = event.getPacket().getIntegers().read(0);
-        if(reason == 10) {
+        if (reason == 10) {
             PlayerElderGuardianEffectEvent elderGuardianEffectEvent = new PlayerElderGuardianEffectEvent(event.getPlayer());
             Bukkit.getPluginManager().callEvent(elderGuardianEffectEvent);
-            if(elderGuardianEffectEvent.isCancelled()) {
+            if (elderGuardianEffectEvent.isCancelled()) {
                 event.setCancelled(true);
             }
         }

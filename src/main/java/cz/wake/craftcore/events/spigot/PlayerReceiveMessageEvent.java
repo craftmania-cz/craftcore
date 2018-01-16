@@ -20,8 +20,9 @@ public class PlayerReceiveMessageEvent extends PlayerEvent implements Cancellabl
 
     /**
      * Fires when the server sends a message to a player
-     * @param who The player receiving the message
-     * @param type The type of the message
+     *
+     * @param who     The player receiving the message
+     * @param type    The type of the message
      * @param message The contents of the message
      */
     public PlayerReceiveMessageEvent(Player who, EnumWrappers.ChatType type, WrappedChatComponent message) {
@@ -33,6 +34,7 @@ public class PlayerReceiveMessageEvent extends PlayerEvent implements Cancellabl
     /**
      * Returns the chat type of the message, used by the client to specify
      * whether it should be showed with certain chat visibility settings.
+     *
      * @return The type of the message being sent
      */
     public EnumWrappers.ChatType getType() {
@@ -41,6 +43,7 @@ public class PlayerReceiveMessageEvent extends PlayerEvent implements Cancellabl
 
     /**
      * Returns the chat message being sent to the player
+     *
      * @return The chat message being sent to the player
      */
     public WrappedChatComponent getMessage() {
@@ -49,6 +52,7 @@ public class PlayerReceiveMessageEvent extends PlayerEvent implements Cancellabl
 
     /**
      * Converts the WrappedChatComponent to the text the client will see
+     *
      * @return The text the client will actually see
      */
     public String toPlainText() {

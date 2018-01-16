@@ -8,6 +8,7 @@ public class TpsPollerTask implements Runnable {
 
     /**
      * Returns server TPS in last 5 seconds
+     *
      * @return TPS
      */
     public static double getTPS() {
@@ -16,6 +17,7 @@ public class TpsPollerTask implements Runnable {
 
     /**
      * Returns server TPS for custom value
+     *
      * @param ticks Amount of ticks that to be counted
      * @return TPS
      */
@@ -31,6 +33,7 @@ public class TpsPollerTask implements Runnable {
 
     /**
      * Returns amount of ticks that elapsed from start of counting
+     *
      * @param tickID Ticks IDs
      * @return Time in miliseconds
      */

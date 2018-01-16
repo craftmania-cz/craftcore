@@ -14,24 +14,32 @@ public class ActionBar {
 
     Main plugin = Main.getInstance();
 
-    /** The nmsver. */
+    /**
+     * The nmsver.
+     */
     public String nmsver;
 
-    /** The use old methods. */
+    /**
+     * The use old methods.
+     */
     private boolean useOldMethods = false;
 
     private boolean useNewMethods = true;
 
-    /** The duration. */
+    /**
+     * The duration.
+     */
     private int duration;
 
-    /** The msg. */
+    /**
+     * The msg.
+     */
     private String msg;
 
     /**
      * Instantiates a new action bar.
      *
-     * @param msg the msg
+     * @param msg      the msg
      * @param duration the duration
      */
     public ActionBar(String msg, int duration) {
@@ -77,7 +85,7 @@ public class ActionBar {
     /**
      * Send action bar.
      *
-     * @param player the player
+     * @param player  the player
      * @param message the message
      */
     public void sendActionBar(Player player, String message) {
@@ -94,12 +102,12 @@ public class ActionBar {
                     Class<?> c3 = Class.forName("net.minecraft.server." + nmsver + "IChatBaseComponent");
                     Method m3 = c2.getDeclaredMethod("a", String.class);
                     Object cbc = c3.cast(m3.invoke(c2, "{\"text\": \"" + message + "\"}"));
-                    ppoc = c4.getConstructor(new Class<?>[] { c3, byte.class }).newInstance(cbc, (byte) 2);
+                    ppoc = c4.getConstructor(new Class<?>[]{c3, byte.class}).newInstance(cbc, (byte) 2);
                 } else {
                     Class<?> c2 = Class.forName("net.minecraft.server." + nmsver + "ChatComponentText");
                     Class<?> c3 = Class.forName("net.minecraft.server." + nmsver + "IChatBaseComponent");
-                    Object o = c2.getConstructor(new Class<?>[] { String.class }).newInstance(message);
-                    ppoc = c4.getConstructor(new Class<?>[] { c3, byte.class }).newInstance(o, (byte) 2);
+                    Object o = c2.getConstructor(new Class<?>[]{String.class}).newInstance(message);
+                    ppoc = c4.getConstructor(new Class<?>[]{c3, byte.class}).newInstance(o, (byte) 2);
                 }
                 Method m1 = c1.getDeclaredMethod("getHandle");
                 Object h = m1.invoke(p);
@@ -135,8 +143,8 @@ public class ActionBar {
     /**
      * Send action bar.
      *
-     * @param player the player
-     * @param message the message
+     * @param player   the player
+     * @param message  the message
      * @param duration the duration
      */
     public void sendActionBar(final Player player, final String message, int duration) {
@@ -179,7 +187,7 @@ public class ActionBar {
     /**
      * Send action bar to all players.
      *
-     * @param message the message
+     * @param message  the message
      * @param duration the duration
      */
     public void sendActionBarToAllPlayers(String message, int duration) {

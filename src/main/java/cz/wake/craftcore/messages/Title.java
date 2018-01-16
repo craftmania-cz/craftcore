@@ -7,22 +7,32 @@ import org.bukkit.entity.Player;
 
 public class Title {
 
-    /** The title. */
+    /**
+     * The title.
+     */
     /* Title text and color */
     private String title = "";
 
-    /** The subtitle. */
+    /**
+     * The subtitle.
+     */
     /* Subtitle text and color */
     private String subtitle = "";
 
-    /** The fade in time. */
+    /**
+     * The fade in time.
+     */
     /* Title timings */
     private int fadeInTime = -1;
 
-    /** The stay time. */
+    /**
+     * The stay time.
+     */
     private int stayTime = -1;
 
-    /** The fade out time. */
+    /**
+     * The fade out time.
+     */
     private int fadeOutTime = -1;
 
     private TitleVersionHandle handle;
@@ -47,7 +57,7 @@ public class Title {
     /**
      * Instantiates a new title.
      *
-     * @param title the title
+     * @param title    the title
      * @param subtitle the subtitle
      */
     public Title(String title, String subtitle) {
@@ -59,10 +69,10 @@ public class Title {
     /**
      * Instantiates a new title.
      *
-     * @param title the title
-     * @param subtitle the subtitle
-     * @param fadeInTime the fade in time
-     * @param stayTime the stay time
+     * @param title       the title
+     * @param subtitle    the subtitle
+     * @param fadeInTime  the fade in time
+     * @param stayTime    the stay time
      * @param fadeOutTime the fade out time
      */
     public Title(String title, String subtitle, int fadeInTime, int stayTime, int fadeOutTime) {
@@ -101,8 +111,7 @@ public class Title {
     /**
      * Clear title.
      *
-     * @param player
-     *            the player
+     * @param player the player
      */
     public void clearTitle(Player player) {
         handle.clearTitle(player);

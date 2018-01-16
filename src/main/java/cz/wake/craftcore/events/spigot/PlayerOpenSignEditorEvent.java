@@ -14,7 +14,8 @@ public class PlayerOpenSignEditorEvent extends PlayerEvent implements Cancellabl
 
     /**
      * Fired when a player opens a sign for editing
-     * @param who The player who opens the sign editor
+     *
+     * @param who      The player who opens the sign editor
      * @param position The position at which the event happened
      */
     public PlayerOpenSignEditorEvent(Player who, ChunkPosition position) {
@@ -24,6 +25,7 @@ public class PlayerOpenSignEditorEvent extends PlayerEvent implements Cancellabl
 
     /**
      * Returns the position at which the event happened
+     *
      * @return The position at which the event happened
      */
     public ChunkPosition getPosition() {
@@ -46,6 +48,7 @@ public class PlayerOpenSignEditorEvent extends PlayerEvent implements Cancellabl
 
     /**
      * Set whether the event should be cancelled. If it is, it will be perceived as if the client placed a blank sign.
+     *
      * @param b Whether the event should be cancelled.
      */
     @Override

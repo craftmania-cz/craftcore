@@ -25,7 +25,7 @@ public class PlayerReceiveMessageEventListener extends PacketAdapter {
 
         PlayerReceiveMessageEvent receiveMessageEvent = new PlayerReceiveMessageEvent(event.getPlayer(), type, message);
         Bukkit.getPluginManager().callEvent(receiveMessageEvent);
-        if(receiveMessageEvent.isCancelled()) {
+        if (receiveMessageEvent.isCancelled()) {
             event.setCancelled(true);
         }
     }

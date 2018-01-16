@@ -13,8 +13,7 @@ public class V1_11TitleVersionHandle implements TitleVersionHandle {
     /**
      * Clear the title
      *
-     * @param player
-     *            Player
+     * @param player Player
      */
     @Override
     public void clearTitle(Player player) {
@@ -24,8 +23,7 @@ public class V1_11TitleVersionHandle implements TitleVersionHandle {
     /**
      * Reset the title settings
      *
-     * @param player
-     *            Player
+     * @param player Player
      */
     @Override
     public void resetTitle(Player player) {
@@ -35,8 +33,7 @@ public class V1_11TitleVersionHandle implements TitleVersionHandle {
     /**
      * Send the title to a player
      *
-     * @param player
-     *            Player
+     * @param player Player
      */
     @Override
     public void send(Player player, String title, String subtitle, int fadeInTime, int stayTime, int fadeOutTime) {

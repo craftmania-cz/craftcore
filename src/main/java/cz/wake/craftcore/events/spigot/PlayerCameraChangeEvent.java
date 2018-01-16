@@ -14,7 +14,8 @@ public class PlayerCameraChangeEvent extends PlayerEvent implements Cancellable 
 
     /**
      * Triggered when the player's camera changes, ie when they click an entity in spectator mode to enter their view.
-     * @param who The player who's camera is changing to {@code camera}.
+     *
+     * @param who    The player who's camera is changing to {@code camera}.
      * @param camera The new camera for the player {@code who}.
      */
     public PlayerCameraChangeEvent(Player who, Entity camera) {
@@ -24,6 +25,7 @@ public class PlayerCameraChangeEvent extends PlayerEvent implements Cancellable 
 
     /**
      * This will return the entity the player's camera has moved to
+     *
      * @return The entity the player's camera has moved to
      */
     public Entity getCamera() {
@@ -46,6 +48,7 @@ public class PlayerCameraChangeEvent extends PlayerEvent implements Cancellable 
 
     /**
      * Note that cancelling the event will trigger an extra event to move the camera back to the player
+     *
      * @param b Whether the event should be cancelled
      */
     @Override

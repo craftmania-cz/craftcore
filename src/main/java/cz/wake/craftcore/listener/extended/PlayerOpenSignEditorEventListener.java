@@ -20,7 +20,7 @@ public class PlayerOpenSignEditorEventListener extends PacketAdapter {
                 event.getPlayer(),
                 event.getPacket().getPositionModifier().read(0));
         Bukkit.getPluginManager().callEvent(openSignEditorEvent);
-        if(openSignEditorEvent.isCancelled()) {
+        if (openSignEditorEvent.isCancelled()) {
             event.setCancelled(true);
         }
     }

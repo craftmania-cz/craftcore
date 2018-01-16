@@ -1,6 +1,7 @@
 package cz.wake.craftcore.api;
 
 import cz.wake.craftcore.Main;
+import cz.wake.craftcore.annotations.NeedTesting;
 import cz.wake.craftcore.sql.SQLManager;
 
 public class CoreAPI {
@@ -19,6 +20,7 @@ public class CoreAPI {
      *
      * @return SQLManager
      */
+    @NeedTesting
     public SQLManager getSQL(){
         return Main.getInstance().getSQL();
     } //TODO: Fix NPE

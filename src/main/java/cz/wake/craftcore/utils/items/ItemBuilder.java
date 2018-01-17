@@ -119,6 +119,7 @@ public class ItemBuilder {
             ItemMeta meta = is.getItemMeta();
             meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
             meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             is.setItemMeta(meta);
         } catch (Exception ex) {
             //TODO: Main.getInstance().debug("Invalid flag: " + flag);
@@ -153,6 +154,25 @@ public class ItemBuilder {
         try {
             ItemMeta meta = is.getItemMeta();
             meta.addItemFlags(ItemFlag.valueOf(flag));
+            is.setItemMeta(meta);
+        } catch (Exception ex) {
+            //TODO: Main.getInstance().debug("Invalid flag: " + flag);
+        }
+        return this;
+    }
+
+    /**
+     * Adds Glowing effect on the item
+     *
+     * <b>Please use ONLY on a lobby/hub items!</b>
+     *
+     * @return ItemBuilder
+     */
+    public ItemBuilder setGlowing(){
+        try {
+            ItemMeta meta = is.getItemMeta();
+            meta.addEnchant(Enchantment.DURABILITY, 0, true);
+            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
             is.setItemMeta(meta);
         } catch (Exception ex) {
             //TODO: Main.getInstance().debug("Invalid flag: " + flag);

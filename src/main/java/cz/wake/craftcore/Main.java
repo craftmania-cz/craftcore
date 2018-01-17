@@ -91,6 +91,7 @@ public class Main extends JavaPlugin {
     private void loadCommands() {
     }
 
+    @Deprecated
     public String getIdServer() {
         return idServer;
     }

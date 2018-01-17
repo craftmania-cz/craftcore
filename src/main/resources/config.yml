@@ -1,17 +1,3 @@
-# Napojeni na SQL
-sql:
- hostname: host
- port: 3306
- database: database
- username: user
- password: password
-
-# Nastaveni SQL
-settings:
- minimumConnections: 2
- maximumConnections: 5
- timeout: 30000
-
 # ProxyJoin Bungee
 # Pouze hraci s touto IP se budou moct pripojit
 proxy-ips:

@@ -1,7 +1,9 @@
 package cz.wake.craftcore.messages.chat;
 
-public enum DefaultFontInfo {
+import java.util.HashMap;
+import java.util.Map;
 
+public enum DefaultFontInfo {
     A('A', 5),
     a('a', 5),
     B('B', 5),
@@ -73,7 +75,7 @@ public enum DefaultFontInfo {
     AMPERSAND('&', 5),
     ASTERISK('*', 5),
     LEFT_PARENTHESIS('(', 4),
-    RIGHT_PERENTHESIS(')', 4),
+    RIGHT_PARENTHESIS(')', 4),
     MINUS('-', 5),
     UNDERSCORE('_', 5),
     PLUS_SIGN('+', 5),
@@ -97,10 +99,18 @@ public enum DefaultFontInfo {
     PERIOD('.', 1),
     COMMA(',', 1),
     SPACE(' ', 3),
-    DEFAULT('a', 4);
+    DEFAULT('\0', 4);
+
+    private static final Map<Character, DefaultFontInfo> CHAR_MAP = new HashMap<>(values().length, 1.1f);
 
     private char character;
     private int length;
+
+
+    static {
+        for(DefaultFontInfo info : values())
+            CHAR_MAP.put(info.character, info);
+    }
 
     DefaultFontInfo(char character, int length) {
         this.character = character;
@@ -121,9 +131,6 @@ public enum DefaultFontInfo {
     }
 
     public static DefaultFontInfo getDefaultFontInfo(char c) {
-        for (DefaultFontInfo dFI : DefaultFontInfo.values()) {
-            if (dFI.getCharacter() == c) return dFI;
-        }
-        return DefaultFontInfo.DEFAULT;
+        return  CHAR_MAP.getOrDefault(c, DEFAULT);
     }
 }

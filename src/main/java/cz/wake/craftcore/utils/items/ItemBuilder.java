@@ -118,6 +118,7 @@ public class ItemBuilder {
         try {
             ItemMeta meta = is.getItemMeta();
             meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+            meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
             is.setItemMeta(meta);
         } catch (Exception ex) {
             //TODO: Main.getInstance().debug("Invalid flag: " + flag);

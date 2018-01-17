@@ -14,10 +14,10 @@ public class PlayerListUpdateEvent extends PlayerEvent implements Cancellable {
     private BaseComponent[] footer;
 
     /**
-     * Fired when the server sends to player the tablist header & footer
+     * Fired when the server send to player the tablist
      * This will never fire on a vanilla server
      *
-     * @param who    The receipient of the player list header & footer packet
+     * @param who The receipient
      * @param header The header of the player list
      * @param footer The footer of the player list
      */

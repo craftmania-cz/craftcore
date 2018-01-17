@@ -126,6 +126,7 @@ public enum ParticleEffect {
     /**
      * Determine if this particle effect has a specific property
      *
+     * @param property Property
      * @return Whether it has the property or not
      */
     public boolean hasProperty(ParticleProperty property) {
@@ -191,6 +192,7 @@ public enum ParticleEffect {
      * Determine if the distance between @param location and one of the players exceeds 256
      *
      * @param location Location to check
+     * @param players Players
      * @return Whether the distance exceeds 256 or not
      */
     private static boolean isLongDistance(Location location, List<Player> players) {
@@ -314,8 +316,6 @@ public enum ParticleEffect {
      * @throws ParticleVersionException If the particle effect is not supported by the server version
      * @throws ParticleDataException    If the particle effect requires additional data
      * @throws IllegalArgumentException If the particle effect is not directional or if it requires water and none is at the center location
-     * @see ParticlePacket#ParticlePacket(ParticleEffect, Vector, float, boolean, ParticleData)
-     * @see ParticlePacket#sendTo(Location, double)
      */
     public void display(Vector direction, float speed, Location center, double range) throws ParticleVersionException, ParticleDataException, IllegalArgumentException {
         if (!isSupported()) {
@@ -343,8 +343,6 @@ public enum ParticleEffect {
      * @throws ParticleVersionException If the particle effect is not supported by the server version
      * @throws ParticleDataException    If the particle effect requires additional data
      * @throws IllegalArgumentException If the particle effect is not directional or if it requires water and none is at the center location
-     * @see ParticlePacket#ParticlePacket(ParticleEffect, Vector, float, boolean, ParticleData)
-     * @see ParticlePacket#sendTo(Location, List)
      */
     public void display(Vector direction, float speed, Location center, List<Player> players) throws ParticleVersionException, ParticleDataException, IllegalArgumentException {
         if (!isSupported()) {
@@ -386,8 +384,6 @@ public enum ParticleEffect {
      * @param range  Range of the visibility
      * @throws ParticleVersionException If the particle effect is not supported by the server version
      * @throws ParticleColorException   If the particle effect is not colorable or the color type is incorrect
-     * @see ParticlePacket#ParticlePacket(ParticleEffect, ParticleColor, boolean)
-     * @see ParticlePacket#sendTo(Location, double)
      */
     public void display(ParticleColor color, Location center, double range) throws ParticleVersionException, ParticleColorException {
         if (!isSupported()) {
@@ -410,8 +406,6 @@ public enum ParticleEffect {
      * @param players Receivers of the effect
      * @throws ParticleVersionException If the particle effect is not supported by the server version
      * @throws ParticleColorException   If the particle effect is not colorable or the color type is incorrect
-     * @see ParticlePacket#ParticlePacket(ParticleEffect, ParticleColor, boolean)
-     * @see ParticlePacket#sendTo(Location, List)
      */
     public void display(ParticleColor color, Location center, List<Player> players) throws ParticleVersionException, ParticleColorException {
         if (!isSupported()) {
@@ -689,7 +683,6 @@ public enum ParticleEffect {
          *
          * @param material Material of the item
          * @param data     Data value of the item
-         * @see ParticleData#ParticleData(Material, byte)
          */
         public ItemData(Material material, byte data) {
             super(material, data);
@@ -711,7 +704,6 @@ public enum ParticleEffect {
          * @param material Material of the block
          * @param data     Data value of the block
          * @throws IllegalArgumentException If the material is not a block
-         * @see ParticleData#ParticleData(Material, byte)
          */
         public BlockData(Material material, byte data) throws IllegalArgumentException {
             super(material, data);
@@ -1053,7 +1045,6 @@ public enum ParticleEffect {
          * @param longDistance Indicates whether the maximum distance is increased from 256 to 65536
          * @param data         Data of the effect
          * @throws IllegalArgumentException If the speed is lower than 0
-         * @see ParticleEffect(ParticleEffect, float, float, float, float, int, boolean, ParticleData)
          */
         public ParticlePacket(ParticleEffect effect, Vector direction, float speed, boolean longDistance, ParticleData data) throws IllegalArgumentException {
             this(effect, (float) direction.getX(), (float) direction.getY(), (float) direction.getZ(), speed, 0, longDistance, data);
@@ -1065,7 +1056,6 @@ public enum ParticleEffect {
          * @param effect       Particle effect
          * @param color        Color of the particle
          * @param longDistance Indicates whether the maximum distance is increased from 256 to 65536
-         * @see ParticleEffect(ParticleEffect, float, float, float, float, int, boolean, ParticleData)
          */
         public ParticlePacket(ParticleEffect effect, ParticleColor color, boolean longDistance) {
             this(effect, color.getValueX(), color.getValueY(), color.getValueZ(), 1, 0, longDistance, null);

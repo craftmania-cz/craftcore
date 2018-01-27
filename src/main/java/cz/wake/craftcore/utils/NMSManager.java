@@ -96,7 +96,7 @@ public class NMSManager {
      * @param l2 the l 2
      * @return true, if successful
      */
-    public boolean ClassListEqual(Class<?>[] l1, Class<?>[] l2) {
+    public boolean classListEqual(Class<?>[] l1, Class<?>[] l2) {
         boolean equal = true;
         if (l1.length != l2.length) {
             return false;
@@ -153,7 +153,7 @@ public class NMSManager {
      */
     public Method getMethod(Class<?> clazz, String name, Class<?>... args) {
         for (Method m : clazz.getMethods()) {
-            if (m.getName().equals(name) && (args.length == 0 || ClassListEqual(args, m.getParameterTypes()))) {
+            if (m.getName().equals(name) && (args.length == 0 || classListEqual(args, m.getParameterTypes()))) {
                 m.setAccessible(true);
                 return m;
             }

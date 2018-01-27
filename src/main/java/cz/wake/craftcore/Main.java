@@ -22,8 +22,6 @@ import java.util.List;
 public class Main extends JavaPlugin {
 
     private String idServer;
-    private WGRegionEventsListener wgListener;
-    private WorldGuardPlugin wgPlugin;
     private static List<Player> effectPlayers = new ArrayList<>();
 
     private static Main instance;
@@ -45,10 +43,10 @@ public class Main extends JavaPlugin {
         loadCommands();
 
         // WorldGuard Addons
-        this.wgPlugin = this.getWGPlugin();
-        if (this.wgPlugin != null) {
-            this.wgListener = new WGRegionEventsListener(this, this.wgPlugin);
-            this.getServer().getPluginManager().registerEvents(this.wgListener, this.wgPlugin);
+        WorldGuardPlugin wgPlugin = this.getWGPlugin();
+        if (wgPlugin != null) {
+            WGRegionEventsListener wgListener = new WGRegionEventsListener(this, wgPlugin);
+            this.getServer().getPluginManager().registerEvents(wgListener, wgPlugin);
             Log.withPrefix("Detekce WorldGuard");
             Log.withPrefix("Pridavne Eventy byly aktivovany!");
         } else {

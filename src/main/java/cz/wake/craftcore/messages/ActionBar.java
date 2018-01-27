@@ -12,8 +12,6 @@ import java.lang.reflect.Method;
 
 public class ActionBar {
 
-    Main plugin = Main.getInstance();
-
     /**
      * The nmsver.
      */

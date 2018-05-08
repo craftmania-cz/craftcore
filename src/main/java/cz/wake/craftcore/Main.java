@@ -9,6 +9,7 @@ import cz.wake.craftcore.listener.extended.*;
 import cz.wake.craftcore.listener.worldguard.WGRegionEventsListener;
 import cz.wake.craftcore.tasks.TpsPollerTask;
 import cz.wake.craftcore.utils.Log;
+import cz.wake.craftcore.utils.effects.FireworkHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -77,6 +78,7 @@ public class Main extends JavaPlugin {
         PluginManager pm = getServer().getPluginManager();
         pm.registerEvents(new PlayerJoinListener(), this);
         pm.registerEvents(new PlayerLeaveListener(), this);
+        pm.registerEvents(new FireworkHandler(), this);
 
         if (pm.isPluginEnabled("ProtocolLib")) {
             registerPacketListeners();

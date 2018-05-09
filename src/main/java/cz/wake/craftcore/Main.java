@@ -10,6 +10,7 @@ import cz.wake.craftcore.listener.worldguard.WGRegionEventsListener;
 import cz.wake.craftcore.tasks.TpsPollerTask;
 import cz.wake.craftcore.utils.Log;
 import cz.wake.craftcore.utils.effects.FireworkHandler;
+import cz.wake.craftcore.utils.time.TimeChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -19,11 +20,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Main extends JavaPlugin {
 
     private String idServer;
     private static List<Player> effectPlayers = new ArrayList<>();
+    private int timeHourOffSet = 0;
+    private boolean timerLoaded = false;
 
     private static Main instance;
 
@@ -42,6 +47,10 @@ public class Main extends JavaPlugin {
         // Register eventu a prikazu
         loadListeners();
         loadCommands();
+
+        // Timer + events
+        timeHourOffSet = getConfig().getInt("timehouroffset", 0);
+        loadBackgroundTimer(2);
 
         // WorldGuard Addons
         WorldGuardPlugin wgPlugin = this.getWGPlugin();
@@ -108,7 +117,7 @@ public class Main extends JavaPlugin {
 
     private WorldGuardPlugin getWGPlugin() {
         final Plugin plugin = this.getServer().getPluginManager().getPlugin("WorldGuard");
-        if (plugin == null || !(plugin instanceof WorldGuardPlugin)) {
+        if (!(plugin instanceof WorldGuardPlugin)) {
             return null;
         }
         return (WorldGuardPlugin) plugin;
@@ -133,5 +142,43 @@ public class Main extends JavaPlugin {
 
     public void removePlayer(Player p){
         effectPlayers.remove(p);
+    }
+
+    public int getTimeHourOffSet() {
+        return timeHourOffSet;
+    }
+
+    /**
+     * Update.
+     */
+    public void update() {
+        TimeChecker.getInstance().update();
+    }
+
+    /**
+     * Load background
+     *
+     * @param minutes
+     *            Minutes
+     */
+    public void loadBackgroundTimer(int minutes) {
+        if (!timerLoaded) {
+            timerLoaded = true;
+            new Timer().schedule(new TimerTask() {
+
+                @Override
+                public void run() {
+                    if (getInstance() != null) {
+                        update();
+                    } else {
+                        cancel();
+                    }
+
+                }
+            }, 60 * 1000, minutes * 60 * 1000);
+        } else {
+            System.out.println("Timer is already loaded");
+        }
+
     }
 }

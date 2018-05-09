@@ -12,3 +12,5 @@ tps-detector: false
 
 # ID serveru pro statistiky
 server: Survival
+
+timehouroffset: 0

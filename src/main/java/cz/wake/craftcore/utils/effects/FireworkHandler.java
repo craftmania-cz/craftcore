@@ -25,7 +25,7 @@ public class FireworkHandler implements Listener {
     /**
      * Instantiates a new FireworkHandler.
      */
-    private FireworkHandler() {
+    public FireworkHandler() {
     }
 
     /**

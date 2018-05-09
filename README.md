@@ -4,6 +4,6 @@ Tento plugin je používán jako základní knihovna API pro pluginy na serveru.
 
 **Web**: [https://craftmania.cz/](https://craftmania.cz/)
 
-**Docs**: [https://craftcore-api.craftmania.cz/](https://craftcore-api.craftmania.cz/)
+**Docs**: [https://craftcore.craftmania.cz/](https://craftcore.craftmania.cz/)
 
 **JavaDocs**: [https://cc-javadoc.craftmania.cz/](https://cc-javadoc.craftmania.cz/)

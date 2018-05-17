@@ -6,7 +6,9 @@ import org.bukkit.event.HandlerList;
 
 public class PreDateChangedEvent extends Event {
 
-    /** The Constant handlers. */
+    /**
+     * The Constant handlers.
+     */
     private static final HandlerList handlers = new HandlerList();
 
     /**
@@ -53,8 +55,7 @@ public class PreDateChangedEvent extends Event {
     }
 
     /**
-     * @param timeType
-     *            the timeType to set
+     * @param timeType the timeType to set
      */
     public void setTimeType(TimeType timeType) {
         this.timeType = timeType;

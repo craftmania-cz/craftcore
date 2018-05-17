@@ -123,7 +123,7 @@ public class Main extends JavaPlugin {
         return (WorldGuardPlugin) plugin;
     }
 
-    private void startupLogo(){
+    private void startupLogo() {
         Log.normalMessage("   ______           ______  ______              ");
         Log.normalMessage("  / ____/________ _/ __/ /_/ ____/___  ________ ");
         Log.normalMessage(" / /   / ___/ __ `/ /_/ __/ /   / __ \\/ ___/ _ \\");
@@ -140,7 +140,7 @@ public class Main extends JavaPlugin {
         effectPlayers.add(p);
     }
 
-    public void removePlayer(Player p){
+    public void removePlayer(Player p) {
         effectPlayers.remove(p);
     }
 
@@ -158,8 +158,7 @@ public class Main extends JavaPlugin {
     /**
      * Load background
      *
-     * @param minutes
-     *            Minutes
+     * @param minutes Minutes
      */
     public void loadBackgroundTimer(int minutes) {
         if (!timerLoaded) {
@@ -177,7 +176,7 @@ public class Main extends JavaPlugin {
                 }
             }, 60 * 1000, minutes * 60 * 1000);
         } else {
-            System.out.println("Timer is already loaded");
+            Log.withPrefix("Timer je jiz nacten!");
         }
 
     }

@@ -6,7 +6,9 @@ import org.bukkit.event.HandlerList;
 
 public class DateChangedEvent extends Event {
 
-    /** The Constant handlers. */
+    /**
+     * The Constant handlers.
+     */
     private static final HandlerList handlers = new HandlerList();
 
     /**
@@ -27,11 +29,6 @@ public class DateChangedEvent extends Event {
         this.timeType = time;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.bukkit.event.Event#getHandlers()
-     */
     @Override
     public HandlerList getHandlers() {
         return handlers;
@@ -53,8 +50,7 @@ public class DateChangedEvent extends Event {
     }
 
     /**
-     * @param timeType
-     *            the timeType to set
+     * @param timeType the timeType to set
      */
     public void setTimeType(TimeType timeType) {
         this.timeType = timeType;

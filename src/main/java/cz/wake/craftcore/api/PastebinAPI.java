@@ -19,7 +19,7 @@ public class PastebinAPI {
      * <b>Require: PastebinAPI Key!</b>
      *
      * @param devKey PastebinAPI key
-     * @param paste Texts to paste
+     * @param paste  Texts to paste
      * @return Link to pasted text
      * @throws IOException when fails
      */
@@ -57,24 +57,19 @@ public class PastebinAPI {
         arguements.put("api_option", "paste");
         arguements.put("api_dev_key", request.getDevKey());
         arguements.put("api_paste_code", request.getPaste());
-        if(request.hasUserKey())
-        {
+        if (request.hasUserKey()) {
             arguements.put("api_user_key", request.getUserKey());
         }
-        if(request.hasPasteName())
-        {
+        if (request.hasPasteName()) {
             arguements.put("api_paste_name", request.getPasteName());
         }
-        if(request.hasPasteFormat())
-        {
+        if (request.hasPasteFormat()) {
             arguements.put("api_paste_format", request.getPasteFormat());
         }
-        if(request.hasPasteState())
-        {
+        if (request.hasPasteState()) {
             arguements.put("api_paste_private", request.getPasteState() + "");
         }
-        if(request.hasPasteExpire())
-        {
+        if (request.hasPasteExpire()) {
             arguements.put("api_paste_expire_date", request.getPasteExpire());
         }
         String postData = postMap(arguements);
@@ -227,8 +222,7 @@ public class PastebinAPI {
          * @return URL of pasted texts
          * @throws IOException when fails
          */
-        public String postPaste() throws IOException
-        {
+        public String postPaste() throws IOException {
             return PastebinAPI.postPaste(this);
         }
 

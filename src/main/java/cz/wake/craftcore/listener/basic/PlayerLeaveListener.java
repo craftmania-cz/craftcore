@@ -10,14 +10,14 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class PlayerLeaveListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
-    public void onQuit(PlayerQuitEvent e){
+    public void onQuit(PlayerQuitEvent e) {
         final Player p = e.getPlayer();
 
         Main.getInstance().removePlayer(p);
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onKick(PlayerKickEvent e){
+    public void onKick(PlayerKickEvent e) {
         final Player p = e.getPlayer();
 
         Main.getInstance().removePlayer(p);

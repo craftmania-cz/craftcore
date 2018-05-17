@@ -10,7 +10,7 @@ public class PlayerJoinListener implements Listener {
 
 
     @EventHandler(ignoreCancelled = true)
-    public void onJoin(PlayerJoinEvent e){
+    public void onJoin(PlayerJoinEvent e) {
         final Player p = e.getPlayer();
 
         Main.getInstance().addEffectPlayers(p);

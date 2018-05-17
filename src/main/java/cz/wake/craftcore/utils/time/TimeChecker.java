@@ -12,7 +12,9 @@ import java.util.Locale;
 
 public class TimeChecker {
 
-    /** The instance. */
+    /**
+     * The instance.
+     */
     static TimeChecker instance = new TimeChecker();
 
     /**

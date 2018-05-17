@@ -2,7 +2,9 @@ package cz.wake.craftcore.internal.thread;
 
 public class FileThread {
 
-    /** The instance. */
+    /**
+     * The instance.
+     */
     static FileThread instance = new FileThread();
 
     /**
@@ -14,7 +16,9 @@ public class FileThread {
         return instance;
     }
 
-    /** The thread. */
+    /**
+     * The thread.
+     */
     private ReadThread thread;
 
     /**
@@ -44,8 +48,7 @@ public class FileThread {
     /**
      * Run.
      *
-     * @param run
-     *            the run
+     * @param run the run
      */
     public void run(Runnable run) {
         getThread().run(run);
@@ -63,8 +66,7 @@ public class FileThread {
         /**
          * Run.
          *
-         * @param run
-         *            the run
+         * @param run the run
          */
         public void run(Runnable run) {
             synchronized (FileThread.getInstance()) {

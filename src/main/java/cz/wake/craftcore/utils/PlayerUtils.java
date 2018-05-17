@@ -8,7 +8,9 @@ import org.bukkit.metadata.MetadataValue;
 
 public class PlayerUtils {
 
-    /** The instance. */
+    /**
+     * The instance.
+     */
     static PlayerUtils instance = new PlayerUtils();
 
     public static PlayerUtils getInstance() {
@@ -22,7 +24,7 @@ public class PlayerUtils {
      * Gets the player meta.
      *
      * @param player the player
-     * @param str the string
+     * @param str    the string
      * @return the player meta
      */
     public Object getPlayerMeta(Player player, String str) {
@@ -64,8 +66,8 @@ public class PlayerUtils {
      * Sets the player meta.
      *
      * @param player the player
-     * @param str the str
-     * @param value the value
+     * @param str    the str
+     * @param value  the value
      */
     public void setPlayerMeta(Player player, String str, Object value) {
         player.removeMetadata(str, Main.getInstance());

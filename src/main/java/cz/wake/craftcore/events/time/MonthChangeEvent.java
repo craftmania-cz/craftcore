@@ -5,7 +5,9 @@ import org.bukkit.event.HandlerList;
 
 public class MonthChangeEvent extends Event {
 
-    /** The Constant handlers. */
+    /**
+     * The Constant handlers.
+     */
     private static final HandlerList handlers = new HandlerList();
 
     /**

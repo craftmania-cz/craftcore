@@ -12,17 +12,20 @@ import java.util.Map;
 
 public abstract class YMLFile {
 
-    /** The data. */
+    /**
+     * The data.
+     */
     private FileConfiguration data;
 
-    /** The d file. */
+    /**
+     * The d file.
+     */
     private File dFile;
 
     /**
      * Instantiates a new YML file.
      *
-     * @param file
-     *            the file
+     * @param file the file
      */
     public YMLFile(File file) {
         dFile = file;
@@ -31,10 +34,8 @@ public abstract class YMLFile {
     /**
      * Instantiates a new YML file.
      *
-     * @param file
-     *            the file
-     * @param setup
-     *            the setup
+     * @param file  the file
+     * @param setup the setup
      */
     public YMLFile(File file, boolean setup) {
         dFile = file;

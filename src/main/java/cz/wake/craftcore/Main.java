@@ -3,6 +3,7 @@ package cz.wake.craftcore;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import cz.wake.craftcore.inventory.InventoryManager;
 import cz.wake.craftcore.listener.basic.PlayerJoinListener;
 import cz.wake.craftcore.listener.basic.PlayerLeaveListener;
 import cz.wake.craftcore.listener.extended.*;
@@ -29,6 +30,7 @@ public class Main extends JavaPlugin {
     private static List<Player> effectPlayers = new ArrayList<>();
     private int timeHourOffSet = 0;
     private boolean timerLoaded = false;
+    private static InventoryManager invManager;
 
     private static Main instance;
 
@@ -72,6 +74,10 @@ public class Main extends JavaPlugin {
             Log.withPrefix("Detekce TPS byla zapnuta.");
             Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new TpsPollerTask(), 100L, 1L);
         }
+
+        // Inventory Manager API
+        invManager = new InventoryManager(this);
+        invManager.init();
 
     }
 
@@ -179,5 +185,9 @@ public class Main extends JavaPlugin {
             Log.withPrefix("Timer je jiz nacten!");
         }
 
+    }
+
+    public static InventoryManager getInvManager() {
+        return invManager;
     }
 }

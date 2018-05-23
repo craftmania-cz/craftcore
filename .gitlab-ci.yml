@@ -3,7 +3,7 @@ image: maven:3.3.9-jdk-8
 stages:
 - validate
 - build
-#- review
+- pages
 #- deploy
 
 variables:
@@ -19,11 +19,12 @@ variables:
 cache:
   paths:
     - /root/.m2/repository/
+    - target/
 
 validate:
   stage: validate
   script:
-    - 'mvn $MAVEN_CLI_OPTS validate'
+    - 'mvn validate'
 
 build:
   stage: build
@@ -33,6 +34,27 @@ build:
     expire_in: 1 week
     paths:
       - target/*.jar
+
+javadoc:
+  stage: build
+  script:
+    - 'mvn javadoc:javadoc'
+  artifacts:
+    expire_in: 1 week
+    paths:
+      - target/site/javadoc/*
+
+pages:
+  stage: pages
+  script:
+    - 'mkdir .public'
+    - 'cp -r target/site/javadoc/ public'
+    - 'mv .public public'
+  artifacts:
+      paths:
+      - public
+  only:
+    - master
 
 # codacy:
 #  stage: build

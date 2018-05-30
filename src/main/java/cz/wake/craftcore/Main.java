@@ -7,6 +7,8 @@ import cz.wake.craftcore.inventory.InventoryManager;
 import cz.wake.craftcore.listener.basic.PlayerJoinListener;
 import cz.wake.craftcore.listener.basic.PlayerLeaveListener;
 import cz.wake.craftcore.listener.worldguard.WGRegionEventsListener;
+import cz.wake.craftcore.nms.NMSManager;
+import cz.wake.craftcore.nms.NMSPackages;
 import cz.wake.craftcore.tasks.TpsPollerTask;
 import cz.wake.craftcore.utils.Log;
 import cz.wake.craftcore.utils.effects.FireworkHandler;
@@ -17,6 +19,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -29,6 +32,7 @@ public class Main extends JavaPlugin {
     private int timeHourOffSet = 0;
     private boolean timerLoaded = false;
     private static InventoryManager invManager;
+    protected NMSPackages nms;
 
     private static Main instance;
 
@@ -47,6 +51,9 @@ public class Main extends JavaPlugin {
         // Register eventu a prikazu
         loadListeners();
         loadCommands();
+
+        // Load NMS Packages
+        loadNMSPackages();
 
         // Timer + events
         timeHourOffSet = getConfig().getInt("timehouroffset", 0);
@@ -165,7 +172,28 @@ public class Main extends JavaPlugin {
         } else {
             Log.withPrefix("Timer je jiz nacten!");
         }
+    }
 
+    public NMSPackages getNMS() {
+        return this.nms;
+    }
+
+    private void loadNMSPackages(){
+        try {
+            final Class<?> forName = Class.forName("cz.wake.craftcore.nms.packages." + NMSManager.getVersion());
+            if (NMSPackages.class.isAssignableFrom(forName)) {
+                getInstance().nms = (NMSPackages)forName.getConstructor((Class<?>[])new Class[0]).newInstance(new Object[0]);
+                Log.withPrefix("Detekovano NMS verze: " + NMSManager.getVersion());
+            }
+            else {
+                Log.withPrefix("Nepodarilo se detekovat verzi NMS! Nektere funkce budou vypnuty!");
+                getInstance().nms = null;
+            }
+        }
+        catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex5) {
+            Log.withPrefix(ChatColor.RED + "NMS (" + NMSManager.getVersion() + ") nejsou kompatibilni s touto verzi serveru! Zkontroluj update CraftCore nebo pockej na opravu.");
+            getInstance().nms = null;
+        }
     }
 
     public static InventoryManager getInvManager() {

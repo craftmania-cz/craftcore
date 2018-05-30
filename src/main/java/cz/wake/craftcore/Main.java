@@ -1,5 +1,6 @@
 package cz.wake.craftcore;
 
+import cz.wake.craftcore.internal.ServerData;
 import cz.wake.craftcore.internal.registry.ProtocolLibsRegister;
 import cz.wake.craftcore.internal.registry.WorldGuardRegister;
 import cz.wake.craftcore.inventory.InventoryManager;
@@ -50,6 +51,10 @@ public class Main extends JavaPlugin {
         // Timer + events
         timeHourOffSet = getConfig().getInt("timehouroffset", 0);
         loadBackgroundTimer(2);
+
+        // Server data
+        ServerData.getInstance().setup();
+        ServerData.getInstance().setPluginVersion(this);
 
         // WorldGuard Addons
         if (getServer().getPluginManager().isPluginEnabled("WorldGuard")) {

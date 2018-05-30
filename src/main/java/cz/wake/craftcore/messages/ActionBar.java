@@ -1,7 +1,7 @@
 package cz.wake.craftcore.messages;
 
 import cz.wake.craftcore.Main;
-import cz.wake.craftcore.utils.NMSManager;
+import cz.wake.craftcore.nms.NMSManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;

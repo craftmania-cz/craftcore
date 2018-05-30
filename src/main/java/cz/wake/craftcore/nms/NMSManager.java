@@ -1,4 +1,4 @@
-package cz.wake.craftcore.utils;
+package cz.wake.craftcore.nms;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

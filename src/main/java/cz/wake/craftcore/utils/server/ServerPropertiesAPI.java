@@ -1,6 +1,6 @@
 package cz.wake.craftcore.utils.server;
 
-import cz.wake.craftcore.utils.NMSManager;
+import cz.wake.craftcore.nms.NMSManager;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

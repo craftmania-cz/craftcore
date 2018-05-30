@@ -1,7 +1,7 @@
 package cz.wake.craftcore.utils.items;
 
 import cz.wake.craftcore.annotations.NeedTesting;
-import cz.wake.craftcore.utils.NMSManager;
+import cz.wake.craftcore.nms.NMSManager;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;

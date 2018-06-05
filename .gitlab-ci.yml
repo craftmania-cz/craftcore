@@ -60,7 +60,7 @@ pages:
   only:
     - master
 
-dependency_scan:
+dependency_scanning:
   stage: review
   image: docker:stable
   variables:

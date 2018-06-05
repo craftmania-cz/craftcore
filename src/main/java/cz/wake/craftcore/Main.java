@@ -101,6 +101,7 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new PlayerJoinListener(), this);
         pm.registerEvents(new PlayerLeaveListener(), this);
         pm.registerEvents(new FireworkHandler(), this);
+        pm.registerEvents(new TestListener(), this);
 
         if (pm.isPluginEnabled("ProtocolLib")) {
             ProtocolLibsRegister.registerPacketListeners();

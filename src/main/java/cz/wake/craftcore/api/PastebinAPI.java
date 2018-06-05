@@ -52,7 +52,7 @@ public class PastebinAPI {
         return response.toString();
     }
 
-    private static String postPaste(PasteRequest request) throws IOException {
+    public static String postPaste(PasteRequest request) throws IOException {
         Map<String, String> arguements = new HashMap<>();
         arguements.put("api_option", "paste");
         arguements.put("api_dev_key", request.getDevKey());

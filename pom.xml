@@ -88,8 +88,8 @@
             <groupId>net.minecraft</groupId>
             <artifactId>minecraft-server-1-12-0</artifactId>
             <version>1.12</version>
-            <scope>system</scope>
-            <systemPath>${pom.basedir}/libs/spigot-1.12.2.jar</systemPath>
+            <scope>provided</scope>
+            <systemPath>${project.basedir}/libs/spigot-1.12.2.jar</systemPath>
         </dependency>
         <!--Bukkit API-->
         <dependency>

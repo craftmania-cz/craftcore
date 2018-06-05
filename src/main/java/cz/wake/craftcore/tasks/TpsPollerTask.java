@@ -2,9 +2,9 @@ package cz.wake.craftcore.tasks;
 
 public class TpsPollerTask implements Runnable {
 
-    public static int TICK_COUNT = 0;
-    public static long[] TICKS = new long[600];
-    public static long LAST_TICK = 0L;
+    private static int TICK_COUNT = 0;
+    private static long[] TICKS = new long[600];
+    private static long LAST_TICK = 0L;
 
     /**
      * Returns server TPS in last 5 seconds

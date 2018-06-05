@@ -89,12 +89,12 @@ public class CustomBorder {
                 double n = this.centerX - (i * stepsX);
                 bs.runTaskLaterAsynchronously(Main.getInstance(), () -> {
                     this.worldBorder.setCenter(n, this.worldBorder.getCenter().getZ());
-                }, i * 5);
+                }, i * 5L);
             } else {
                 double n = this.centerX + (i * stepsX);
                 bs.runTaskLaterAsynchronously(Main.getInstance(), () -> {
                     this.worldBorder.setCenter(n, this.worldBorder.getCenter().getZ());
-                }, i * 5);
+                }, i * 5L);
             }
         }
         for (int i = 1; i <= st; i++) {
@@ -102,12 +102,12 @@ public class CustomBorder {
                 double n = this.centerZ - (i * stepsZ);
                 bs.runTaskLaterAsynchronously(Main.getInstance(), () -> {
                     this.worldBorder.setCenter(this.worldBorder.getCenter().getX(), n);
-                }, i * 5);
+                }, i * 5L);
             } else {
                 double n = this.centerZ + (i * stepsZ);
                 bs.runTaskLaterAsynchronously(Main.getInstance(), () -> {
                     this.worldBorder.setCenter(this.worldBorder.getCenter().getX(), n);
-                }, i * 5);
+                }, i * 5L);
             }
         }
     }

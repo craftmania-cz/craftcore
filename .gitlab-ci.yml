@@ -41,7 +41,7 @@ javadoc:
     paths:
       - target/site/javadoc/*
   only:
-    - master
+    - tags
 
 sonar:
   stage: review
@@ -58,7 +58,7 @@ pages:
       paths:
       - public
   only:
-    - master
+    - tags
 
 # codacy:
 #  stage: build

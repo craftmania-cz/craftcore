@@ -27,15 +27,18 @@ public class SmartInventory {
     private SmartInventory parent;
 
     private List<InventoryListener<? extends Event>> listeners;
+    private InventoryManager manager;
 
-    private SmartInventory() {}
+    private SmartInventory(InventoryManager manager) {
+        this.manager = manager;
+    }
 
-    public Inventory open(Player player) { return open(player, 0); }
+    public Inventory open(Player player) {
+        return open(player, 0);
+    }
 
     public Inventory open(Player player, int page) {
-        InventoryManager manager = Main.getInvManager();
-
-        Optional<SmartInventory> oldInv = manager.getInventory(player);
+        Optional<SmartInventory> oldInv = this.manager.getInventory(player);
 
         oldInv.ifPresent(inv -> {
             inv.getListeners().stream()
@@ -43,52 +46,80 @@ public class SmartInventory {
                     .forEach(listener -> ((InventoryListener<InventoryCloseEvent>) listener)
                             .accept(new InventoryCloseEvent(player.getOpenInventory())));
 
-            manager.setInventory(player, null);
+            this.manager.setInventory(player, null);
         });
 
         InventoryContents contents = new InventoryContents.Impl(this);
         contents.pagination().page(page);
 
-        manager.setContents(player, contents);
+        this.manager.setContents(player, contents);
         provider.init(player, contents);
 
-        InventoryOpener opener = manager.findOpener(type)
+        InventoryOpener opener = this.manager.findOpener(type)
                 .orElseThrow(() -> new IllegalStateException("No opener found for the inventory type " + type.name()));
         Inventory handle = opener.open(this, player);
 
-        manager.setInventory(player, this);
+        this.manager.setInventory(player, this);
 
         return handle;
     }
 
     @SuppressWarnings("unchecked")
     public void close(Player player) {
-        InventoryManager manager = Main.getInvManager();
-
         listeners.stream()
                 .filter(listener -> listener.getType() == InventoryCloseEvent.class)
                 .forEach(listener -> ((InventoryListener<InventoryCloseEvent>) listener)
                         .accept(new InventoryCloseEvent(player.getOpenInventory())));
 
-        manager.setInventory(player, null);
+        this.manager.setInventory(player, null);
         player.closeInventory();
 
-        manager.setContents(player, null);
+        this.manager.setContents(player, null);
     }
 
-    public String getId() { return id; }
-    public String getTitle() { return title; }
-    public InventoryType getType() { return type; }
-    public int getRows() { return rows; }
-    public int getColumns() { return columns; }
-    public boolean isCloseable() { return closeable; }
+    public String getId() {
+        return id;
+    }
 
-    public InventoryProvider getProvider() { return provider; }
-    public Optional<SmartInventory> getParent() { return Optional.ofNullable(parent); }
+    public String getTitle() {
+        return title;
+    }
 
-    List<InventoryListener<? extends Event>> getListeners() { return listeners; }
+    public InventoryType getType() {
+        return type;
+    }
 
-    public static Builder builder() { return new Builder(); }
+    public int getRows() {
+        return rows;
+    }
+
+    public int getColumns() {
+        return columns;
+    }
+
+    public boolean isCloseable() {
+        return closeable;
+    }
+
+    public InventoryProvider getProvider() {
+        return provider;
+    }
+
+    public Optional<SmartInventory> getParent() {
+        return Optional.ofNullable(parent);
+    }
+
+    public InventoryManager getManager() {
+        return manager;
+    }
+
+    List<InventoryListener<? extends Event>> getListeners() {
+        return listeners;
+    }
+
+    public static Builder builder() {
+        return new Builder();
+    }
 
     public static final class Builder {
 
@@ -98,12 +129,14 @@ public class SmartInventory {
         private int rows = 6, columns = 9;
         private boolean closeable = true;
 
+        private InventoryManager manager;
         private InventoryProvider provider;
         private SmartInventory parent;
 
         private List<InventoryListener<? extends Event>> listeners = new ArrayList<>();
 
-        private Builder() {}
+        private Builder() {
+        }
 
         public Builder id(String id) {
             this.id = id;
@@ -146,11 +179,22 @@ public class SmartInventory {
             return this;
         }
 
+        public Builder manager(InventoryManager manager) {
+            this.manager = manager;
+            return this;
+        }
+
         public SmartInventory build() {
-            if(this.provider == null)
+            if (this.provider == null)
                 throw new IllegalStateException("The provider of the SmartInventory.Builder must be set.");
 
-            SmartInventory inv = new SmartInventory();
+            InventoryManager manager = this.manager != null ? this.manager : Main.getInvManager();
+
+            if (manager == null)
+                throw new IllegalStateException("The manager of the SmartInventory.Builder must be set, "
+                        + "or the SmartInvs should be loaded as a plugin.");
+
+            SmartInventory inv = new SmartInventory(manager);
             inv.id = this.id;
             inv.title = this.title;
             inv.type = this.type;

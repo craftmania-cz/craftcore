@@ -1,6 +1,5 @@
 package cz.wake.craftcore.inventory;
 
-import cz.wake.craftcore.Main;
 import cz.wake.craftcore.inventory.content.InventoryContents;
 import cz.wake.craftcore.inventory.opener.ChestInventoryOpener;
 import cz.wake.craftcore.inventory.opener.InventoryOpener;
@@ -14,13 +13,14 @@ import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 
 public class InventoryManager {
 
-    private Main plugin;
+    private JavaPlugin plugin;
     private PluginManager pluginManager;
 
     private Map<Player, SmartInventory> inventories;
@@ -29,7 +29,7 @@ public class InventoryManager {
     private List<InventoryOpener> defaultOpeners;
     private List<InventoryOpener> openers;
 
-    public InventoryManager(Main plugin) {
+    public InventoryManager(JavaPlugin plugin) {
         this.plugin = plugin;
         this.pluginManager = Bukkit.getPluginManager();
 
@@ -55,7 +55,7 @@ public class InventoryManager {
                 .filter(opener -> opener.supports(type))
                 .findAny();
 
-        if(!opInv.isPresent()) {
+        if (!opInv.isPresent()) {
             opInv = this.defaultOpeners.stream()
                     .filter(opener -> opener.supports(type))
                     .findAny();
@@ -72,7 +72,7 @@ public class InventoryManager {
         List<Player> list = new ArrayList<>();
 
         this.inventories.forEach((player, playerInv) -> {
-            if(inv.equals(playerInv))
+            if (inv.equals(playerInv))
                 list.add(player);
         });
 
@@ -84,7 +84,7 @@ public class InventoryManager {
     }
 
     protected void setInventory(Player p, SmartInventory inv) {
-        if(inv == null)
+        if (inv == null)
             this.inventories.remove(p);
         else
             this.inventories.put(p, inv);
@@ -105,27 +105,27 @@ public class InventoryManager {
         public void onInventoryClick(InventoryClickEvent e) {
             Player p = (Player) e.getWhoClicked();
 
-            if(!inventories.containsKey(p))
+            if (!inventories.containsKey(p))
                 return;
 
-            if(e.getAction() == InventoryAction.COLLECT_TO_CURSOR ||
+            if (e.getAction() == InventoryAction.COLLECT_TO_CURSOR ||
                     e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
                 e.setCancelled(true);
                 return;
             }
 
-            if(e.getClickedInventory() == p.getOpenInventory().getTopInventory()) {
+            if (e.getClickedInventory() == p.getOpenInventory().getTopInventory()) {
                 e.setCancelled(true);
 
                 int row = e.getSlot() / 9;
                 int column = e.getSlot() % 9;
 
-                if(row < 0 || column < 0)
+                if (row < 0 || column < 0)
                     return;
 
                 SmartInventory inv = inventories.get(p);
 
-                if(row >= inv.getRows() || column >= inv.getColumns())
+                if (row >= inv.getRows() || column >= inv.getColumns())
                     return;
 
                 inv.getListeners().stream()
@@ -140,13 +140,13 @@ public class InventoryManager {
         public void onInventoryDrag(InventoryDragEvent e) {
             Player p = (Player) e.getWhoClicked();
 
-            if(!inventories.containsKey(p))
+            if (!inventories.containsKey(p))
                 return;
 
             SmartInventory inv = inventories.get(p);
 
-            for(int slot : e.getRawSlots()) {
-                if(slot >= p.getOpenInventory().getTopInventory().getSize())
+            for (int slot : e.getRawSlots()) {
+                if (slot >= p.getOpenInventory().getTopInventory().getSize())
                     continue;
 
                 e.setCancelled(true);
@@ -162,7 +162,7 @@ public class InventoryManager {
         public void onInventoryOpen(InventoryOpenEvent e) {
             Player p = (Player) e.getPlayer();
 
-            if(!inventories.containsKey(p))
+            if (!inventories.containsKey(p))
                 return;
 
             SmartInventory inv = inventories.get(p);
@@ -176,7 +176,7 @@ public class InventoryManager {
         public void onInventoryClose(InventoryCloseEvent e) {
             Player p = (Player) e.getPlayer();
 
-            if(!inventories.containsKey(p))
+            if (!inventories.containsKey(p))
                 return;
 
             SmartInventory inv = inventories.get(p);
@@ -185,11 +185,10 @@ public class InventoryManager {
                     .filter(listener -> listener.getType() == InventoryCloseEvent.class)
                     .forEach(listener -> ((InventoryListener<InventoryCloseEvent>) listener).accept(e));
 
-            if(inv.isCloseable()) {
+            if (inv.isCloseable()) {
                 e.getInventory().clear();
                 inventories.remove(p);
-            }
-            else
+            } else
                 Bukkit.getScheduler().runTask(plugin, () -> p.openInventory(e.getInventory()));
         }
 
@@ -197,7 +196,7 @@ public class InventoryManager {
         public void onPlayerQuit(PlayerQuitEvent e) {
             Player p = e.getPlayer();
 
-            if(!inventories.containsKey(p))
+            if (!inventories.containsKey(p))
                 return;
 
             SmartInventory inv = inventories.get(p);

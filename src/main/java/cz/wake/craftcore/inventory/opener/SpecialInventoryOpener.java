@@ -1,6 +1,5 @@
 package cz.wake.craftcore.inventory.opener;
 
-import cz.wake.craftcore.Main;
 import cz.wake.craftcore.inventory.InventoryManager;
 import cz.wake.craftcore.inventory.SmartInventory;
 import org.bukkit.Bukkit;
@@ -27,7 +26,7 @@ public class SpecialInventoryOpener implements InventoryOpener {
 
     @Override
     public Inventory open(SmartInventory inv, Player player) {
-        InventoryManager manager = Main.getInvManager();
+        InventoryManager manager = inv.getManager();
         Inventory handle = Bukkit.createInventory(player, inv.getType(), inv.getTitle());
 
         fill(handle, manager.getContents(player).get());

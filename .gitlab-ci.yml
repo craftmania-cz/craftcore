@@ -62,7 +62,7 @@ dependency_scanning:
   before_script: []
   cache: {}
   dependencies: []
-  tags: []
+  tags: docker
   services:
     - docker:stable-dind
   variables:

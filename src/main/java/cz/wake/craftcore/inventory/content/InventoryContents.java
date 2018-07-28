@@ -1,9 +1,9 @@
 package cz.wake.craftcore.inventory.content;
 
-import cz.wake.craftcore.Main;
 import cz.wake.craftcore.inventory.ClickableItem;
 import cz.wake.craftcore.inventory.InventoryManager;
 import cz.wake.craftcore.inventory.SmartInventory;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
@@ -13,25 +13,48 @@ import java.util.Optional;
 public interface InventoryContents {
 
     SmartInventory inventory();
+
     Pagination pagination();
 
     Optional<SlotIterator> iterator(String id);
+
     SlotIterator newIterator(String id, SlotIterator.Type type, int startRow, int startColumn);
+
     SlotIterator newIterator(SlotIterator.Type type, int startRow, int startColumn);
+
+    SlotIterator newIterator(String id, SlotIterator.Type type, SlotPos startPos);
+
+    SlotIterator newIterator(SlotIterator.Type type, SlotPos startPos);
 
     ClickableItem[][] all();
 
+    Optional<SlotPos> firstEmpty();
+
     Optional<ClickableItem> get(int row, int column);
+
+    Optional<ClickableItem> get(SlotPos slotPos);
+
     InventoryContents set(int row, int column, ClickableItem item);
 
+    InventoryContents set(SlotPos slotPos, ClickableItem item);
+
+    InventoryContents add(ClickableItem item);
+
     InventoryContents fill(ClickableItem item);
+
     InventoryContents fillRow(int row, ClickableItem item);
+
     InventoryContents fillColumn(int column, ClickableItem item);
+
     InventoryContents fillBorders(ClickableItem item);
+
     InventoryContents fillRect(int fromRow, int fromColumn,
                                int toRow, int toColumn, ClickableItem item);
 
+    InventoryContents fillRect(SlotPos fromPos, SlotPos toPos, ClickableItem item);
+
     <T> T property(String name);
+
     <T> T property(String name, T def);
 
     InventoryContents setProperty(String name, Object value);
@@ -51,10 +74,14 @@ public interface InventoryContents {
         }
 
         @Override
-        public SmartInventory inventory() { return inv; }
+        public SmartInventory inventory() {
+            return inv;
+        }
 
         @Override
-        public Pagination pagination() { return pagination; }
+        public Pagination pagination() {
+            return pagination;
+        }
 
         @Override
         public Optional<SlotIterator> iterator(String id) {
@@ -71,28 +98,57 @@ public interface InventoryContents {
         }
 
         @Override
+        public SlotIterator newIterator(String id, SlotIterator.Type type, SlotPos startPos) {
+            return newIterator(id, type, startPos.getRow(), startPos.getColumn());
+        }
+
+        @Override
         public SlotIterator newIterator(SlotIterator.Type type, int startRow, int startColumn) {
             return new SlotIterator.Impl(this, inv, type, startRow, startColumn);
         }
 
         @Override
-        public ClickableItem[][] all() { return contents; }
+        public SlotIterator newIterator(SlotIterator.Type type, SlotPos startPos) {
+            return newIterator(type, startPos.getRow(), startPos.getColumn());
+        }
+
+        @Override
+        public ClickableItem[][] all() {
+            return contents;
+        }
+
+        @Override
+        public Optional<SlotPos> firstEmpty() {
+            for (int column = 0; column < contents[0].length; column++) {
+                for (int row = 0; row < contents.length; row++) {
+                    if (!this.get(row, column).isPresent())
+                        return Optional.of(new SlotPos(row, column));
+                }
+            }
+
+            return Optional.empty();
+        }
 
         @Override
         public Optional<ClickableItem> get(int row, int column) {
-            if(row >= contents.length)
+            if (row >= contents.length)
                 return Optional.empty();
-            if(column >= contents[row].length)
+            if (column >= contents[row].length)
                 return Optional.empty();
 
             return Optional.ofNullable(contents[row][column]);
         }
 
         @Override
+        public Optional<ClickableItem> get(SlotPos slotPos) {
+            return get(slotPos.getRow(), slotPos.getColumn());
+        }
+
+        @Override
         public InventoryContents set(int row, int column, ClickableItem item) {
-            if(row >= contents.length)
+            if (row >= contents.length)
                 return this;
-            if(column >= contents[row].length)
+            if (column >= contents[row].length)
                 return this;
 
             contents[row][column] = item;
@@ -101,9 +157,28 @@ public interface InventoryContents {
         }
 
         @Override
+        public InventoryContents set(SlotPos slotPos, ClickableItem item) {
+            return set(slotPos.getRow(), slotPos.getColumn(), item);
+        }
+
+        @Override
+        public InventoryContents add(ClickableItem item) {
+            for (int column = 0; column < contents[0].length; column++) {
+                for (int row = 0; row < contents.length; row++) {
+                    if (contents[row][column] == null) {
+                        set(row, column, item);
+                        return this;
+                    }
+                }
+            }
+
+            return this;
+        }
+
+        @Override
         public InventoryContents fill(ClickableItem item) {
-            for(int row = 0; row < contents.length; row++)
-                for(int column = 0; column < contents[row].length; column++)
+            for (int row = 0; row < contents.length; row++)
+                for (int column = 0; column < contents[row].length; column++)
                     set(row, column, item);
 
             return this;
@@ -111,10 +186,10 @@ public interface InventoryContents {
 
         @Override
         public InventoryContents fillRow(int row, ClickableItem item) {
-            if(row >= contents.length)
+            if (row >= contents.length)
                 return this;
 
-            for(int column = 0; column < contents[row].length; column++)
+            for (int column = 0; column < contents[row].length; column++)
                 set(row, column, item);
 
             return this;
@@ -122,7 +197,7 @@ public interface InventoryContents {
 
         @Override
         public InventoryContents fillColumn(int column, ClickableItem item) {
-            for(int row = 0; row < contents.length; row++)
+            for (int row = 0; row < contents.length; row++)
                 set(row, column, item);
 
             return this;
@@ -136,9 +211,9 @@ public interface InventoryContents {
 
         @Override
         public InventoryContents fillRect(int fromRow, int fromColumn, int toRow, int toColumn, ClickableItem item) {
-            for(int row = fromRow; row <= toRow; row++) {
-                for(int column = fromColumn; column <= toColumn; column++) {
-                    if(row != fromRow && row != toRow && column != fromColumn && column != toColumn)
+            for (int row = fromRow; row <= toRow; row++) {
+                for (int column = fromColumn; column <= toColumn; column++) {
+                    if (row != fromRow && row != toRow && column != fromColumn && column != toColumn)
                         continue;
 
                     set(row, column, item);
@@ -146,6 +221,11 @@ public interface InventoryContents {
             }
 
             return this;
+        }
+
+        @Override
+        public InventoryContents fillRect(SlotPos fromPos, SlotPos toPos, ClickableItem item) {
+            return fillRect(fromPos.getRow(), fromPos.getColumn(), toPos.getRow(), toPos.getColumn(), item);
         }
 
         @SuppressWarnings("unchecked")
@@ -167,10 +247,13 @@ public interface InventoryContents {
         }
 
         private void update(int row, int column, ItemStack item) {
-            InventoryManager manager = Main.getInvManager();
+            InventoryManager manager = inv.getManager();
 
             manager.getOpenedPlayers(inv)
-                    .forEach(p -> p.getOpenInventory().getTopInventory().setItem(9 * row + column, item));
+                    .forEach(player -> {
+                        Inventory topInventory = player.getOpenInventory().getTopInventory();
+                        topInventory.setItem(inv.getColumns() * row + column, item);
+                    });
         }
 
     }

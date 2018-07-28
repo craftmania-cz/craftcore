@@ -1,5 +1,6 @@
 package cz.wake.craftcore.inventory.opener;
 
+import com.google.common.collect.ImmutableList;
 import cz.wake.craftcore.inventory.InventoryManager;
 import cz.wake.craftcore.inventory.SmartInventory;
 import org.bukkit.Bukkit;
@@ -7,12 +8,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class SpecialInventoryOpener implements InventoryOpener {
 
-    private List<InventoryType> supported = Arrays.asList(
+    private static final List<InventoryType> SUPPORTED = ImmutableList.of(
             InventoryType.FURNACE,
             InventoryType.WORKBENCH,
             InventoryType.DISPENSER,
@@ -37,7 +37,7 @@ public class SpecialInventoryOpener implements InventoryOpener {
 
     @Override
     public boolean supports(InventoryType type) {
-        return supported.contains(type);
+        return SUPPORTED.contains(type);
     }
 
 }

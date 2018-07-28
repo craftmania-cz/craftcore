@@ -19,5 +19,5 @@ public class InventoryListener<T> {
     public Class<T> getType() {
         return type;
     }
-
+    
 }

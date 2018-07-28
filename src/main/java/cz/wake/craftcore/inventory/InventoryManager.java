@@ -95,7 +95,10 @@ public class InventoryManager {
     }
 
     protected void setContents(Player p, InventoryContents contents) {
-        this.contents.put(p, contents);
+        if (contents == null)
+            this.contents.remove(p);
+        else
+            this.contents.put(p, contents);
     }
 
     @SuppressWarnings("unchecked")
@@ -109,7 +112,9 @@ public class InventoryManager {
                 return;
 
             if (e.getAction() == InventoryAction.COLLECT_TO_CURSOR ||
-                    e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
+                    e.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY ||
+                    e.getAction() == InventoryAction.NOTHING) {
+
                 e.setCancelled(true);
                 return;
             }
@@ -133,6 +138,8 @@ public class InventoryManager {
                         .forEach(listener -> ((InventoryListener<InventoryClickEvent>) listener).accept(e));
 
                 contents.get(p).get(row, column).ifPresent(item -> item.run(e));
+
+                p.updateInventory();
             }
         }
 
@@ -187,7 +194,9 @@ public class InventoryManager {
 
             if (inv.isCloseable()) {
                 e.getInventory().clear();
+
                 inventories.remove(p);
+                contents.remove(p);
             } else
                 Bukkit.getScheduler().runTask(plugin, () -> p.openInventory(e.getInventory()));
         }
@@ -206,6 +215,7 @@ public class InventoryManager {
                     .forEach(listener -> ((InventoryListener<PlayerQuitEvent>) listener).accept(e));
 
             inventories.remove(p);
+            contents.remove(p);
         }
 
         @EventHandler(priority = EventPriority.LOW)
@@ -219,6 +229,9 @@ public class InventoryManager {
 
                 inv.close(entry.getKey());
             });
+
+            inventories.clear();
+            contents.clear();
         }
 
     }

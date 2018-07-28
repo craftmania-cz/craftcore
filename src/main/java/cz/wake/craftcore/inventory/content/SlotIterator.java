@@ -1,6 +1,5 @@
 package cz.wake.craftcore.inventory.content;
 
-import com.sk89q.worldguard.internal.flywaydb.core.internal.util.Pair;
 import cz.wake.craftcore.inventory.ClickableItem;
 import cz.wake.craftcore.inventory.SmartInventory;
 
@@ -16,20 +15,32 @@ public interface SlotIterator {
     }
 
     Optional<ClickableItem> get();
+
     SlotIterator set(ClickableItem item);
 
     SlotIterator previous();
+
     SlotIterator next();
 
     SlotIterator blacklist(int row, int column);
 
+    SlotIterator blacklist(SlotPos slotPos);
+
     int row();
+
     SlotIterator row(int row);
 
     int column();
+
     SlotIterator column(int column);
 
+    boolean started();
+
     boolean ended();
+
+    boolean doesAllowOverride();
+
+    SlotIterator allowOverride(boolean override);
 
 
     class Impl implements SlotIterator {
@@ -38,9 +49,11 @@ public interface SlotIterator {
         private SmartInventory inv;
 
         private Type type;
+        private boolean started = false;
+        private boolean allowOverride = true;
         private int row, column;
 
-        private Set<Pair<Integer, Integer>> blacklisted = new HashSet<>();
+        private Set<SlotPos> blacklisted = new HashSet<>();
 
         public Impl(InventoryContents contents, SmartInventory inv,
                     Type type, int startRow, int startColumn) {
@@ -67,74 +80,95 @@ public interface SlotIterator {
 
         @Override
         public SlotIterator set(ClickableItem item) {
-            contents.set(row, column, item);
+            if (canPlace())
+                contents.set(row, column, item);
+
             return this;
         }
 
         @Override
         public SlotIterator previous() {
-            if(row == 0 && column == 0)
+            if (row == 0 && column == 0) {
+                this.started = true;
                 return this;
+            }
 
             do {
-                switch(type) {
-                    case HORIZONTAL:
-                        column--;
-
-                        if(column == 0) {
-                            column = inv.getColumns() - 1;
-                            row--;
-                        }
-                        break;
-                    case VERTICAL:
-                        row--;
-
-                        if(row == 0) {
-                            row = inv.getRows() - 1;
+                if (!this.started) {
+                    this.started = true;
+                } else {
+                    switch (type) {
+                        case HORIZONTAL:
                             column--;
-                        }
-                        break;
+
+                            if (column == 0) {
+                                column = inv.getColumns() - 1;
+                                row--;
+                            }
+                            break;
+                        case VERTICAL:
+                            row--;
+
+                            if (row == 0) {
+                                row = inv.getRows() - 1;
+                                column--;
+                            }
+                            break;
+                    }
                 }
             }
-            while((row != 0 || column != 0) && blacklisted.contains(Pair.of(row, column)));
+            while (!canPlace() && (row != 0 || column != 0));
 
             return this;
         }
 
         @Override
         public SlotIterator next() {
-            if(ended())
+            if (ended()) {
+                this.started = true;
                 return this;
+            }
 
             do {
-                switch(type) {
-                    case HORIZONTAL:
-                        column = ++column % inv.getColumns();
+                if (!this.started) {
+                    this.started = true;
+                } else {
+                    switch (type) {
+                        case HORIZONTAL:
+                            column = ++column % inv.getColumns();
 
-                        if(column == 0)
-                            row++;
-                        break;
-                    case VERTICAL:
-                        row = ++row % inv.getRows();
+                            if (column == 0)
+                                row++;
+                            break;
+                        case VERTICAL:
+                            row = ++row % inv.getRows();
 
-                        if(row == 0)
-                            column++;
-                        break;
+                            if (row == 0)
+                                column++;
+                            break;
+                    }
                 }
             }
-            while(!ended() && blacklisted.contains(Pair.of(row, column)));
+            while (!canPlace() && !ended());
 
             return this;
         }
 
         @Override
         public SlotIterator blacklist(int row, int column) {
-            this.blacklisted.add(Pair.of(row, column));
+            this.blacklisted.add(SlotPos.of(row, column));
             return this;
         }
 
         @Override
-        public int row() { return row; }
+        public SlotIterator blacklist(SlotPos slotPos) {
+            return blacklist(slotPos.getRow(), slotPos.getColumn());
+        }
+
+        @Override
+        public int row() {
+            return row;
+        }
 
         @Override
         public SlotIterator row(int row) {
@@ -143,7 +177,9 @@ public interface SlotIterator {
         }
 
         @Override
-        public int column() { return column; }
+        public int column() {
+            return column;
+        }
 
         @Override
         public SlotIterator column(int column) {
@@ -152,9 +188,29 @@ public interface SlotIterator {
         }
 
         @Override
+        public boolean started() {
+            return this.started;
+        }
+
+        @Override
         public boolean ended() {
             return row == inv.getRows() - 1
                     && column == inv.getColumns() - 1;
+        }
+
+        @Override
+        public boolean doesAllowOverride() {
+            return allowOverride;
+        }
+
+        @Override
+        public SlotIterator allowOverride(boolean override) {
+            this.allowOverride = override;
+            return this;
+        }
+
+        private boolean canPlace() {
+            return !blacklisted.contains(SlotPos.of(row, column)) && (allowOverride || !this.get().isPresent());
         }
 
     }

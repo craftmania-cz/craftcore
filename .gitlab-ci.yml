@@ -43,11 +43,6 @@ javadoc:
   only:
     - tags
 
-sonar:
-  stage: review
-  script:
-    - 'mvn $MAVEN_CLI_OPTS sonar:sonar'
-
 pages:
   stage: pages
   script:
@@ -60,8 +55,8 @@ pages:
   only:
     - tags
 
-# codacy:
-#  stage: build
-#  script:
-#    - curl https://api.codacy.com/events/push/fc0963071383483fb51cb3b3432dc939
-#  allow_failure: false
+codacy:
+  stage: review
+  script:
+    - curl https://api.codacy.com/events/push/f22629ed146d4b719b97be48589f6ab3
+  allow_failure: false

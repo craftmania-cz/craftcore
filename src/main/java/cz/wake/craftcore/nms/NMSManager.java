@@ -231,7 +231,7 @@ public class NMSManager {
     /**
      * Gets the version.
      *
-     * @return the version
+     * @return the version like "v1_12_R1"
      */
     public static String getVersion() {
         String name = Bukkit.getServer().getClass().getPackage().getName();

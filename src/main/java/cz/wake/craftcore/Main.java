@@ -184,7 +184,7 @@ public class Main extends JavaPlugin {
             final Class<?> forName = Class.forName("cz.wake.craftcore.nms.packages." + NMSManager.getVersion());
             if (NMSPackages.class.isAssignableFrom(forName)) {
                 getInstance().nms = (NMSPackages) forName.getConstructor((Class<?>[]) new Class[0]).newInstance(new Object[0]);
-                Log.withPrefix("Detekovano NMS verze: " + NMSManager.getVersion());
+                Log.withPrefix("Detekovana NMS verze: " + NMSManager.getVersion());
             } else {
                 Log.withPrefix("Nepodarilo se detekovat verzi NMS! Nektere funkce budou vypnuty!");
                 getInstance().nms = null;

@@ -3,8 +3,8 @@ image: maven:3.3.9-jdk-8
 stages:
 - validate
 - build
-- pages
 - review
+- pages
 #- deploy
 
 variables:
@@ -55,8 +55,33 @@ pages:
   only:
     - tags
 
+dependency_scanning:
+  image: docker:stable
+  stage: review
+  allow_failure: true
+  before_script: []
+  cache: {}
+  dependencies: []
+  tags:
+    - docker
+  services:
+    - docker:stable-dind
+  variables:
+    DOCKER_DRIVER: overlay2
+  script:
+    - export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
+    - docker run
+        --env DEP_SCAN_DISABLE_REMOTE_CHECKS="${DEP_SCAN_DISABLE_REMOTE_CHECKS:-false}"
+        --volume "$PWD:/code"
+        --volume /var/run/docker.sock:/var/run/docker.sock
+        "registry.gitlab.com/gitlab-org/security-products/dependency-scanning:$SP_VERSION" /code
+  artifacts:
+    paths:
+      - gl-dependency-scanning-report.json
+
 codacy:
   stage: review
   script:
     - curl https://api.codacy.com/events/push/f22629ed146d4b719b97be48589f6ab3
   allow_failure: false
+

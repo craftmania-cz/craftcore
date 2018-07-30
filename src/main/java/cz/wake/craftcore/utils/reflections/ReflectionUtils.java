@@ -1,4 +1,4 @@
-package cz.wake.craftcore.utils.effects;
+package cz.wake.craftcore.utils.reflections;
 
 import cz.wake.craftcore.utils.reflections.Group;
 import org.bukkit.Bukkit;

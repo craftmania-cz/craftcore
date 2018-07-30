@@ -3,7 +3,7 @@ package cz.wake.craftcore.listener.basic;
 import cz.wake.craftcore.events.spigot.ServerReloadEvent;
 import cz.wake.craftcore.events.spigot.ServerStopEvent;
 import cz.wake.craftcore.nms.NMSManager;
-import cz.wake.craftcore.utils.effects.ReflectionUtils;
+import cz.wake.craftcore.utils.reflections.ReflectionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

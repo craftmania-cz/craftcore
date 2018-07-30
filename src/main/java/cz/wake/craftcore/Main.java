@@ -6,6 +6,7 @@ import cz.wake.craftcore.internal.registry.WorldGuardRegister;
 import cz.wake.craftcore.inventory.InventoryManager;
 import cz.wake.craftcore.listener.basic.PlayerJoinListener;
 import cz.wake.craftcore.listener.basic.PlayerLeaveListener;
+import cz.wake.craftcore.listener.basic.ServerListener;
 import cz.wake.craftcore.nms.NMSManager;
 import cz.wake.craftcore.nms.NMSPackages;
 import cz.wake.craftcore.tasks.TpsPollerTask;
@@ -102,6 +103,7 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new PlayerJoinListener(), this);
         pm.registerEvents(new PlayerLeaveListener(), this);
         pm.registerEvents(new FireworkHandler(), this);
+        pm.registerEvents(new ServerListener(), this);
 
         if (pm.isPluginEnabled("ProtocolLib")) {
             ProtocolLibsRegister.registerPacketListeners();

@@ -1,6 +1,6 @@
 package cz.wake.craftcore.utils.reflections;
 
-import cz.wake.craftcore.utils.reflections.Group;
+import cz.wake.craftcore.internal.Group;
 import org.bukkit.Bukkit;
 
 import java.lang.reflect.Constructor;
@@ -675,17 +675,6 @@ public final class ReflectionUtils {
             Constructor<?> f = clazz.getDeclaredConstructor(args.getA());
             f.setAccessible(true);
             return f.newInstance(args.getB());
-        } catch( IllegalAccessException | NoSuchMethodException | InvocationTargetException | InstantiationException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public static Object getConstructor(Class<?> clazz){
-        try {
-            Constructor<?> f = clazz.getDeclaredConstructor();
-            f.setAccessible(true);
-            return f.newInstance();
         } catch( IllegalAccessException | NoSuchMethodException | InvocationTargetException | InstantiationException e) {
             e.printStackTrace();
         }

@@ -1,9 +1,9 @@
 package cz.wake.craftcore.entity;
 
 import cz.wake.craftcore.annotations.DoNotUse;
+import cz.wake.craftcore.internal.Group;
 import cz.wake.craftcore.utils.GameVersion;
 import cz.wake.craftcore.utils.mojang.Skin;
-import cz.wake.craftcore.utils.reflections.Group;
 import cz.wake.craftcore.utils.reflections.ReflectionUtils;
 import org.bukkit.entity.Player;
 

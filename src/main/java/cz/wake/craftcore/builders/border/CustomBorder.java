@@ -1,4 +1,4 @@
-package cz.wake.craftcore.utils.border;
+package cz.wake.craftcore.builders.border;
 
 import cz.wake.craftcore.Main;
 import org.bukkit.Bukkit;

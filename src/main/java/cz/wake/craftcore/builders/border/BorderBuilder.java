@@ -1,4 +1,4 @@
-package cz.wake.craftcore.utils.border;
+package cz.wake.craftcore.builders.border;
 
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -6,20 +6,20 @@ import org.bukkit.WorldBorder;
 
 import java.util.ArrayList;
 
-public class BorderAPI {
+public class BorderBuilder {
 
     private ArrayList<CustomBorder> borders = new ArrayList<CustomBorder>();
-    private static BorderAPI instance;
+    private static BorderBuilder instance;
 
-    public BorderAPI(){
+    public BorderBuilder(){
         instance = this;
     }
 
     /**
-     * Get BorderAPI
-     * @return BorderAPI class
+     * Get BorderBuilder
+     * @return BorderBuilder class
      */
-    public static BorderAPI getAPI(){
+    public static BorderBuilder getAPI(){
         return instance;
     }
 

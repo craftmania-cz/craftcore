@@ -1,5 +1,6 @@
 package cz.wake.craftcore;
 
+import cz.wake.craftcore.bungee.BungeeAPI;
 import cz.wake.craftcore.internal.ServerData;
 import cz.wake.craftcore.internal.registry.ProtocolLibsRegister;
 import cz.wake.craftcore.internal.registry.WorldGuardRegister;
@@ -7,11 +8,15 @@ import cz.wake.craftcore.inventory.InventoryManager;
 import cz.wake.craftcore.listener.basic.PlayerJoinListener;
 import cz.wake.craftcore.listener.basic.PlayerLeaveListener;
 import cz.wake.craftcore.listener.basic.ServerListener;
+import cz.wake.craftcore.listener.bungee.BungeeListener;
 import cz.wake.craftcore.nms.NMSManager;
 import cz.wake.craftcore.nms.NMSPackages;
 import cz.wake.craftcore.tasks.TpsPollerTask;
 import cz.wake.craftcore.utils.Log;
+import cz.wake.craftcore.utils.ProxyUtils;
 import cz.wake.craftcore.utils.effects.FireworkHandler;
+import cz.wake.craftcore.utils.files.DirectoryManager;
+import cz.wake.craftcore.utils.mojang.SkinAPI;
 import cz.wake.craftcore.utils.time.TimeChecker;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -24,10 +29,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.io.File;
 
-public class Main extends JavaPlugin {
+public final class Main extends JavaPlugin {
 
     private String idServer;
+    public final static String CRAFTCORE_CHANNEL = "craftcore:plugin";
+    public final static File ROOT_FOLDER = new File("plugins/CraftCore/");
+    public final static File SKINS_FOLDER = new File(ROOT_FOLDER, "skins/");
+    public final static File CONFIG_FILE = new File(ROOT_FOLDER, "config.yml");
     private static List<Player> effectPlayers = new ArrayList<>();
     private int timeHourOffSet = 0;
     private boolean timerLoaded = false;
@@ -39,6 +49,14 @@ public class Main extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        // Checkup for Spigot
+        try{
+            Class.forName("org.spigotmc.SpigotConfig");
+        } catch(ClassNotFoundException e) {
+            getLogger().info("CraftCore funguje pouze na Spigot nebo PaperSpigot serverech.");
+            Bukkit.getServer().getPluginManager().disablePlugin(this);
+        }
+
         // Instance
         instance = this;
 
@@ -46,14 +64,19 @@ public class Main extends JavaPlugin {
         startupLogo();
 
         // Config
+        Log.withPrefix("Generovani a nacitani configuracnich souboru...");
+        new DirectoryManager(ROOT_FOLDER).mkdirs();
+        new DirectoryManager(SKINS_FOLDER).mkdirs();
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
 
         // Register eventu a prikazu
+        Log.withPrefix("Nacitani prikazu a listeneru...");
         loadListeners();
         loadCommands();
 
         // Load NMS Packages
+        Log.withPrefix("Nacitani NMS Packages...");
         loadNMSPackages();
 
         // Timer + events
@@ -61,8 +84,15 @@ public class Main extends JavaPlugin {
         loadBackgroundTimer(2);
 
         // Server data
+        Log.withPrefix("Nacitani internich API...");
         ServerData.getInstance().setup();
         ServerData.getInstance().setPluginVersion(this);
+        new SkinAPI();
+        new BungeeAPI();
+        for(String proxy : getConfig().getStringList("proxies")){
+            String[] x = proxy.split(":");
+            ProxyUtils.put(x[0], Integer.parseInt(x[1]));
+        }
 
         // WorldGuard Addons
         if (getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
@@ -82,6 +112,10 @@ public class Main extends JavaPlugin {
             Log.withPrefix("Detekce TPS byla zapnuta.");
             Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new TpsPollerTask(), 100L, 1L);
         }
+
+        // Bungee register
+        getServer().getMessenger().registerOutgoingPluginChannel(this, CRAFTCORE_CHANNEL);
+        getServer().getMessenger().registerIncomingPluginChannel(this, CRAFTCORE_CHANNEL, new BungeeListener());
 
         // Inventory Manager API
         invManager = new InventoryManager(this);

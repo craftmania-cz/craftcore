@@ -1,16 +1,24 @@
-# ProxyJoin Bungee
-# Pouze hraci s touto IP se budou moct pripojit
-proxy-ips:
- - '0.0.0.1'
-
-# Povolene IP, ktere se mohou pripojit mimo BungeeCord
-disable-ips:
- - '0.0.0.1'
-
 # Volitelná detekce TPS
 tps-detector: false
 
 # ID serveru pro statistiky
 server: Survival
 
+# Offset pro time - NEMENIT!
 timehouroffset: 0
+
+# Seznam proxy serveru pro stahovani skinu pro headky/hrace
+# format: <address>:<port>
+proxies:
+ - 194.126.183.141:53281
+ - 177.204.85.203:80
+ - 80.211.189.165:3128
+ - 147.135.210.114:54566
+ - 124.158.4.3:8080
+ - 192.116.142.153:8080
+ - 185.85.21.6:53281
+ - 185.93.3.123:8080
+ - 113.161.173.10:3128
+ - 5.197.183.222:8080
+ - 152.231.81.122:53281
+ - 94.130.14.146:31288

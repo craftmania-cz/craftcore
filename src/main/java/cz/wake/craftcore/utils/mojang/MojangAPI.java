@@ -1,51 +1,103 @@
 package cz.wake.craftcore.utils.mojang;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
+import cz.wake.craftcore.internal.Group;
+import cz.wake.craftcore.utils.CommonUtils;
+import cz.wake.craftcore.utils.ProxyUtils;
 import org.apache.commons.io.IOUtils;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-import org.json.simple.parser.ParseException;
 
-import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.Proxy;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.UUID;
 
+/**
+ * A class contains useful methods to using the Mojang API
+ */
 public class MojangAPI {
-
     /**
-     * Get the UUID from the MojangAPI
+     * Gets the unique id of the given player
      *
-     * @param name The name of the player who's UUID you wanna get
-     * @return The UUID of the player you defined
+     * @param user the name of the player
+     * @return the unique id
      */
-    @SuppressWarnings("deprecation")
-    public static String getUUID(String name) {
-        String url = "https://api.mojang.com/users/profiles/minecraft/" + name;
-        try {
-            String UUIDJson = IOUtils.toString(new URL(url));
-            if (UUIDJson.isEmpty()) return "invalid";
-            JSONObject UUIDObject = (JSONObject) JSONValue.parseWithException(UUIDJson);
-            return UUIDObject.get("id").toString();
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
-        }
-        return "error";
+    public static Group<String, UUID> getUUID(String user) throws Exception {
+        String url = "https://api.mojang.com/users/profiles/minecraft/" + user;
+        String json = IOUtils.toString(new URL(url), StandardCharsets.UTF_8);
+        JsonObject obj = new Gson().fromJson(json, new TypeToken<JsonObject>() {
+        }.getType());
+        return new Group<>(obj.get("name").getAsString(),
+                CommonUtils.getUUIDWithoutDashes(obj.get("id").getAsString()));
     }
 
     /**
-     * Know if the player exists in the Mojang database
+     * Gets the unique id of the given player at a specific time.<br>
+     * The time must be the UNIX timestamp (milliseconds/1000)
      *
-     * @param name Then name of the player that you wanna know if he exists
-     * @return True or false
+     * @param user the name of the player
+     * @return the unique id
      */
-    @SuppressWarnings("deprecation")
-    public static boolean doesPlayerExist(String name) {
-        String url = "https://api.mojang.com/users/profiles/minecraft/" + name;
-        try {
-            String UUIDJson = IOUtils.toString(new URL(url));
-            return (UUIDJson.isEmpty());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
+    public static Group<String, UUID> getUUID(String user, long timestamp) throws Exception {
+        String url = "https://api.mojang.com/users/profiles/minecraft/" + user
+                + "/?at=" + Long.toString(timestamp);
+        String json = IOUtils.toString(new URL(url), StandardCharsets.UTF_8);
+        JsonObject obj = new Gson().fromJson(json, new TypeToken<JsonObject>() {
+        }.getType());
+        return new Group<>(obj.get("name").getAsString(),
+                CommonUtils.getUUIDWithoutDashes(obj.get("id").getAsString()));
+    }
 
+
+    /**
+     * Gets the skin data of a player.<br>
+     * SpaciousLib will use a random HTTPS proxy to bypass the limit rate.<br>
+     * <b>Please use SkinAPI instead</b>
+     *
+     * @param player the unique id of the player
+     * @return a group of two string objects. The first is the skin value, and the second is the skin signature
+     */
+    public static Group<String, String> getSkin(UUID player) throws Exception {
+        return getSkin(player, true);
+    }
+
+    /**
+     * Gets the skin data of a player.<br>
+     * <b>Please use SkinAPI instead</b>
+     *
+     * @param player the unique id of the player
+     * @param proxy  uses a random proxy to get or not?
+     * @return a group of two string objects. The first is the skin value, and the second is the skin signature
+     */
+    public static Group<String, String> getSkin(UUID player, boolean proxy) throws Exception {
+        String url = "https://sessionserver.mojang.com/session/minecraft/profile/" + player.toString().replace("-", "") + "?unsigned=false";
+        HttpURLConnection connection;
+        if (proxy) {
+            connection = (HttpURLConnection) new URL(url).openConnection(ProxyUtils.getRandom(Proxy.Type.HTTP));
+        } else {
+            connection = (HttpURLConnection) new URL(url).openConnection();
+        }
+        connection.setConnectTimeout(3000);
+        connection.setDoOutput(true);
+        connection.setDoInput(true);
+        connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.4; en-US; rv:1.9.2.2) Gecko/20100316 Firefox/3.6.2");
+        connection.setRequestMethod("GET");
+        String json = new String(IOUtils.toByteArray(connection.getInputStream()));
+        JsonObject obj = new Gson().fromJson(json, new TypeToken<JsonObject>() {
+        }.getType());
+        if (obj.has("properties")) {
+            JsonArray properties = obj.get("properties").getAsJsonArray();
+            if (0 < properties.size()) {
+                JsonObject property = properties.get(0).getAsJsonObject();
+                if (property.get("name").getAsString().equals("textures")) {
+                    return new Group<>(property.get("value").getAsString(),
+                            property.get("signature").getAsString());
+                }
+            }
+        }
+        return null;
     }
 }

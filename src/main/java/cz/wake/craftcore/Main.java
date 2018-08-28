@@ -1,16 +1,21 @@
 package cz.wake.craftcore;
 
+import cz.wake.craftcore.annotations.AnnotationHandler;
 import cz.wake.craftcore.bungee.BungeeAPI;
 import cz.wake.craftcore.internal.ServerData;
+import cz.wake.craftcore.internal.listener.NPCInteractEventListener;
+import cz.wake.craftcore.internal.listener.PacketListener;
+import cz.wake.craftcore.internal.listener.PlayerCleanerListener;
+import cz.wake.craftcore.internal.listener.ServerListener;
 import cz.wake.craftcore.internal.registry.ProtocolLibsRegister;
 import cz.wake.craftcore.internal.registry.WorldGuardRegister;
 import cz.wake.craftcore.inventory.InventoryManager;
 import cz.wake.craftcore.listener.basic.PlayerJoinListener;
 import cz.wake.craftcore.listener.basic.PlayerLeaveListener;
-import cz.wake.craftcore.listener.basic.ServerListener;
 import cz.wake.craftcore.listener.bungee.BungeeListener;
 import cz.wake.craftcore.nms.NMSManager;
 import cz.wake.craftcore.nms.NMSPackages;
+import cz.wake.craftcore.tasks.CachedSkinTask;
 import cz.wake.craftcore.tasks.TpsPollerTask;
 import cz.wake.craftcore.utils.Log;
 import cz.wake.craftcore.utils.ProxyUtils;
@@ -24,12 +29,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.io.File;
 
 public final class Main extends JavaPlugin {
 
@@ -50,9 +55,9 @@ public final class Main extends JavaPlugin {
     public void onEnable() {
 
         // Checkup for Spigot
-        try{
+        try {
             Class.forName("org.spigotmc.SpigotConfig");
-        } catch(ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             getLogger().info("CraftCore funguje pouze na Spigot nebo PaperSpigot serverech.");
             Bukkit.getServer().getPluginManager().disablePlugin(this);
         }
@@ -89,7 +94,7 @@ public final class Main extends JavaPlugin {
         ServerData.getInstance().setPluginVersion(this);
         new SkinAPI();
         new BungeeAPI();
-        for(String proxy : getConfig().getStringList("proxies")){
+        for (String proxy : getConfig().getStringList("proxies")) {
             String[] x = proxy.split(":");
             ProxyUtils.put(x[0], Integer.parseInt(x[1]));
         }
@@ -108,7 +113,7 @@ public final class Main extends JavaPlugin {
         Log.withPrefix("Server zaevidovany jako: " + idServer);
 
         //Detekce TPS
-        if (getConfig().getBoolean("tps-detector")) {
+        if (getConfig().getBoolean("tps-detector", false)) {
             Log.withPrefix("Detekce TPS byla zapnuta.");
             Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new TpsPollerTask(), 100L, 1L);
         }
@@ -121,10 +126,21 @@ public final class Main extends JavaPlugin {
         invManager = new InventoryManager(this);
         invManager.init();
 
+        if (getConfig().getBoolean("auto_renew_skin", false)) {
+            new CachedSkinTask().runTaskTimerAsynchronously(this, 0, 1200);
+        }
+
     }
 
     @Override
     public void onDisable() {
+
+        AnnotationHandler.unregister(NPCInteractEventListener.class, null);
+
+        for (Player player : getServer().getOnlinePlayers()) {
+            PacketListener.remove(player);
+        }
+
         instance = null;
     }
 
@@ -138,6 +154,13 @@ public final class Main extends JavaPlugin {
         pm.registerEvents(new PlayerLeaveListener(), this);
         pm.registerEvents(new FireworkHandler(), this);
         pm.registerEvents(new ServerListener(), this);
+        pm.registerEvents(new PlayerCleanerListener(), this);
+
+        if (getConfig().getBoolean("packet_handler", true)) {
+            getServer().getPluginManager().registerEvents(new PacketListener(), this);
+        }
+
+        AnnotationHandler.register(NPCInteractEventListener.class, null);
 
         if (pm.isPluginEnabled("ProtocolLib")) {
             ProtocolLibsRegister.registerPacketListeners();

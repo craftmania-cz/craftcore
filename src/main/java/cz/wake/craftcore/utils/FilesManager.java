@@ -10,7 +10,9 @@ import java.io.IOException;
 
 public class FilesManager {
 
-    /** The instance. */
+    /**
+     * The instance.
+     */
     static FilesManager instance = new FilesManager();
 
     /**

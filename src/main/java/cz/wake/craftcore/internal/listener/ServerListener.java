@@ -1,7 +1,7 @@
-package cz.wake.craftcore.listener.basic;
+package cz.wake.craftcore.internal.listener;
 
-import cz.wake.craftcore.events.spigot.ServerReloadEvent;
-import cz.wake.craftcore.events.spigot.ServerStopEvent;
+import cz.wake.craftcore.events.ServerReloadEvent;
+import cz.wake.craftcore.events.ServerStopEvent;
 import cz.wake.craftcore.nms.NMSManager;
 import cz.wake.craftcore.utils.reflections.ReflectionUtils;
 import org.bukkit.Bukkit;
@@ -13,19 +13,19 @@ public class ServerListener implements Listener {
     private static int reloadCountTracker;
     private static boolean isStopping = false;
 
-    public ServerListener(){
+    public ServerListener() {
         try {
             Class<?> craftServerClass = Class.forName("org.bukkit.craftbukkit." + NMSManager.getVersion() + ".CraftServer");
             Object craftServer = ReflectionUtils.cast(craftServerClass, Bukkit.getServer());
             reloadCountTracker = (int) ReflectionUtils.getField("reloadCount", craftServerClass, craftServer);
-        } catch(ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
     @EventHandler
-    public void stop(PluginDisableEvent event){
-        if(isStopping){
+    public void stop(PluginDisableEvent event) {
+        if (isStopping) {
             return;
         }
         try {
@@ -35,8 +35,8 @@ public class ServerListener implements Listener {
             int reloadCount = (int) ReflectionUtils.getField("reloadCount", craftServerClass, craftServer);
             Object nmsServer = ReflectionUtils.getMethod("getServer", craftServerClass, craftServer);
             boolean isRunning = (boolean) ReflectionUtils.getMethod("isRunning", nmsServerClass, nmsServer);
-            if(isRunning){
-                if(reloadCountTracker < reloadCount){
+            if (isRunning) {
+                if (reloadCountTracker < reloadCount) {
                     ServerReloadEvent ev = new ServerReloadEvent();
                     Bukkit.getServer().getPluginManager().callEvent(ev);
                     reloadCountTracker = reloadCount;
@@ -46,7 +46,7 @@ public class ServerListener implements Listener {
                 Bukkit.getServer().getPluginManager().callEvent(ev);
                 isStopping = true;
             }
-        } catch(ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

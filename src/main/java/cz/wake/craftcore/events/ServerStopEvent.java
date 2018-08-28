@@ -1,12 +1,12 @@
-package cz.wake.craftcore.events.spigot;
+package cz.wake.craftcore.events;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 /**
- * An event triggers when the server is going to reload
+ * An event triggers when the server is going to stop
  */
-public class ServerReloadEvent extends Event {
+public class ServerStopEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
     @Override

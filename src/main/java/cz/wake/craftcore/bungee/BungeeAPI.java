@@ -324,7 +324,7 @@ public class BungeeAPI implements PluginMessageListener {
     }
 
     /**
-     * Requests the SpaciousLib plugin (on proxy-side) to change the skin of a player
+     * Requests the CraftCore plugin (on proxy-side) to change the skin of a player
      *
      * @param player a player
      * @param skin   a skin
@@ -343,7 +343,7 @@ public class BungeeAPI implements PluginMessageListener {
     }
 
     /**
-     * Requests the SpaciousLib plugin (on proxy-side) to execute a Bungeecord command as a console
+     * Requests the CraftCore plugin (on proxy-side) to execute a Bungeecord command as a console
      *
      * @param command a command without "/" before
      */
@@ -359,7 +359,7 @@ public class BungeeAPI implements PluginMessageListener {
     }
 
     /**
-     * Requests the SpaciousLib plugin in a server to execute a command as a console
+     * Requests the CraftCore plugin in a server to execute a command as a console
      *
      * @param command a command without "/" before
      * @param server  a server
@@ -377,7 +377,7 @@ public class BungeeAPI implements PluginMessageListener {
     }
 
     /**
-     * Requests the SpaciousLib plugin (on proxy-side) to execute a Bungeecord command as a player
+     * Requests the CraftCore plugin (on proxy-side) to execute a Bungeecord command as a player
      *
      * @param command a command without "/" before
      * @param player  a player
@@ -395,7 +395,7 @@ public class BungeeAPI implements PluginMessageListener {
     }
 
     /**
-     * Requests the SpaciousLib plugin in a server to execute a command as a player
+     * Requests the CraftCore plugin in a server to execute a command as a player
      *
      * @param command a command without "/" before
      * @param player  a player

@@ -7,7 +7,7 @@ import cz.wake.craftcore.utils.mojang.Skin;
 import cz.wake.craftcore.utils.reflections.ReflectionUtils;
 import org.bukkit.entity.Player;
 
-public class PlayerManager extends EntityManager  {
+public class PlayerManager extends EntityManager {
 
     /**
      * Creates a new PlayerManager instance
@@ -18,15 +18,16 @@ public class PlayerManager extends EntityManager  {
         super(player);
     }
 
-    private Player getPlayer(){
+    private Player getPlayer() {
         return (Player) this.entity;
     }
 
     /**
      * Gets the ping number of that player
+     *
      * @return the player ping
      */
-    public int getPing(){
+    public int getPing() {
         String v = GameVersion.getVersion().toString();
         try {
             Class<?> craftPlayerClass = Class.forName("org.bukkit.craftbukkit." + v + ".entity.CraftPlayer");
@@ -34,18 +35,18 @@ public class PlayerManager extends EntityManager  {
             Object craftPlayer = ReflectionUtils.cast(craftPlayerClass, getPlayer());
             Object nmsEntity = ReflectionUtils.getMethod("getHandle", craftPlayerClass, craftPlayer);
             return (int) ReflectionUtils.getField("ping", nmsEntityPlayerClass, nmsEntity);
-        } catch(ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return 0;
     }
 
     @DoNotUse
-    public void changeSkin(Skin skin){
+    public void changeSkin(Skin skin) {
         //TODO: Change skins
     }
 
-    public void respawn(){
+    public void respawn() {
         String v = GameVersion.getVersion().toString();
         try {
             Class<?> craftPlayerClass = Class.forName("org.bukkit.craftbukkit." + v + ".entity.CraftPlayer");
@@ -65,11 +66,10 @@ public class PlayerManager extends EntityManager  {
                     new Class<?>[]{packetClass},
                     new Object[]{packet}
             ));
-        } catch(ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
-
 
 
 }

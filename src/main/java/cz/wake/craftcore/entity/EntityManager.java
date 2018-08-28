@@ -18,24 +18,26 @@ public class EntityManager {
 
     /**
      * Creates a new EntityManager instance
+     *
      * @param entity the Bukkit entity
      */
-    public EntityManager(Entity entity){
+    public EntityManager(Entity entity) {
         this.entity = entity;
     }
 
     /**
      * Sets an attribute
+     *
      * @param attribute Attribute object
      */
-    public void setAttribute(Attribute attribute){
+    public void setAttribute(Attribute attribute) {
         NBTCompound c = NBTLoader.fromEntity(this.entity);
         List<NBTCompound> newAttrs = new ArrayList<>();
         List<NBTCompound> attrs = c.getList("Attributes");
         NBTCompound attr = NBTLoader.create();
-        if(attrs != null){
-            for(NBTCompound a : attrs){
-                if(!a.getString("Name").equals(attribute.getType().getID())){
+        if (attrs != null) {
+            for (NBTCompound a : attrs) {
+                if (!a.getString("Name").equals(attribute.getType().getID())) {
                     newAttrs.add(a);
                 }
             }
@@ -43,7 +45,7 @@ public class EntityManager {
         attr = attr.setString("Name", attribute.getType().getID())
                 .setDouble("Base", attribute.getType().getBaseValue());
         List<NBTCompound> modifiers = new ArrayList<>();
-        for(AttributeModifier modifier : attribute.getModifiers()){
+        for (AttributeModifier modifier : attribute.getModifiers()) {
             modifiers.add(NBTLoader.create()
                     .set("Name", modifier.getName())
                     .set("Amount", modifier.getAmount())
@@ -58,19 +60,20 @@ public class EntityManager {
 
     /**
      * Gets all attributes of this entity
+     *
      * @return list of all attributes
      */
-    public List<Attribute> getAttributes(){
+    public List<Attribute> getAttributes() {
         List<Attribute> attrs = new ArrayList<>();
         List<NBTCompound> nbtattrs = NBTLoader.fromEntity(this.entity).getList("Attributes");
-        if(nbtattrs == null){
+        if (nbtattrs == null) {
             return attrs;
         }
-        for(NBTCompound a : nbtattrs){
+        for (NBTCompound a : nbtattrs) {
             Attribute attr = new Attribute(Attribute.Type.getByID(a.getString("Name")));
             List<NBTCompound> nbtmodifiers = a.getList("Modifiers");
-            if(nbtmodifiers != null) {
-                for(NBTCompound modifier : nbtmodifiers) {
+            if (nbtmodifiers != null) {
+                for (NBTCompound modifier : nbtmodifiers) {
                     attr.addModifier(new AttributeModifier(new UUID(modifier.getLong("UUIDMost"), modifier.getLong("UUIDLeast")), modifier.getString("Name"), modifier.getDouble("Amount"), AttributeModifier.Operation.getByID(modifier.getInt("Operation"))));
                 }
             }

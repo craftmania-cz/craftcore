@@ -1,11 +1,20 @@
 package cz.wake.craftcore.entity;
 
-import cz.wake.craftcore.annotations.DoNotUse;
 import cz.wake.craftcore.internal.Group;
+import cz.wake.craftcore.protocol.EntityDestroy;
+import cz.wake.craftcore.protocol.NamedEntitySpawn;
+import cz.wake.craftcore.protocol.PlayerInfo;
 import cz.wake.craftcore.utils.GameVersion;
+import cz.wake.craftcore.utils.mojang.GameProfileManager;
 import cz.wake.craftcore.utils.mojang.Skin;
 import cz.wake.craftcore.utils.reflections.ReflectionUtils;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class PlayerManager extends EntityManager {
 
@@ -41,11 +50,6 @@ public class PlayerManager extends EntityManager {
         return 0;
     }
 
-    @DoNotUse
-    public void changeSkin(Skin skin) {
-        //TODO: Change skins
-    }
-
     public void respawn() {
         String v = GameVersion.getVersion().toString();
         try {
@@ -65,6 +69,91 @@ public class PlayerManager extends EntityManager {
             ReflectionUtils.getMethod("a", playerConnClass, playerConn, new Group<>(
                     new Class<?>[]{packetClass},
                     new Object[]{packet}
+            ));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Changes the skin of that player.<br>
+     * Warning: this is for server-side, not proxy-side.<br>
+     * If you use Bungeecord, please use the method "requestChangeSkin" of BungeeAPI instead.
+     *
+     * @param skin the skin
+     */
+    public void changeSkin(Skin skin) {
+        List<Player> players = new ArrayList<>(getPlayer().getWorld().getPlayers());
+        players.remove(getPlayer());
+        World w = getPlayer().getWorld();
+        String v = GameVersion.getVersion().toString();
+        PlayerInfo.create(PlayerInfo.Type.REMOVE_PLAYER, getPlayer()).sendWorld(w);
+        EntityDestroy.create(getPlayer().getEntityId()).sendPlayers(players);
+        new GameProfileManager(getPlayer()).setSkin(skin).apply(getPlayer());
+        PlayerInfo.create(PlayerInfo.Type.ADD_PLAYER, getPlayer()).sendWorld(w);
+        NamedEntitySpawn.create(getPlayer()).sendPlayers(players);
+
+        // requests the player client to reload the player skin
+        // https://www.spigotmc.org/threads/reload-skin-client-help.196072/#post-2043595
+        try {
+            Class<?> craftServerClass = Class.forName("org.bukkit.craftbukkit." + v + ".CraftServer");
+            Class<?> nmsPlayerListClass = Class.forName("net.minecraft.server." + v + ".PlayerList");
+            Class<?> craftPlayerClass = Class.forName("org.bukkit.craftbukkit." + v + ".entity.CraftPlayer");
+            Class<?> nmsEntityPlayerClass = Class.forName("net.minecraft.server." + v + ".EntityPlayer");
+            Class<?> craftWorldClass = Class.forName("org.bukkit.craftbukkit." + v + ".CraftWorld");
+            Class<?> nmsWorldServerClass = Class.forName("net.minecraft.server." + v + ".WorldServer");
+            Object craftWorld = ReflectionUtils.cast(craftWorldClass, getPlayer().getWorld());
+            Object worldServer = ReflectionUtils.getMethod("getHandle", craftWorldClass, craftWorld);
+            int dimension = (int) ReflectionUtils.getField("dimension", nmsWorldServerClass, worldServer);
+            Object craftPlayer = ReflectionUtils.cast(craftPlayerClass, getPlayer());
+            Object nmsEntityPlayer = ReflectionUtils.getMethod("getHandle", craftPlayerClass, craftPlayer);
+            Object craftServer = ReflectionUtils.cast(craftServerClass, Bukkit.getServer());
+            Object playerList = ReflectionUtils.getMethod("getHandle", craftServerClass, craftServer);
+            ReflectionUtils.getMethod("moveToWorld", nmsPlayerListClass, playerList, new Group<>(
+                    new Class<?>[]{nmsEntityPlayerClass, int.class, boolean.class, Location.class, boolean.class},
+                    new Object[]{nmsEntityPlayer, dimension, true, getPlayer().getLocation(), true}
+            ));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Changes the skin of that player.<br>
+     * Warning: this is for server-side, not proxy-side.<br>
+     * If you use Bungeecord, please use the method "requestChangeSkin" of BungeeAPI instead.
+     *
+     * @param skin    the skin
+     * @param viewers the array of viewers
+     */
+    public void changeSkin(Skin skin, Player... viewers) {
+        World w = getPlayer().getWorld();
+        String v = GameVersion.getVersion().toString();
+        PlayerInfo.create(PlayerInfo.Type.REMOVE_PLAYER, getPlayer()).sendWorld(w);
+        EntityDestroy.create(getPlayer().getEntityId()).sendPlayers(viewers);
+        new GameProfileManager(getPlayer()).setSkin(skin).apply(getPlayer());
+        PlayerInfo.create(PlayerInfo.Type.ADD_PLAYER, getPlayer()).sendWorld(w);
+        NamedEntitySpawn.create(getPlayer()).sendPlayers(viewers);
+
+        // requests the player client to reload the player skin
+        // https://www.spigotmc.org/threads/reload-skin-client-help.196072/#post-2043595
+        try {
+            Class<?> craftServerClass = Class.forName("org.bukkit.craftbukkit." + v + ".CraftServer");
+            Class<?> nmsPlayerListClass = Class.forName("net.minecraft.server." + v + ".PlayerList");
+            Class<?> craftPlayerClass = Class.forName("org.bukkit.craftbukkit." + v + ".entity.CraftPlayer");
+            Class<?> nmsEntityPlayerClass = Class.forName("net.minecraft.server." + v + ".EntityPlayer");
+            Class<?> craftWorldClass = Class.forName("org.bukkit.craftbukkit." + v + ".CraftWorld");
+            Class<?> nmsWorldServerClass = Class.forName("net.minecraft.server." + v + ".WorldServer");
+            Object craftWorld = ReflectionUtils.cast(craftWorldClass, getPlayer().getWorld());
+            Object worldServer = ReflectionUtils.getMethod("getHandle", craftWorldClass, craftWorld);
+            int dimension = (int) ReflectionUtils.getField("dimension", nmsWorldServerClass, worldServer);
+            Object craftPlayer = ReflectionUtils.cast(craftPlayerClass, getPlayer());
+            Object nmsEntityPlayer = ReflectionUtils.getMethod("getHandle", craftPlayerClass, craftPlayer);
+            Object craftServer = ReflectionUtils.cast(craftServerClass, Bukkit.getServer());
+            Object playerList = ReflectionUtils.getMethod("getHandle", craftServerClass, craftServer);
+            ReflectionUtils.getMethod("moveToWorld", nmsPlayerListClass, playerList, new Group<>(
+                    new Class<?>[]{nmsEntityPlayerClass, int.class, boolean.class, Location.class, boolean.class},
+                    new Object[]{nmsEntityPlayer, dimension, true, getPlayer().getLocation(), true}
             ));
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

@@ -1,0 +1,3 @@
+rootProject.name = 'CraftCore'
+
+include 'main', 'spigot', 'bungee'

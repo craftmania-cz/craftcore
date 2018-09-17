@@ -1,0 +1,45 @@
+repositories {
+    flatDir {dirs 'lib'}
+}
+
+dependencies {
+    compile project(':main')
+    compileOnly 'com.comphenix.protocol:ProtocolLib-API:4.4.0-SNAPSHOT'
+    compileOnly ('org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT') {
+        exclude group: 'net.md-5'
+    }
+    compileOnly 'org.bukkit:bukkit:1.12.2-R0.1-SNAPSHOT'
+    compileOnly 'com.sk89q:worldguard:6.0.0-SNAPSHOT'
+    compileOnly name: 'spigot-1.11.2'
+    compileOnly name: 'spigot-1.12.2'
+    compileOnly name: 'spigot-1.13.0'
+}
+
+clean { delete "../target" }
+
+compileJava {
+    options.encoding = "UTF-8"
+}
+
+processResources {
+    from('src/main/resources') {
+        include 'plugin.yml'
+        expand(
+                version: project.parent.version
+        )
+    }
+
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+// We only want the shadow jar produced
+
+shadowJar {
+    dependencies {
+        include(dependency(':main'))
+    }
+    archiveName = "${parent.name}-${project.name}-${parent.version}.jar"
+    destinationDir = file '../target'
+}
+
+build.dependsOn(shadowJar)

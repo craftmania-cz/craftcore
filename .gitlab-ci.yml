@@ -1,4 +1,4 @@
-image: maven:3.3.9-jdk-8
+image: java:8-jdk
 
 stages:
 - validate
@@ -7,26 +7,29 @@ stages:
 - pages
 #- deploy
 
-variables:
-  MAVEN_CLI_OPTS: "-s .m2/settings.xml --batch-mode"
-  MAVEN_OPTS: "-Dmaven.repo.local=.m2/repository"
+before_script:
+#  - echo `pwd` # debug
+#  - echo "$CI_BUILD_NAME, $CI_BUILD_REF_NAME $CI_BUILD_STAGE" # debug
+ - export GRADLE_USER_HOME=`pwd`/.gradle
+ - rm -f  .gradle/caches/modules-2/modules-2.lock
+ - rm -fr .gradle/caches/*/plugin-resolution/
 
 # Cache downloaded dependencies and plugins between builds.
 cache:
   paths:
-    - /root/.m2/repository/
-    - .m2/repository/
-    - target/
+  - .gradle/wrapper
+  - .gradle/caches
+  - target/
 
 validate:
   stage: validate
   script:
-    - 'mvn validate'
+    - ./gradlew check
 
 build:
   stage: build
   script:
-    - 'mvn clean install'
+    - ./gradlew build
   artifacts:
     expire_in: 1 week
     paths:

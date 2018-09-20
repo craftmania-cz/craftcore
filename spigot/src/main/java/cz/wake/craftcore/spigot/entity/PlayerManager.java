@@ -1,13 +1,13 @@
-package cz.wake.craftcore.entity;
+package cz.wake.craftcore.spigot.entity;
 
-import cz.wake.craftcore.utils.Group;
-import cz.wake.craftcore.protocol.EntityDestroy;
-import cz.wake.craftcore.protocol.NamedEntitySpawn;
-import cz.wake.craftcore.protocol.PlayerInfo;
-import cz.wake.craftcore.utils.GameVersion;
-import cz.wake.craftcore.utils.mojang.GameProfileManager;
-import cz.wake.craftcore.utils.mojang.Skin;
-import cz.wake.craftcore.utils.reflections.ReflectionUtils;
+import cz.wake.craftcore.spigot.protocol.EntityDestroy;
+import cz.wake.craftcore.spigot.protocol.NamedEntitySpawn;
+import cz.wake.craftcore.spigot.protocol.PlayerInfo;
+import cz.wake.craftcore.spigot.utils.GameVersion;
+import cz.wake.craftcore.core.utils.Group;
+import cz.wake.craftcore.spigot.utils.mojang.GameProfileManager;
+import cz.wake.craftcore.spigot.utils.mojang.Skin;
+import cz.wake.craftcore.spigot.utils.reflections.ReflectionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;

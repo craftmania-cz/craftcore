@@ -1,4 +1,4 @@
-package cz.wake.craftcore.messages.handler;
+package cz.wake.craftcore.spigot.messages.handler;
 
 import org.bukkit.entity.Player;
 

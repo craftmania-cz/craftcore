@@ -1,7 +1,7 @@
-package cz.wake.craftcore.builders.items;
+package cz.wake.craftcore.spigot.builders.items;
 
-import cz.wake.craftcore.annotations.NeedTesting;
-import cz.wake.craftcore.nms.NMSManager;
+import cz.wake.craftcore.spigot.annotations.NeedTesting;
+import cz.wake.craftcore.spigot.nms.NMSManager;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;

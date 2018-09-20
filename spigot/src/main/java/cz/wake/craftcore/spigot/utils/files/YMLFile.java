@@ -1,6 +1,6 @@
-package cz.wake.craftcore.utils.files;
+package cz.wake.craftcore.spigot.utils.files;
 
-import cz.wake.craftcore.utils.FilesManager;
+import cz.wake.craftcore.spigot.utils.FilesManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;

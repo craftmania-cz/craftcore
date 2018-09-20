@@ -1,4 +1,4 @@
-package cz.wake.craftcore.inventory.content;
+package cz.wake.craftcore.spigot.inventory.content;
 
 import org.bukkit.entity.Player;
 

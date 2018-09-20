@@ -1,6 +1,6 @@
-package cz.wake.craftcore.utils.effects;
+package cz.wake.craftcore.spigot.utils.effects;
 
-import cz.wake.craftcore.utils.reflections.ReflectionUtils;
+import cz.wake.craftcore.spigot.utils.reflections.ReflectionUtils;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;

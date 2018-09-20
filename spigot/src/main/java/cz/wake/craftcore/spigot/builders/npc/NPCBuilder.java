@@ -1,14 +1,14 @@
-package cz.wake.craftcore.builders.npc;
+package cz.wake.craftcore.spigot.builders.npc;
 
 import com.mojang.authlib.GameProfile;
-import cz.wake.craftcore.annotations.AnnotationHandler;
-import cz.wake.craftcore.annotations.PlayerCleaner;
-import cz.wake.craftcore.utils.Group;
-import cz.wake.craftcore.internal.listener.NPCInteractEventListener;
-import cz.wake.craftcore.protocol.*;
-import cz.wake.craftcore.utils.GameVersion;
-import cz.wake.craftcore.utils.reflections.ReflectionUtils;
-import cz.wake.craftcore.scheduler.DelayedTask;
+import cz.wake.craftcore.core.annotations.AnnotationHandler;
+import cz.wake.craftcore.spigot.annotations.PlayerCleaner;
+import cz.wake.craftcore.spigot.internal.listener.NPCInteractEventListener;
+import cz.wake.craftcore.spigot.protocol.*;
+import cz.wake.craftcore.core.utils.Group;
+import cz.wake.craftcore.spigot.utils.GameVersion;
+import cz.wake.craftcore.spigot.utils.reflections.ReflectionUtils;
+import cz.wake.craftcore.core.scheduler.DelayedTask;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

@@ -1,4 +1,4 @@
-package cz.wake.craftcore.events.worldguard;
+package cz.wake.craftcore.spigot.events.worldguard;
 
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import org.bukkit.entity.Player;

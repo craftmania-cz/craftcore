@@ -1,4 +1,4 @@
-package cz.wake.craftcore.annotations;
+package cz.wake.craftcore.spigot.annotations;
 
 import java.lang.annotation.*;
 

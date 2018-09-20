@@ -1,11 +1,11 @@
-package cz.wake.craftcore.internal.listener;
+package cz.wake.craftcore.spigot.internal.listener;
 
-import cz.wake.craftcore.Main;
-import cz.wake.craftcore.annotations.AnnotationHandler;
-import cz.wake.craftcore.annotations.PlayerCleaner;
-import cz.wake.craftcore.utils.time.TimedList;
-import cz.wake.craftcore.utils.time.TimedMap;
-import cz.wake.craftcore.utils.time.TimedSet;
+import cz.wake.craftcore.spigot.Main;
+import cz.wake.craftcore.core.annotations.AnnotationHandler;
+import cz.wake.craftcore.spigot.annotations.PlayerCleaner;
+import cz.wake.craftcore.core.utils.time.TimedList;
+import cz.wake.craftcore.core.utils.time.TimedMap;
+import cz.wake.craftcore.core.utils.time.TimedSet;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;

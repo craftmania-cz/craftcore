@@ -1,4 +1,4 @@
-package cz.wake.craftcore.core.mojang;
+package cz.wake.craftcore.spigot.utils.mojang;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

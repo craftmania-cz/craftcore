@@ -1,8 +1,8 @@
-package cz.wake.craftcore.listener.bungee;
+package cz.wake.craftcore.spigot.listener.bungee;
 
-import cz.wake.craftcore.Main;
-import cz.wake.craftcore.entity.PlayerManager;
-import cz.wake.craftcore.utils.mojang.Skin;
+import cz.wake.craftcore.spigot.Main;
+import cz.wake.craftcore.spigot.entity.PlayerManager;
+import cz.wake.craftcore.spigot.utils.mojang.Skin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;

@@ -1,7 +1,7 @@
-package cz.wake.craftcore.inventory.content;
+package cz.wake.craftcore.spigot.inventory.content;
 
-import cz.wake.craftcore.inventory.ClickableItem;
-import cz.wake.craftcore.inventory.SmartInventory;
+import cz.wake.craftcore.spigot.inventory.ClickableItem;
+import cz.wake.craftcore.spigot.inventory.SmartInventory;
 
 import java.util.HashSet;
 import java.util.Optional;

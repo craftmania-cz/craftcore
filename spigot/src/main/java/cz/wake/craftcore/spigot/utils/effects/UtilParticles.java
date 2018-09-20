@@ -1,6 +1,6 @@
-package cz.wake.craftcore.utils.effects;
+package cz.wake.craftcore.spigot.utils.effects;
 
-import cz.wake.craftcore.Main;
+import cz.wake.craftcore.spigot.Main;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitRunnable;

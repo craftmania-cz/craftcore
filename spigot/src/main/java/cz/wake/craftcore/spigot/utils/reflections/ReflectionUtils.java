@@ -1,6 +1,7 @@
 package cz.wake.craftcore.spigot.utils.reflections;
 
 import cz.wake.craftcore.core.utils.Group;
+import cz.wake.craftcore.spigot.nms.NMSManager;
 import org.bukkit.Bukkit;
 
 import java.lang.reflect.Constructor;

@@ -1,4 +1,4 @@
-package cz.wake.craftcore.utils.time;
+package cz.wake.craftcore.spigot.utils.time;
 
 public enum TimeType {
     MONTH, WEEK, DAY;

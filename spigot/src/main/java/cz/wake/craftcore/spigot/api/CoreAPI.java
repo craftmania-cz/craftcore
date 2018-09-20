@@ -1,6 +1,6 @@
-package cz.wake.craftcore.api;
+package cz.wake.craftcore.spigot.api;
 
-import cz.wake.craftcore.Main;
+import cz.wake.craftcore.spigot.Main;
 
 public class CoreAPI {
 

@@ -1,9 +1,9 @@
-package cz.wake.craftcore.internal.listener;
+package cz.wake.craftcore.spigot.internal.listener;
 
-import cz.wake.craftcore.events.ServerReloadEvent;
-import cz.wake.craftcore.events.ServerStopEvent;
-import cz.wake.craftcore.nms.NMSManager;
-import cz.wake.craftcore.utils.reflections.ReflectionUtils;
+import cz.wake.craftcore.spigot.events.ServerReloadEvent;
+import cz.wake.craftcore.spigot.events.ServerStopEvent;
+import cz.wake.craftcore.spigot.nms.NMSManager;
+import cz.wake.craftcore.spigot.utils.reflections.ReflectionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -1,7 +1,7 @@
-package cz.wake.craftcore.events;
+package cz.wake.craftcore.spigot.events;
 
-import cz.wake.craftcore.builders.npc.NPCBuilder;
-import cz.wake.craftcore.inventory.EquipSlot;
+import cz.wake.craftcore.spigot.builders.npc.NPCBuilder;
+import cz.wake.craftcore.spigot.inventory.EquipSlot;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

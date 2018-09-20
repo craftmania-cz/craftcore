@@ -1,7 +1,7 @@
-package cz.wake.craftcore.internal;
+package cz.wake.craftcore.spigot.internal;
 
-import cz.wake.craftcore.Main;
-import cz.wake.craftcore.utils.files.YMLFile;
+import cz.wake.craftcore.spigot.Main;
+import cz.wake.craftcore.spigot.utils.files.YMLFile;
 
 import java.io.File;
 

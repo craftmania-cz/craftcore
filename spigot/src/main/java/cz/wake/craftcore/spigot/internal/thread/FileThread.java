@@ -1,4 +1,4 @@
-package cz.wake.craftcore.internal.thread;
+package cz.wake.craftcore.spigot.internal.thread;
 
 public class FileThread {
 

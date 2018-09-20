@@ -1,6 +1,6 @@
-package cz.wake.craftcore.utils.server;
+package cz.wake.craftcore.spigot.utils.server;
 
-import cz.wake.craftcore.nms.NMSManager;
+import cz.wake.craftcore.spigot.nms.NMSManager;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

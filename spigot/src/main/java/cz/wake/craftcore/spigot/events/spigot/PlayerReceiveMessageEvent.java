@@ -1,4 +1,4 @@
-package cz.wake.craftcore.events.spigot;
+package cz.wake.craftcore.spigot.events.spigot;
 
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;

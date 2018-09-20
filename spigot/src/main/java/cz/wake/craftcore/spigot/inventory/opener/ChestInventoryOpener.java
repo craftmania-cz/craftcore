@@ -1,8 +1,8 @@
-package cz.wake.craftcore.inventory.opener;
+package cz.wake.craftcore.spigot.inventory.opener;
 
 import com.google.common.base.Preconditions;
-import cz.wake.craftcore.inventory.InventoryManager;
-import cz.wake.craftcore.inventory.SmartInventory;
+import cz.wake.craftcore.spigot.inventory.InventoryManager;
+import cz.wake.craftcore.spigot.inventory.SmartInventory;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;

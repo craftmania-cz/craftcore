@@ -1,10 +1,10 @@
-package cz.wake.craftcore.internal.listener;
+package cz.wake.craftcore.spigot.internal.listener;
 
-import cz.wake.craftcore.annotations.PacketHandler;
-import cz.wake.craftcore.builders.npc.NPCBuilder;
-import cz.wake.craftcore.events.NPCInteractEvent;
-import cz.wake.craftcore.inventory.EquipSlot;
-import cz.wake.craftcore.utils.GameVersion;
+import cz.wake.craftcore.spigot.annotations.PacketHandler;
+import cz.wake.craftcore.spigot.builders.npc.NPCBuilder;
+import cz.wake.craftcore.spigot.events.NPCInteractEvent;
+import cz.wake.craftcore.spigot.inventory.EquipSlot;
+import cz.wake.craftcore.spigot.utils.GameVersion;
 import org.bukkit.Bukkit;
 
 import java.util.ArrayList;

@@ -1,10 +1,10 @@
-package cz.wake.craftcore.utils.mojang;
+package cz.wake.craftcore.spigot.utils.mojang;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
-import cz.wake.craftcore.utils.GameVersion;
-import cz.wake.craftcore.utils.reflections.ReflectionUtils;
+import cz.wake.craftcore.spigot.utils.GameVersion;
+import cz.wake.craftcore.spigot.utils.reflections.ReflectionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 

@@ -1,10 +1,10 @@
-package cz.wake.craftcore.listener.extended;
+package cz.wake.craftcore.spigot.listener.extended;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
-import cz.wake.craftcore.events.spigot.PlayerCameraChangeEvent;
+import cz.wake.craftcore.spigot.events.spigot.PlayerCameraChangeEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;

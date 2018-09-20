@@ -1,4 +1,4 @@
-package cz.wake.craftcore.events.worldguard;
+package cz.wake.craftcore.spigot.events.worldguard;
 
 public enum MovementWay {
 

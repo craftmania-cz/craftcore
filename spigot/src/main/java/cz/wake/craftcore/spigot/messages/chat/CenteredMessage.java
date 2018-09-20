@@ -1,4 +1,4 @@
-package cz.wake.craftcore.messages.chat;
+package cz.wake.craftcore.spigot.messages.chat;
 
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;

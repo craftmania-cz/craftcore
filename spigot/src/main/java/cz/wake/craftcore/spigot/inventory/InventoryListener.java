@@ -1,4 +1,4 @@
-package cz.wake.craftcore.inventory;
+package cz.wake.craftcore.spigot.inventory;
 
 import java.util.function.Consumer;
 

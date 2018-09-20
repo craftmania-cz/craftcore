@@ -1,9 +1,9 @@
-package cz.wake.craftcore.entity;
+package cz.wake.craftcore.spigot.entity;
 
-import cz.wake.craftcore.entity.attribute.Attribute;
-import cz.wake.craftcore.entity.attribute.AttributeModifier;
-import cz.wake.craftcore.nbt.NBTCompound;
-import cz.wake.craftcore.nbt.NBTLoader;
+import cz.wake.craftcore.spigot.entity.attribute.Attribute;
+import cz.wake.craftcore.spigot.entity.attribute.AttributeModifier;
+import cz.wake.craftcore.spigot.nbt.NBTCompound;
+import cz.wake.craftcore.spigot.nbt.NBTLoader;
 import org.bukkit.entity.Entity;
 
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
-package cz.wake.craftcore.messages.handler;
+package cz.wake.craftcore.spigot.messages.handler;
 
 import com.google.gson.JsonObject;
-import cz.wake.craftcore.messages.Advancement;
+import cz.wake.craftcore.spigot.messages.Advancement;
 
 import java.util.HashMap;
 

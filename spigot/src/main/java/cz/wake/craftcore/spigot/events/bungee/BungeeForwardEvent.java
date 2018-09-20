@@ -1,4 +1,4 @@
-package cz.wake.craftcore.events.bungee;
+package cz.wake.craftcore.spigot.events.bungee;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

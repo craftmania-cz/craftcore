@@ -1,8 +1,8 @@
-package cz.wake.craftcore.inventory.opener;
+package cz.wake.craftcore.spigot.inventory.opener;
 
-import cz.wake.craftcore.inventory.ClickableItem;
-import cz.wake.craftcore.inventory.SmartInventory;
-import cz.wake.craftcore.inventory.content.InventoryContents;
+import cz.wake.craftcore.spigot.inventory.ClickableItem;
+import cz.wake.craftcore.spigot.inventory.SmartInventory;
+import cz.wake.craftcore.spigot.inventory.content.InventoryContents;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;

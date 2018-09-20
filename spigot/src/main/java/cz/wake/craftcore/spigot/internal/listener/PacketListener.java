@@ -1,10 +1,10 @@
-package cz.wake.craftcore.internal.listener;
+package cz.wake.craftcore.spigot.internal.listener;
 
-import cz.wake.craftcore.Main;
-import cz.wake.craftcore.annotations.AnnotationHandler;
-import cz.wake.craftcore.annotations.PacketHandler;
-import cz.wake.craftcore.utils.GameVersion;
-import cz.wake.craftcore.utils.reflections.ReflectionUtils;
+import cz.wake.craftcore.spigot.Main;
+import cz.wake.craftcore.core.annotations.AnnotationHandler;
+import cz.wake.craftcore.spigot.annotations.PacketHandler;
+import cz.wake.craftcore.spigot.utils.GameVersion;
+import cz.wake.craftcore.spigot.utils.reflections.ReflectionUtils;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelDuplexHandler;
 import io.netty.channel.ChannelHandlerContext;

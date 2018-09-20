@@ -1,14 +1,14 @@
-package cz.wake.craftcore.utils.mojang;
+package cz.wake.craftcore.spigot.utils.mojang;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import cz.wake.craftcore.Main;
-import cz.wake.craftcore.utils.GZipUtils;
-import cz.wake.craftcore.utils.Group;
-import cz.wake.craftcore.mojang.MojangAPI;
-import cz.wake.craftcore.files.FileManager;
-import cz.wake.craftcore.utils.time.TimeUnit;
+import cz.wake.craftcore.spigot.Main;
+import cz.wake.craftcore.core.mojang.MojangAPI;
+import cz.wake.craftcore.core.utils.GZipUtils;
+import cz.wake.craftcore.core.utils.Group;
+import cz.wake.craftcore.core.files.FileManager;
+import cz.wake.craftcore.core.utils.time.TimeUnit;
 
 import java.io.File;
 import java.io.IOException;

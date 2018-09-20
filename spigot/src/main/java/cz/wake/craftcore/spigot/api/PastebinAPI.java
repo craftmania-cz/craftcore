@@ -1,4 +1,4 @@
-package cz.wake.craftcore.api;
+package cz.wake.craftcore.spigot.api;
 
 import java.io.*;
 import java.net.HttpURLConnection;

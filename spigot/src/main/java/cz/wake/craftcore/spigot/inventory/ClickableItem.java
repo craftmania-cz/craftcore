@@ -1,4 +1,4 @@
-package cz.wake.craftcore.inventory;
+package cz.wake.craftcore.spigot.inventory;
 
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;

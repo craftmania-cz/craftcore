@@ -1,9 +1,9 @@
-package cz.wake.craftcore.internal.registry;
+package cz.wake.craftcore.spigot.internal.registry;
 
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
-import cz.wake.craftcore.Main;
-import cz.wake.craftcore.listener.extended.*;
+import cz.wake.craftcore.spigot.Main;
+import cz.wake.craftcore.spigot.listener.extended.*;
 
 public class ProtocolLibsRegister {
 

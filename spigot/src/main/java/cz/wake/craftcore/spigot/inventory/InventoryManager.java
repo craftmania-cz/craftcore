@@ -1,9 +1,9 @@
-package cz.wake.craftcore.inventory;
+package cz.wake.craftcore.spigot.inventory;
 
-import cz.wake.craftcore.inventory.content.InventoryContents;
-import cz.wake.craftcore.inventory.opener.ChestInventoryOpener;
-import cz.wake.craftcore.inventory.opener.InventoryOpener;
-import cz.wake.craftcore.inventory.opener.SpecialInventoryOpener;
+import cz.wake.craftcore.spigot.inventory.content.InventoryContents;
+import cz.wake.craftcore.spigot.inventory.opener.ChestInventoryOpener;
+import cz.wake.craftcore.spigot.inventory.opener.InventoryOpener;
+import cz.wake.craftcore.spigot.inventory.opener.SpecialInventoryOpener;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

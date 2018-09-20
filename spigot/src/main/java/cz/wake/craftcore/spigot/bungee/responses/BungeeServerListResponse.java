@@ -1,4 +1,4 @@
-package cz.wake.craftcore.bungee.responses;
+package cz.wake.craftcore.spigot.bungee.responses;
 
 import java.util.List;
 

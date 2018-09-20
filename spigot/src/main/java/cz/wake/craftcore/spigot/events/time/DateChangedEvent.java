@@ -1,6 +1,6 @@
-package cz.wake.craftcore.events.time;
+package cz.wake.craftcore.spigot.events.time;
 
-import cz.wake.craftcore.utils.time.TimeType;
+import cz.wake.craftcore.spigot.utils.time.TimeType;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 

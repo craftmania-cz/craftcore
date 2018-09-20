@@ -1,6 +1,6 @@
-package cz.wake.craftcore.listener.basic;
+package cz.wake.craftcore.spigot.listener.basic;
 
-import cz.wake.craftcore.Main;
+import cz.wake.craftcore.spigot.Main;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

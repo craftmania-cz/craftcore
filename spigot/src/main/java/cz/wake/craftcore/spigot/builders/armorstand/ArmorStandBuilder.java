@@ -1,13 +1,13 @@
-package cz.wake.craftcore.builders.armorstand;
+package cz.wake.craftcore.spigot.builders.armorstand;
 
-import cz.wake.craftcore.annotations.AnnotationHandler;
-import cz.wake.craftcore.annotations.PlayerCleaner;
-import cz.wake.craftcore.utils.Group;
-import cz.wake.craftcore.inventory.EquipSlot;
-import cz.wake.craftcore.protocol.*;
-import cz.wake.craftcore.utils.CommonUtils;
-import cz.wake.craftcore.utils.GameVersion;
-import cz.wake.craftcore.utils.reflections.ReflectionUtils;
+import cz.wake.craftcore.core.annotations.AnnotationHandler;
+import cz.wake.craftcore.spigot.annotations.PlayerCleaner;
+import cz.wake.craftcore.spigot.protocol.*;
+import cz.wake.craftcore.core.utils.Group;
+import cz.wake.craftcore.spigot.inventory.EquipSlot;
+import cz.wake.craftcore.core.utils.CommonUtils;
+import cz.wake.craftcore.spigot.utils.GameVersion;
+import cz.wake.craftcore.spigot.utils.reflections.ReflectionUtils;
 import org.apache.commons.lang.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

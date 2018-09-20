@@ -1,6 +1,6 @@
-package cz.wake.craftcore.utils.effects;
+package cz.wake.craftcore.spigot.utils.effects;
 
-import cz.wake.craftcore.Main;
+import cz.wake.craftcore.spigot.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.FireworkEffect;

@@ -1,6 +1,6 @@
-package cz.wake.craftcore.inventory.content;
+package cz.wake.craftcore.spigot.inventory.content;
 
-import cz.wake.craftcore.inventory.ClickableItem;
+import cz.wake.craftcore.spigot.inventory.ClickableItem;
 
 import java.util.Arrays;
 

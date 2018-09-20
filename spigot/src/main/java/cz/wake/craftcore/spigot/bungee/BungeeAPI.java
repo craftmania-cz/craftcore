@@ -1,14 +1,14 @@
-package cz.wake.craftcore.bungee;
+package cz.wake.craftcore.spigot.bungee;
 
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
-import cz.wake.craftcore.Main;
-import cz.wake.craftcore.bungee.responses.*;
-import cz.wake.craftcore.events.bungee.BungeeForwardEvent;
-import cz.wake.craftcore.utils.ChatUtils;
-import cz.wake.craftcore.utils.CommonUtils;
-import cz.wake.craftcore.utils.mojang.Skin;
+import cz.wake.craftcore.spigot.Main;
+import cz.wake.craftcore.spigot.events.bungee.BungeeForwardEvent;
+import cz.wake.craftcore.spigot.bungee.responses.*;
+import cz.wake.craftcore.spigot.utils.ChatUtils;
+import cz.wake.craftcore.core.utils.CommonUtils;
+import cz.wake.craftcore.spigot.utils.mojang.Skin;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;

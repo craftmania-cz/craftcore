@@ -1,9 +1,9 @@
-package cz.wake.craftcore.utils.time;
+package cz.wake.craftcore.spigot.utils.time;
 
-import cz.wake.craftcore.Main;
-import cz.wake.craftcore.events.time.*;
-import cz.wake.craftcore.internal.ServerData;
-import cz.wake.craftcore.utils.Log;
+import cz.wake.craftcore.spigot.Main;
+import cz.wake.craftcore.spigot.events.time.*;
+import cz.wake.craftcore.spigot.internal.ServerData;
+import cz.wake.craftcore.spigot.utils.Log;
 
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalField;

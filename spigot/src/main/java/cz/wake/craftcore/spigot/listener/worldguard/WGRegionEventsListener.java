@@ -1,11 +1,11 @@
-package cz.wake.craftcore.listener.worldguard;
+package cz.wake.craftcore.spigot.listener.worldguard;
 
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.ApplicableRegionSet;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
-import cz.wake.craftcore.Main;
-import cz.wake.craftcore.events.worldguard.*;
+import cz.wake.craftcore.spigot.Main;
+import cz.wake.craftcore.spigot.events.worldguard.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

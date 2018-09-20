@@ -1,4 +1,4 @@
-package cz.wake.craftcore.inventory.content;
+package cz.wake.craftcore.spigot.inventory.content;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

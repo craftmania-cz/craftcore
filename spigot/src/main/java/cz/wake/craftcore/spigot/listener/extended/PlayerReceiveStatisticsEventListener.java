@@ -1,11 +1,11 @@
-package cz.wake.craftcore.listener.extended;
+package cz.wake.craftcore.spigot.listener.extended;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.WrappedStatistic;
-import cz.wake.craftcore.events.spigot.PlayerReceiveStatisticsEvent;
+import cz.wake.craftcore.spigot.events.spigot.PlayerReceiveStatisticsEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 

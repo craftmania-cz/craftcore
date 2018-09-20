@@ -1,15 +1,15 @@
-package cz.wake.craftcore.builders.hologram;
+package cz.wake.craftcore.spigot.builders.hologram;
 
-import cz.wake.craftcore.annotations.AnnotationHandler;
-import cz.wake.craftcore.annotations.PlayerCleaner;
-import cz.wake.craftcore.utils.Group;
-import cz.wake.craftcore.protocol.EntityDestroy;
-import cz.wake.craftcore.protocol.EntityTeleport;
-import cz.wake.craftcore.protocol.LivingEntitySpawn;
-import cz.wake.craftcore.protocol.PacketBuilder;
-import cz.wake.craftcore.utils.CommonUtils;
-import cz.wake.craftcore.utils.GameVersion;
-import cz.wake.craftcore.utils.reflections.ReflectionUtils;
+import cz.wake.craftcore.core.annotations.AnnotationHandler;
+import cz.wake.craftcore.spigot.annotations.PlayerCleaner;
+import cz.wake.craftcore.core.utils.Group;
+import cz.wake.craftcore.spigot.protocol.EntityDestroy;
+import cz.wake.craftcore.spigot.protocol.EntityTeleport;
+import cz.wake.craftcore.spigot.protocol.LivingEntitySpawn;
+import cz.wake.craftcore.spigot.protocol.PacketBuilder;
+import cz.wake.craftcore.core.utils.CommonUtils;
+import cz.wake.craftcore.spigot.utils.GameVersion;
+import cz.wake.craftcore.spigot.utils.reflections.ReflectionUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

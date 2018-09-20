@@ -1,4 +1,4 @@
-package cz.wake.craftcore.internal.exceptions;
+package cz.wake.craftcore.spigot.internal.exceptions;
 
 public class FileDirectoryException extends Exception {
     private static final long serialVersionUID = 3691439344307857655L;

@@ -1,4 +1,4 @@
-package cz.wake.craftcore.inventory;
+package cz.wake.craftcore.spigot.inventory;
 
 public enum EquipSlot {
     MAINHAND,

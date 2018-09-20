@@ -1,10 +1,10 @@
-package cz.wake.craftcore.builders.books;
+package cz.wake.craftcore.spigot.builders.books;
 
-import cz.wake.craftcore.builders.items.ItemBuilder;
-import cz.wake.craftcore.nbt.NBTCompound;
-import cz.wake.craftcore.nbt.NBTLoader;
-import cz.wake.craftcore.utils.ChatUtils;
-import cz.wake.craftcore.utils.CommonUtils;
+import cz.wake.craftcore.spigot.builders.items.ItemBuilder;
+import cz.wake.craftcore.spigot.nbt.NBTCompound;
+import cz.wake.craftcore.spigot.nbt.NBTLoader;
+import cz.wake.craftcore.spigot.utils.ChatUtils;
+import cz.wake.craftcore.core.utils.CommonUtils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 

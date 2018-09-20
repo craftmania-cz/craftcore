@@ -1,6 +1,6 @@
-package cz.wake.craftcore.builders.border;
+package cz.wake.craftcore.spigot.builders.border;
 
-import cz.wake.craftcore.Main;
+import cz.wake.craftcore.spigot.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;

@@ -1,6 +1,6 @@
-package cz.wake.craftcore.utils.files;
+package cz.wake.craftcore.spigot.utils.files;
 
-import cz.wake.craftcore.internal.exceptions.FileDirectoryException;
+import cz.wake.craftcore.spigot.internal.exceptions.FileDirectoryException;
 
 import java.io.File;
 

@@ -29,7 +29,7 @@ validate:
 build:
   stage: build
   script:
-    - ./gradlew build
+    - ./gradlew spigot:build
   artifacts:
     expire_in: 1 week
     paths:

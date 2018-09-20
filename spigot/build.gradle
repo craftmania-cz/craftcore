@@ -4,6 +4,7 @@ repositories {
 
 dependencies {
     compile project(':main')
+    compile project(':bungee')
     compileOnly 'com.comphenix.protocol:ProtocolLib-API:4.4.0-SNAPSHOT'
     compileOnly ('org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT') {
         exclude group: 'net.md-5'
@@ -37,8 +38,9 @@ apply plugin: 'com.github.johnrengelman.shadow'
 shadowJar {
     dependencies {
         include(dependency(':main'))
+        include(dependency(':bungee'))
     }
-    archiveName = "${parent.name}-${project.name}-${parent.version}.jar"
+    archiveName = "${parent.name}-${parent.version}.jar"
     destinationDir = file '../target'
 }
 

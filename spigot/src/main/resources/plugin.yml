@@ -2,6 +2,6 @@ name: CraftCore
 version: 1.1.0
 description: API for Craftmania.cz
 author: MrWakeCZ
-main: cz.wake.craftcore.Main
+main: cz.wake.craftcore.spigot.Main
 depend: [Multiverse-Core]
 softdepend: [ProtocolLib,WorldGuard]

@@ -4,6 +4,18 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
 }
 
+clean { delete "../target" }
+
 compileJava {
     options.encoding = "UTF-8"
 }
+
+apply plugin: 'com.github.johnrengelman.shadow'
+// We only want the shadow jar produced
+
+shadowJar {
+    archiveName = "${parent.name}-${parent.version}.jar"
+    destinationDir = file '../target'
+}
+
+build.dependsOn(shadowJar)

@@ -18,7 +18,6 @@ clean { delete 'build' }
 apply plugin: 'maven'
 
 group = 'cz.wake.craftcore'
-version = '1.1.0'
 
 description = """"""
 
@@ -34,55 +33,18 @@ task setupCIWorkspace {
 }
 
 def revision = ""
-def buildNumber = ""
-def semver = ""
-def date = ""
+def semver = "1.1.0"
 ext {
     try {
         git = org.ajoberstar.grgit.Grgit.open(file(".git"))
         date = git.head().date.format("yy.MM.dd")
         revision = "-${git.head().abbreviatedId}"
-        parents = git.head().parentIds;
-        index = -96;  // Offset to match CI
-        int major, minor, patch;
-        major = minor = patch = 0;
-        for (; parents != null && !parents.isEmpty(); index++) {
-            int majorCount, minorCount, patchCount;
-            patchCount = minor == 0 && major == 0 ? 1 : 0;
-            commit = git.getResolve().toCommit(parents.get(0));
-            for (String line : commit.fullMessage.tokenize("\n")) {
-                switch (line.replaceAll("- ", "").split(" ")[0].toLowerCase()) {
-                    case "minor":
-                    case "added":
-                    case "add":
-                    case "change":
-                    case "changed":
-                    case "changes":
-                        if (major == 0) {
-                            minorCount = 1; patchCount = 0;
-                        }
-                        break;
-                    case "refactor":
-                    case "remove":
-                    case "major":
-                        patchCount = minorCount = 0;
-                        majorCount = 1;
-                        break;
-                }
-            }
-            major += majorCount;
-            minor += minorCount;
-            patch += patchCount;
-            parents = commit.getParentIds()
-        }
-        buildNumber = "-${index}"
-        semver = "-${major}.${minor}.${patch}"
     } catch (Throwable ignore) {
         revision = "unknown";
     }
 }
 
-version = date + revision + buildNumber + semver
+version = semver + revision;
 if ( project.hasProperty("lzNoVersion") ) { // gradle build -PlzNoVersion
     version = "unknown";
 }

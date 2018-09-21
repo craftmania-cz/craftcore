@@ -29,7 +29,6 @@ processResources {
                 version: project.parent.version
         )
     }
-
 }
 
 apply plugin: 'com.github.johnrengelman.shadow'

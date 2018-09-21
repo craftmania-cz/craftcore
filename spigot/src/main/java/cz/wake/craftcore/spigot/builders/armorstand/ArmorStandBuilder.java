@@ -132,6 +132,7 @@ public class ArmorStandBuilder extends PacketBuilder<ArmorStandBuilder> {
 
     /**
      * Teleports this armor stand to a new location
+     * @param location Location where will be ArmorStand teleported
      *
      * @return this object
      */

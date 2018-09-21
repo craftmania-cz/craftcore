@@ -25,6 +25,8 @@ public class ServerUtils {
 
     /**
      * Gets all specified entities by their class over the server
+     * @param <E> Entity type
+     * @param c Entity class
      *
      * @return list of entities
      */

@@ -7,10 +7,12 @@ buildscript {
     dependencies {
         classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
         classpath 'org.ajoberstar:grgit:1.7.0'
+        classpath 'com.netflix.nebula:gradle-aggregate-javadocs-plugin:2.2.+'
     }
 }
 
 apply plugin: 'java'
+apply plugin: 'nebula-aggregate-javadocs'
 
 clean { delete 'target' }
 clean { delete 'build' }

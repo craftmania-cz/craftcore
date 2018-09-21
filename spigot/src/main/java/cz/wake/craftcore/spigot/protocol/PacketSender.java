@@ -22,7 +22,7 @@ public class PacketSender {
     /**
      * Creates PacketSender instance
      *
-     * @param array this can be an array of packets, an array of packet senders, an array of collection which contains elements as packets or packet senders. You can also mix different types<br> Ex: #PacketSender(list<Packet>, Collection<PacketSender>, Packet, PacketSender, Packet[])
+     * @param array this can be an array of packets, an array of packet senders, an array of collection which contains elements as packets or packet senders. You can also mix different types<br>
      */
     public PacketSender(Object... array) {
         List<Object> packets = new ArrayList<>();

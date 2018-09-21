@@ -167,6 +167,7 @@ public class NPCBuilder extends PacketBuilder<NPCBuilder> {
 
     /**
      * Teleports this NPC to a new location
+     * @param location Selected location where will be NPC teleported
      *
      * @return this object
      */

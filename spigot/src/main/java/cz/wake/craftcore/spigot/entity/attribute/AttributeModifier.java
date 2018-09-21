@@ -13,19 +13,16 @@ public class AttributeModifier {
     public enum Operation {
         /**
          * Adds (or subtracts) its amount to the base value of the attribute.<br>
-         * <base value 1> + <base value 2> + <attribute amount>
          */
         ADD(0),
         /**
          * Sums all amount of modifiers which has this operation, and calls as x.<br>
          * After that multiplies the base value of the attribute with (x + 1).
-         * (<base value 1> + <base value 2> + 1) * <attribute amount>
          */
         MULTIPLY(1),
         /**
          * For every modifier which has this operation, sums by (x + 1) where x is the amount of that modifier.<br>
          * After that multiplies each those results together and also multiplies with the base value of the <br>attribute.
-         * (<base value 1> + 1) + (<base value 2> + 1) * <attribute amount>
          */
         MULTIPLY_ALL(2);
 

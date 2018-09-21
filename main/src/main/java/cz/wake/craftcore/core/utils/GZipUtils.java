@@ -18,6 +18,7 @@ public class GZipUtils {
     /**
      * Compresses the given byte array
      * @param data the byte array
+     * @throws IOException IOException
      * @return the compressed byte array
      */
     public static byte[] compress(byte[] data) throws IOException {
@@ -32,6 +33,7 @@ public class GZipUtils {
     /**
      * Decompresses the given compressed byte array
      * @param compressedData the compressed byte array
+     * @throws IOException IOException
      * @return the byte array
      */
     public static byte[] decompress(final byte[] compressedData) throws IOException {

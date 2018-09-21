@@ -34,6 +34,7 @@ public enum GameVersion {
 
     /**
      * Gets current Minecraft version of this server
+     * @return Version of server
      */
     public static GameVersion getVersion() {
         return version;

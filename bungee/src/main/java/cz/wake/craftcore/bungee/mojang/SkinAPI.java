@@ -41,6 +41,7 @@ public class SkinAPI {
      * Warning: The limit request is 1 request/minute
      * @param player the unique id of the skin owner
      * @param cachedTime the cached time
+     * @throws Exception Exception
      * @return the CachedSkin object
      */
     public static CachedSkin downloadSkin(UUID player, int cachedTime) throws Exception {
@@ -52,6 +53,7 @@ public class SkinAPI {
      * Gets a cached skin.<br>
      * It will download a new one if the skin doesn't exist.
      * @param player the unique id of the skin owner
+     * @throws Exception Exception
      * @return the CachedSkin object
      */
     public static CachedSkin getSkin(UUID player) throws Exception {
@@ -66,6 +68,7 @@ public class SkinAPI {
      * It will download a new one if the skin doesn't exist.
      * @param player the unique id of the skin owner
      * @param cachedTime the cached time for the skin (only need when the skin doesn't exist)
+     * @throws Exception Exception
      * @return the CachedSkin object
      */
     public static CachedSkin getSkin(UUID player, int cachedTime) throws Exception {
@@ -87,6 +90,7 @@ public class SkinAPI {
      * Forces renew an existed cached skin.<br>
      * Warning: all changes are temporary and will be removed when the plugin loads
      * @param player the unique id of the skin owner
+     * @throws Exception Exception
      * @return the new CachedSkin object
      */
     public static CachedSkin renewSkin(UUID player) throws Exception {

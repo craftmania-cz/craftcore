@@ -12,6 +12,7 @@ public class RandomUtils {
     /**
      * Picks a random element from the given list
      *
+     * @param <X> Element
      * @param list the list
      * @return the random element in that list
      */
@@ -25,6 +26,7 @@ public class RandomUtils {
     /**
      * Picks a random element from the given array
      *
+     * @param <X> Element
      * @param array the array
      * @return the random element in that array
      */

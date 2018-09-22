@@ -1,0 +1,77 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.3'
+        classpath 'org.ajoberstar:grgit:1.7.0'
+        classpath 'com.netflix.nebula:gradle-aggregate-javadocs-plugin:2.2.+'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'nebula-aggregate-javadocs'
+
+clean { delete 'target' }
+clean { delete 'build' }
+
+apply plugin: 'maven'
+
+group = 'cz.wake.craftcore'
+
+description = """"""
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+task setupCIWorkspace {
+    // do nothing, stub method
+}
+
+def revision = ""
+def semver = "1.1.0"
+ext {
+    try {
+        git = org.ajoberstar.grgit.Grgit.open(file(".git"))
+        date = git.head().date.format("yy.MM.dd")
+        revision = "-${git.head().abbreviatedId}"
+    } catch (Throwable ignore) {
+        revision = "unknown";
+    }
+}
+
+version = semver + revision;
+if ( project.hasProperty("lzNoVersion") ) { // gradle build -PlzNoVersion
+    version = "unknown";
+}
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    compileJava {
+        options.compilerArgs += ["-parameters"]
+    }
+
+    repositories {
+        maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
+        maven { url "http://repo.dmulloy2.net/nexus/repository/public/" }
+        maven { url "http://maven.sk89q.com/repo/" }
+        maven { url "http://repo.maven.apache.org/maven2" }
+        maven { url "https://repo.destroystokyo.com/repository/maven-public//" }
+        maven { url "http://ci.emc.gs/nexus/content/groups/aikar/" }
+        maven { url "http://repo.md-5.net/content/repositories/snapshots/"}
+    }
+}

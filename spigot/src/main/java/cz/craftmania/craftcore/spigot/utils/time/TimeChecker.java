@@ -3,7 +3,7 @@ package cz.craftmania.craftcore.spigot.utils.time;
 import cz.craftmania.craftcore.spigot.Main;
 import cz.craftmania.craftcore.spigot.events.time.*;
 import cz.craftmania.craftcore.spigot.internal.ServerData;
-import cz.craftmania.craftcore.spigot.utils.Log;
+import cz.craftmania.craftcore.spigot.utils.CoreLogger;
 
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalField;
@@ -37,7 +37,7 @@ public class TimeChecker {
     }
 
     public void forceChanged(TimeType time, boolean fake) {
-        Log.withPrefix("Vyzadana zmena casu: " + time.toString());
+        CoreLogger.withPrefix("Vyzadana zmena casu: " + time.toString());
         PreDateChangedEvent preDateChanged = new PreDateChangedEvent(time);
         preDateChanged.setFake(fake);
         Main.getInstance().getServer().getPluginManager().callEvent(preDateChanged);
@@ -59,7 +59,7 @@ public class TimeChecker {
         dateChanged.setFake(fake);
         Main.getInstance().getServer().getPluginManager().callEvent(dateChanged);
 
-        Log.withPrefix("Zmena casu byla dokoncena: " + time.toString());
+        CoreLogger.withPrefix("Zmena casu byla dokoncena: " + time.toString());
     }
 
     public LocalDateTime getTime() {

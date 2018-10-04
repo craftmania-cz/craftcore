@@ -14,7 +14,7 @@ import cz.craftmania.craftcore.spigot.nms.NMSManager;
 import cz.craftmania.craftcore.spigot.nms.NMSPackages;
 import cz.craftmania.craftcore.spigot.tasks.CachedSkinTask;
 import cz.craftmania.craftcore.spigot.tasks.TpsPollerTask;
-import cz.craftmania.craftcore.spigot.utils.Log;
+import cz.craftmania.craftcore.spigot.utils.CoreLogger;
 import cz.craftmania.craftcore.spigot.utils.effects.FireworkHandler;
 import cz.craftmania.craftcore.spigot.utils.mojang.SkinAPI;
 import cz.craftmania.craftcore.spigot.utils.time.TimeChecker;
@@ -28,6 +28,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -43,6 +45,7 @@ public final class Main extends JavaPlugin {
     public final static File ROOT_FOLDER = new File("plugins/CraftCore/");
     public final static File SKINS_FOLDER = new File(ROOT_FOLDER, "skins/");
     public final static File CONFIG_FILE = new File(ROOT_FOLDER, "src/main/resources/config.yml");
+    private static CoreLogger coreLogger;
     private static List<Player> effectPlayers = new ArrayList<>();
     private int timeHourOffSet = 0;
     private boolean timerLoaded = false;
@@ -65,23 +68,26 @@ public final class Main extends JavaPlugin {
         // Instance
         instance = this;
 
+        // Logger
+        coreLogger = new CoreLogger();
+
         // Logo
         startupLogo();
 
         // Config
-        Log.withPrefix("Generovani a nacitani configuracnich souboru...");
+        getCoreLogger().info("Generovani a nacitani configuracnich souboru...");
         new DirectoryManager(ROOT_FOLDER).mkdirs();
         new DirectoryManager(SKINS_FOLDER).mkdirs();
         getConfig().options().copyDefaults(true);
         saveDefaultConfig();
 
         // Register eventu a prikazu
-        Log.withPrefix("Nacitani prikazu a listeneru...");
+        getCoreLogger().info("Nacitani prikazu a listeneru...");
         loadListeners();
         loadCommands();
 
         // Load NMS Packages
-        Log.withPrefix("Nacitani NMS Packages...");
+        getCoreLogger().info("Nacitani NMS Packages...");
         loadNMSPackages();
 
         // Timer + events
@@ -89,7 +95,7 @@ public final class Main extends JavaPlugin {
         loadBackgroundTimer(2);
 
         // Server data
-        Log.withPrefix("Nacitani internich API...");
+        getCoreLogger().info("Nacitani internich API...");
         ServerData.getInstance().setup();
         ServerData.getInstance().setPluginVersion(this);
         new SkinAPI();
@@ -102,19 +108,19 @@ public final class Main extends JavaPlugin {
         // WorldGuard Addons
         if (getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
             WorldGuardRegister.registerWorldGuard();
-            Log.withPrefix("Detekce WorldGuard");
-            Log.withPrefix("Pridavne Eventy byly aktivovany!");
+            getCoreLogger().info("Detekce WorldGuard");
+            getCoreLogger().info("Pridavne Eventy byly aktivovany!");
         } else {
-            Log.withPrefix(ChatColor.RED + "WorldGuard neni detekovan! Eventy nebudou aktivni!");
+            getCoreLogger().error(ChatColor.RED + "WorldGuard neni detekovan! Eventy nebudou aktivni!");
         }
 
         // Bungee ID z configu
         idServer = getConfig().getString("server");
-        Log.withPrefix("Server zaevidovany jako: " + idServer);
+        getCoreLogger().info("Server zaevidovany jako: " + idServer);
 
         //Detekce TPS
         if (getConfig().getBoolean("tps-detector", false)) {
-            Log.withPrefix("Detekce TPS byla zapnuta.");
+            getCoreLogger().info("Detekce TPS byla zapnuta.");
             Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new TpsPollerTask(), 100L, 1L);
         }
 
@@ -157,16 +163,17 @@ public final class Main extends JavaPlugin {
         pm.registerEvents(new PlayerCleanerListener(), this);
 
         if (getConfig().getBoolean("packet_handler", true)) {
+            getCoreLogger().info("Registrace Packet listeneru!");
             getServer().getPluginManager().registerEvents(new PacketListener(), this);
         }
 
         AnnotationHandler.register(NPCInteractEventListener.class, null);
 
         if (pm.isPluginEnabled("ProtocolLib")) {
+            getCoreLogger().info("Registrace Packet eventu s ProtocolLibs.");
             ProtocolLibsRegister.registerPacketListeners();
-            Log.withPrefix("Registrace Packet eventu s ProtocolLibs.");
         } else {
-            Log.withPrefix(ChatColor.RED + "Registrace Packet eventu je deaktivovana! Chybi ProtocolLibs!");
+            getCoreLogger().error("Registrace Packet eventu je deaktivovana! Chybi ProtocolLibs!");
         }
     }
 
@@ -178,12 +185,12 @@ public final class Main extends JavaPlugin {
     }
 
     private void startupLogo() {
-        Log.normalMessage("   ______           ______  ______              ");
-        Log.normalMessage("  / ____/________ _/ __/ /_/ ____/___  ________ ");
-        Log.normalMessage(" / /   / ___/ __ `/ /_/ __/ /   / __ \\/ ___/ _ \\");
-        Log.normalMessage("/ /___/ /  / /_/ / __/ /_/ /___/ /_/ / /  /  __/");
-        Log.normalMessage("\\____/_/   \\__,_/_/  \\__/\\____/\\____/_/   \\___/ ");
-        Log.normalMessage("                                                ");
+        Bukkit.getConsoleSender().sendMessage("   ______           ______  ______              ");
+        Bukkit.getConsoleSender().sendMessage("  / ____/________ _/ __/ /_/ ____/___  ________ ");
+        Bukkit.getConsoleSender().sendMessage(" / /   / ___/ __ `/ /_/ __/ /   / __ \\/ ___/ _ \\");
+        Bukkit.getConsoleSender().sendMessage("/ /___/ /  / /_/ / __/ /_/ /___/ /_/ / /  /  __/");
+        Bukkit.getConsoleSender().sendMessage("\\____/_/   \\__,_/_/  \\__/\\____/\\____/_/   \\___/ ");
+        Bukkit.getConsoleSender().sendMessage("                                                ");
     }
 
     public List<Player> getEffectPlayers() {
@@ -230,7 +237,7 @@ public final class Main extends JavaPlugin {
                 }
             }, 60000, minutes * 60000L);
         } else {
-            Log.withPrefix("Timer je jiz nacten!");
+            getCoreLogger().warn("Timer je jiz nacten!");
         }
     }
 
@@ -243,18 +250,26 @@ public final class Main extends JavaPlugin {
             final Class<?> forName = Class.forName("cz.wake.craftcore.nms.packages." + NMSManager.getVersion());
             if (NMSPackages.class.isAssignableFrom(forName)) {
                 getInstance().nms = (NMSPackages) forName.getConstructor((Class<?>[]) new Class[0]).newInstance(new Object[0]);
-                Log.withPrefix("Detekovana NMS verze: " + NMSManager.getVersion());
+                getCoreLogger().info("Detekovana NMS verze: " + NMSManager.getVersion());
             } else {
-                Log.withPrefix("Nepodarilo se detekovat verzi NMS! Nektere funkce budou vypnuty!");
+                getCoreLogger().warn("Nepodarilo se detekovat verzi NMS! Nektere funkce budou vypnuty!");
                 getInstance().nms = null;
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex5) {
-            Log.withPrefix(ChatColor.RED + "NMS (" + NMSManager.getVersion() + ") nejsou kompatibilni s touto verzi serveru! Zkontroluj update CraftCore nebo pockej na opravu.");
+            getCoreLogger().error("NMS (" + NMSManager.getVersion() + ") nejsou kompatibilni s touto verzi serveru! Zkontroluj update CraftCore nebo pockej na opravu.");
             getInstance().nms = null;
         }
     }
 
     public static InventoryManager getInvManager() {
         return invManager;
+    }
+
+    /**
+     * Get basic Core logger for console messages
+     * @return Logger instance
+     */
+    public static CoreLogger getCoreLogger() {
+        return coreLogger;
     }
 }

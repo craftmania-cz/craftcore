@@ -37,7 +37,7 @@ public class TimeChecker {
     }
 
     public void forceChanged(TimeType time, boolean fake) {
-        CoreLogger.withPrefix("Vyzadana zmena casu: " + time.toString());
+        Main.getCoreLogger().info("Vyzadana zmena casu: " + time.toString());
         PreDateChangedEvent preDateChanged = new PreDateChangedEvent(time);
         preDateChanged.setFake(fake);
         Main.getInstance().getServer().getPluginManager().callEvent(preDateChanged);
@@ -59,7 +59,7 @@ public class TimeChecker {
         dateChanged.setFake(fake);
         Main.getInstance().getServer().getPluginManager().callEvent(dateChanged);
 
-        CoreLogger.withPrefix("Zmena casu byla dokoncena: " + time.toString());
+        Main.getCoreLogger().info("Zmena casu byla dokoncena: " + time.toString());
     }
 
     public LocalDateTime getTime() {

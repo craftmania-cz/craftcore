@@ -3,14 +3,21 @@ repositories {
 }
 
 dependencies {
+
+    // Core modules
     compile project(':main')
     compile project(':bungee')
+
+    // Plugin dependency
+    compile 'org.jetbrains:annotations:16.0.3'
     compileOnly 'com.comphenix.protocol:ProtocolLib-API:4.4.0-SNAPSHOT'
     compileOnly ('org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT') {
         exclude group: 'net.md-5'
     }
     compileOnly 'org.bukkit:bukkit:1.12.2-R0.1-SNAPSHOT'
     compileOnly 'com.sk89q:worldguard:6.0.0-SNAPSHOT'
+
+    // Spigot dependency
     compileOnly name: 'spigot-1.11.2'
     compileOnly name: 'spigot-1.12.2'
     compileOnly name: 'spigot-1.13.0'

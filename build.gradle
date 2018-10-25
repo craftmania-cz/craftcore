@@ -2,6 +2,7 @@ buildscript {
     repositories {
         mavenCentral()
         maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url = "https://packages.craftmania.cz/service/rest/repository/browse/craftmania/" }
         jcenter()
     }
     dependencies {
@@ -19,7 +20,7 @@ clean { delete 'build' }
 
 apply plugin: 'maven'
 
-group = 'cz.cratmania.craftcore'
+group = 'cz.craftmania.craftcore'
 
 description = """"""
 
@@ -34,28 +35,54 @@ task setupCIWorkspace {
     // do nothing, stub method
 }
 
-def revision = ""
-def semver = "2.0.0"
+def mainVersion = "2.0.2"
+def branch = "?"
+def gitId = ""
+
 ext {
     try {
         git = org.ajoberstar.grgit.Grgit.open(file(".git"))
         date = git.head().date.format("yy.MM.dd")
-        revision = "-${git.head().abbreviatedId}"
+        //gitId = "-${git.head().abbreviatedId}"
+        gitId = "-SNAPSHOT"
     } catch (Throwable ignore) {
-        revision = "unknown";
+        gitId = "-unknown"
+    }
+    try {
+        git = org.ajoberstar.grgit.Grgit.open(file(".git"))
+        date = git.head().date.format("yy.MM.dd")
+        branch = "-${git.branch.current.name}"
+        print(branch)
+        if (branch.toString().equalsIgnoreCase("-master")) {
+            branch = ""
+            gitId = ""
+        }
+    } catch (Throwable ignore) {
+        branch = "-unknown"
     }
 }
 
-version = semver + revision;
-if ( project.hasProperty("lzNoVersion") ) { // gradle build -PlzNoVersion
-    version = "unknown";
+// Name-master-76735d.jar
+version = mainVersion + branch + gitId
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "${nexusUrl}/repository/release") {
+                authentication(userName: nexusUsername, password: nexusPassword)
+            }
+            snapshotRepository(url: "${nexusUrl}/repository/snapshots") {
+                authentication(userName: nexusUsername, password: nexusPassword)
+            }
+        }
+    }
 }
 
 subprojects {
 
     apply plugin: 'java'
     apply plugin: 'maven'
-    apply plugin: 'eclipse'
+    apply plugin: 'eclipse' 
     apply plugin: 'idea'
 
     sourceCompatibility = 1.8
@@ -73,5 +100,6 @@ subprojects {
         maven { url "https://repo.destroystokyo.com/repository/maven-public//" }
         maven { url "http://ci.emc.gs/nexus/content/groups/aikar/" }
         maven { url "http://repo.md-5.net/content/repositories/snapshots/"}
+        maven { url "https://packages.craftmania.cz/service/rest/repository/browse/craftmania/" }
     }
 }

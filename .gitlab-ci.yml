@@ -4,8 +4,8 @@ stages:
 - validate
 - build
 - review
+- deploy
 - pages
-#- deploy
 
 before_script:
 #  - echo `pwd` # debug
@@ -58,6 +58,13 @@ pages:
       - public
   only:
     - tags
+
+packages:
+  stage: deploy
+  script:
+    - "echo PACKAGES_USER=$PACKAGES_USER >> gradle.properties"
+    - "echo PACKAGES_PASSWORD=$PACKAGES_PASSWORD >> gradle.properties"
+    - ./gradlew uploadArchives
 
 dependency_scanning:
   image: docker:stable

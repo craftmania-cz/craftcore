@@ -19,7 +19,7 @@ clean { delete 'build' }
 
 apply plugin: 'maven'
 
-group = 'cz.wake.craftcore'
+group = 'cz.cratmania.craftcore'
 
 description = """"""
 

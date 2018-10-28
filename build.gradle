@@ -28,7 +28,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 tasks.withType(JavaCompile) {
-	options.encoding = 'UTF-8'
+    options.encoding = 'UTF-8'
 }
 
 task setupCIWorkspace {
@@ -51,9 +51,9 @@ ext {
     try {
         git = org.ajoberstar.grgit.Grgit.open(file(".git"))
         date = git.head().date.format("yy.MM.dd")
-        branch = "-${git.branch.current.name}"
+        branch = "-${git.branch.current.fullName}".replace("refs/heads/", "")
         print(branch)
-        if (branch.toString().equalsIgnoreCase("-master")) {
+        if (branch.toString().equalsIgnoreCase("-master") || branch.toString().equalsIgnoreCase("-head")) {
             branch = ""
             gitId = ""
         }
@@ -82,7 +82,7 @@ subprojects {
 
     apply plugin: 'java'
     apply plugin: 'maven'
-    apply plugin: 'eclipse' 
+    apply plugin: 'eclipse'
     apply plugin: 'idea'
 
     sourceCompatibility = 1.8

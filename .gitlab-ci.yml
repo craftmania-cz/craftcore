@@ -10,9 +10,9 @@ stages:
 before_script:
 #  - echo `pwd` # debug
 #  - echo "$CI_BUILD_NAME, $CI_BUILD_REF_NAME $CI_BUILD_STAGE" # debug
- - export GRADLE_USER_HOME=`pwd`/.gradle
- - rm -f  .gradle/caches/modules-2/modules-2.lock
- - rm -fr .gradle/caches/*/plugin-resolution/
+- export GRADLE_USER_HOME=`pwd`/.gradle
+- rm -f  .gradle/caches/modules-2/modules-2.lock
+- rm -fr .gradle/caches/*/plugin-resolution/
 
 # Cache downloaded dependencies and plugins between builds.
 cache:
@@ -24,50 +24,59 @@ cache:
 validate:
   stage: validate
   script:
-    - ./gradlew check
+  - ./gradlew check
 
 build:
   stage: build
   script:
-    - ./gradlew clean
-    - ./gradlew spigot:build
+  - ./gradlew clean
+  - ./gradlew spigot:build
   artifacts:
     expire_in: 1 week
     paths:
-      - target/*.jar
+    - target/*.jar
 
 javadoc:
   stage: build
   script:
-    - ./gradlew aggregateJavadoc
+  - ./gradlew aggregateJavadoc
   artifacts:
     expire_in: 1 week
     paths:
-      - build/docs/javadoc/*
+    - build/docs/javadoc/*
   only:
-    - tags
+  - tags
 
 pages:
   stage: pages
   script:
-    - 'mkdir .public'
-    - 'cp -r build/docs/javadoc/ public'
-    - 'mv .public public'
+  - 'mkdir .public'
+  - 'cp -r build/docs/javadoc/ public'
+  - 'mv .public public'
   artifacts:
-      paths:
-      - public
+    paths:
+    - public
   only:
-    - tags
+  - tags
+
+snapshots:
+  stage: deploy
+  script:
+  - './gradlew uploadArchives -PnexusUsername=$PACKAGES_USER -PnexusPassword=$PACKAGES_PASSWORD'
+  only:
+  - branches
+  except:
+  - master@craftmania/CraftCore
 
 packages:
   stage: deploy
   script:
-    - './gradlew uploadArchives -PnexusUsername=$PACKAGES_USER -PnexusPassword=$PACKAGES_PASSWORD'
-  when: manual
+  - './gradlew uploadArchives -PnexusUsername=$PACKAGES_USER -PnexusPassword=$PACKAGES_PASSWORD'
+  only:
+  - tags
 
 codacy:
   stage: review
   script:
-    - curl https://api.codacy.com/events/push/f22629ed146d4b719b97be48589f6ab3
+  - curl https://api.codacy.com/events/push/f22629ed146d4b719b97be48589f6ab3
   allow_failure: false
-

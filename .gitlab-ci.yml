@@ -63,6 +63,7 @@ packages:
   stage: deploy
   script:
     - './gradlew uploadArchives -PnexusUsername=$PACKAGES_USER -PnexusPassword=$PACKAGES_PASSWORD'
+  when: manual
 
 codacy:
   stage: review

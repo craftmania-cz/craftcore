@@ -35,7 +35,7 @@ task setupCIWorkspace {
     // do nothing, stub method
 }
 
-def mainVersion = "2.0.3"
+def mainVersion = "2.0.4"
 def branch = "?"
 def gitId = ""
 
@@ -76,6 +76,15 @@ uploadArchives {
             }
         }
     }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives sourcesJar
 }
 
 subprojects {

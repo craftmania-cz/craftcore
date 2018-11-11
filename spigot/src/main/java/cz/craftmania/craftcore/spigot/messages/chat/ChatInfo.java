@@ -1,5 +1,6 @@
 package cz.craftmania.craftcore.spigot.messages.chat;
 
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 /**
@@ -14,7 +15,7 @@ public class ChatInfo {
      * @param message Text of message
      */
     public static void info(Player player, String message) {
-        player.sendMessage("§7§l> §7" + message);
+        player.sendMessage(ChatColor.GRAY + "> " + ChatColor.GRAY + message);
     }
 
     /**
@@ -24,7 +25,7 @@ public class ChatInfo {
      * @param message Text of successful message
      */
     public static void success(Player player, String message) {
-        player.sendMessage("§a§l✔ §a" + message);
+        player.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + ">> " + ChatColor.GREEN + message);
     }
 
     /**
@@ -34,7 +35,7 @@ public class ChatInfo {
      * @param message Text of error message
      */
     public static void error(Player player, String message) {
-        player.sendMessage("§c§l✖ §c" + message);
+        player.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "[!!] " + ChatColor.RED  + message);
     }
 
     /**
@@ -44,7 +45,7 @@ public class ChatInfo {
      * @param message Text of warning message
      */
     public static void warning(Player player, String message) {
-        player.sendMessage("§6§l⚠ §6" + message);
+        player.sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "[!] " + ChatColor.GOLD + message);
     }
 
     /**
@@ -54,6 +55,6 @@ public class ChatInfo {
      * @param message Text of debug message
      */
     public static void debug(Player player, String message) {
-        player.sendMessage("§b§l… §b" + message);
+        player.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD + "[D] " + ChatColor.AQUA + message);
     }
 }

@@ -29,8 +29,8 @@ validate:
 build:
   stage: build
   script:
-  - ./gradlew clean
-  - ./gradlew spigot:build
+  - './gradlew clean'
+  - './gradlew build -PciBranch=$CI_COMMIT_REF_NAME'
   artifacts:
     expire_in: 1 week
     paths:
@@ -39,11 +39,11 @@ build:
 javadoc:
   stage: build
   script:
-  - ./gradlew aggregateJavadoc
+  - ./gradlew spigot:alljavadoc
   artifacts:
     expire_in: 1 week
     paths:
-    - build/docs/javadoc/*
+    - spigot/build/docs/javadoc/*
   only:
   - tags
 
@@ -51,7 +51,7 @@ pages:
   stage: pages
   script:
   - 'mkdir .public'
-  - 'cp -r build/docs/javadoc/ public'
+  - 'cp -r spigot/build/docs/javadoc/ public'
   - 'mv .public public'
   artifacts:
     paths:
@@ -59,21 +59,10 @@ pages:
   only:
   - tags
 
-snapshots:
-  stage: deploy
-  script:
-  - './gradlew uploadArchives -PnexusUsername=$PACKAGES_USER -PnexusPassword=$PACKAGES_PASSWORD'
-  only:
-  - branches
-  except:
-  - master@craftmania/CraftCore
-
 packages:
   stage: deploy
   script:
   - './gradlew uploadArchives -PnexusUsername=$PACKAGES_USER -PnexusPassword=$PACKAGES_PASSWORD'
-  only:
-  - tags
 
 codacy:
   stage: review

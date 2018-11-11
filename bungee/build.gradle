@@ -1,5 +1,17 @@
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'com.github.johnrengelman.shadow'
+
 repositories {
     flatDir {dirs 'lib'}
+    maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
+    maven { url "http://repo.dmulloy2.net/nexus/repository/public/" }
+    maven { url "http://maven.sk89q.com/repo/" }
+    maven { url "http://repo.maven.apache.org/maven2" }
+    maven { url "https://repo.destroystokyo.com/repository/maven-public//" }
+    maven { url "http://ci.emc.gs/nexus/content/groups/aikar/" }
+    maven { url "http://repo.md-5.net/content/repositories/snapshots/" }
+    maven { url "https://packages.craftmania.cz/service/rest/repository/browse/craftmania/" }
 }
 
 dependencies {
@@ -10,14 +22,11 @@ dependencies {
     compileOnly name: 'bungeecord-1-12'
 }
 
-clean { delete "../target" }
+clean { delete "build" }
 
 compileJava {
     options.encoding = "UTF-8"
 }
-
-apply plugin: 'com.github.johnrengelman.shadow'
-// We only want the shadow jar produced
 
 processResources {
     from('src/main/resources') {

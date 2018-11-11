@@ -1,17 +1,25 @@
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+apply plugin: 'com.github.johnrengelman.shadow'
+// We only want the shadow jar produced
+
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     compile 'org.apache.commons:commons-lang3:3.8'
     compile 'com.google.code.gson:gson:2.8.5'
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
 }
 
-clean { delete "../target" }
+clean { delete "build" }
 
 compileJava {
     options.encoding = "UTF-8"
 }
-
-apply plugin: 'com.github.johnrengelman.shadow'
-// We only want the shadow jar produced
 
 shadowJar {
     archiveName = "${parent.name}-${parent.version}.jar"

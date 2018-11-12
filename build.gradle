@@ -63,7 +63,7 @@ ext {
     } catch (Throwable ignore) {
         branch = "-unknown"
     }
-}
+} 
 
 // Name-master-76735d.jar
 allprojects {

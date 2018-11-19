@@ -32,7 +32,6 @@ dependencies {
     compileOnly 'com.sk89q:worldguard:6.0.0-SNAPSHOT'
 
     // Spigot dependency
-    compileOnly name: 'spigot-1.11.2'
     compileOnly name: 'spigot-1.12.2'
     compileOnly name: 'spigot-1.13.0'
 }

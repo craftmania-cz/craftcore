@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 /**
  * Represents a hologram implementation.
  */
-public class Hologram extends PacketBuilder<Hologram> {
+public class HologramBuilder extends PacketBuilder<HologramBuilder> {
 
     private LinkedHashMap<Integer, Object> entities = new LinkedHashMap<>();
     private LinkedList<String> lines = new LinkedList<>();
@@ -38,7 +38,7 @@ public class Hologram extends PacketBuilder<Hologram> {
      *
      * @param location the hologram location
      */
-    public Hologram(Location location) {
+    public HologramBuilder(Location location) {
         this.location = location;
         init();
     }
@@ -49,7 +49,7 @@ public class Hologram extends PacketBuilder<Hologram> {
      * @param location    the hologram location
      * @param lineSpacing the spacing between lines
      */
-    public Hologram(Location location, double lineSpacing) {
+    public HologramBuilder(Location location, double lineSpacing) {
         this.location = location;
         this.lineSpacing = lineSpacing;
         init();
@@ -62,7 +62,7 @@ public class Hologram extends PacketBuilder<Hologram> {
      * @param lineSpacing the spacing between lines
      * @param lines       the array of lines
      */
-    public Hologram(Location location, double lineSpacing, String... lines) {
+    public HologramBuilder(Location location, double lineSpacing, String... lines) {
         this.location = location;
         this.lineSpacing = lineSpacing;
         addLines(lines);
@@ -70,7 +70,7 @@ public class Hologram extends PacketBuilder<Hologram> {
     }
 
     private void init() {
-        AnnotationHandler.register(Hologram.class, this);
+        AnnotationHandler.register(HologramBuilder.class, this);
     }
 
     /**
@@ -79,7 +79,7 @@ public class Hologram extends PacketBuilder<Hologram> {
      * @param player the unique id of the viewer
      * @return this object
      */
-    public Hologram addViewer(UUID player) {
+    public HologramBuilder addViewer(UUID player) {
         Validate.notNull(packetSender, "You must use the method #buildPackets first!");
         this.viewers.add(player);
         add(player);
@@ -92,7 +92,7 @@ public class Hologram extends PacketBuilder<Hologram> {
      * @param player the unique id of viewer
      * @return this object
      */
-    public Hologram removeViewer(UUID player) {
+    public HologramBuilder removeViewer(UUID player) {
         remove(player);
         this.viewers.remove(player);
         return this;
@@ -113,7 +113,7 @@ public class Hologram extends PacketBuilder<Hologram> {
      * @param content a line
      * @return this object
      */
-    public Hologram addLine(String content) {
+    public HologramBuilder addLine(String content) {
         this.lines.addFirst(content);
         return this;
     }
@@ -124,7 +124,7 @@ public class Hologram extends PacketBuilder<Hologram> {
      * @param content array of lines
      * @return this object
      */
-    public Hologram addLines(String... content) {
+    public HologramBuilder addLines(String... content) {
         for (String cont : content) {
             addLine(cont);
         }
@@ -137,7 +137,7 @@ public class Hologram extends PacketBuilder<Hologram> {
      * @param index the index of a line
      * @return this object
      */
-    public Hologram removeLine(int index) {
+    public HologramBuilder removeLine(int index) {
         this.lines.remove(index);
         return this;
     }
@@ -184,7 +184,7 @@ public class Hologram extends PacketBuilder<Hologram> {
      * @param viewers a list contains unique ids of viewers
      * @return this object
      */
-    public Hologram setViewers(Set<UUID> viewers) {
+    public HologramBuilder setViewers(Set<UUID> viewers) {
         Validate.notNull(packetSender, "You must use the method #buildPackets first!");
         // sends holograms to new viewers
         Set<UUID> add = new HashSet<>(viewers); // clones
@@ -208,7 +208,7 @@ public class Hologram extends PacketBuilder<Hologram> {
      *
      * @return this object
      */
-    public Hologram teleport(Location location) {
+    public HologramBuilder teleport(Location location) {
         this.location = location;
         LinkedHashMap<Integer, Object> a = new LinkedHashMap<>();
         int i = 0;
@@ -239,7 +239,7 @@ public class Hologram extends PacketBuilder<Hologram> {
         return this;
     }
 
-    private Hologram add(UUID uuid) {
+    private HologramBuilder add(UUID uuid) {
         Player player = Bukkit.getServer().getPlayer(uuid);
         packetSender.sendPlayer(player);
         return this;
@@ -256,7 +256,7 @@ public class Hologram extends PacketBuilder<Hologram> {
             it.remove();
         }
         this.entities = new LinkedHashMap<>();
-        AnnotationHandler.unregister(Hologram.class, this);
+        AnnotationHandler.unregister(HologramBuilder.class, this);
     }
 
     private void remove(UUID p) {
@@ -268,7 +268,7 @@ public class Hologram extends PacketBuilder<Hologram> {
     @Override
     public boolean equals(Object o) {
         if (o != null && o.getClass() == this.getClass()) {
-            Hologram h = (Hologram) o;
+            HologramBuilder h = (HologramBuilder) o;
             return new EqualsBuilder()
                     .append(h.entities, this.entities)
                     .append(h.lines, this.lines)
@@ -288,7 +288,7 @@ public class Hologram extends PacketBuilder<Hologram> {
     }
 
     @Override
-    public Hologram buildPackets() {
+    public HologramBuilder buildPackets() {
         Location location = getLocation().clone()
                 .add(0, getLineSpacing() * getLines().size(), 0);
         for (String line : getLines()) {

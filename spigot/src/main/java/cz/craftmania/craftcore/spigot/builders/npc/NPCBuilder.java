@@ -6,6 +6,7 @@ import cz.craftmania.craftcore.spigot.protocol.*;
 import cz.craftmania.craftcore.core.annotations.AnnotationHandler;
 import cz.craftmania.craftcore.spigot.annotations.PlayerCleaner;
 import cz.craftmania.craftcore.core.utils.Group;
+import cz.craftmania.craftcore.spigot.utils.ClassFinder;
 import cz.craftmania.craftcore.spigot.utils.GameVersion;
 import cz.craftmania.craftcore.spigot.utils.reflections.ReflectionUtils;
 import cz.craftmania.craftcore.core.scheduler.DelayedTask;
@@ -247,66 +248,53 @@ public class NPCBuilder extends PacketBuilder<NPCBuilder> {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode(){
         return new HashCodeBuilder(17, 27)
                 .append(this.gameProfile).append(this.location).append(this.tablist).append(this.entity).append(this.viewers).toHashCode();
     }
 
     @Override
     public NPCBuilder buildPackets() {
-        String v = GameVersion.getVersion().toString();
-        if (this.entity != -1) {
+        if(this.entity != -1){
             remove();
         }
-        try {
-            Class<?> craftWorldServerClass = Class.forName("org.bukkit.craftbukkit." + v + ".CraftWorld");
-            Class<?> nmsWorldClass = Class.forName("net.minecraft.server." + v + ".World");
-            Class<?> nmsWorldServerClass = Class.forName("net.minecraft.server." + v + ".WorldServer");
-            Class<?> nmsEntityClass = Class.forName("net.minecraft.server." + v + ".Entity");
-            Class<?> nmsEntityPlayerClass = Class.forName("net.minecraft.server." + v + ".EntityPlayer");
-            Class<?> craftServerClass = Class.forName("org.bukkit.craftbukkit." + v + ".CraftServer");
-            Class<?> nmsServerClass = Class.forName("net.minecraft.server." + v + ".MinecraftServer");
-            Class<?> nmsPlayerInteractManagerClass = Class.forName("net.minecraft.server." + v + ".PlayerInteractManager");
-            Object craftServer = ReflectionUtils.cast(craftServerClass, Bukkit.getServer());
-            Object nmsServer = ReflectionUtils.getField("console", craftServerClass, craftServer);
-            Object craftWorldServer = ReflectionUtils.cast(craftWorldServerClass, location.getWorld());
-            Object nmsWorldServer = ReflectionUtils.getMethod("getHandle", craftWorldServerClass, craftWorldServer);
-            Object playerInteractManager = ReflectionUtils.getConstructor(nmsPlayerInteractManagerClass, new Group<>(
-                    new Class<?>[]{
-                            nmsWorldClass
-                    }, new Object[]{nmsWorldServer}
-            ));
-            this.nmsEntityPlayer = ReflectionUtils.getConstructor(nmsEntityPlayerClass, new Group<>(
-                    new Class<?>[]{
-                            nmsServerClass, nmsWorldServerClass, GameProfile.class, nmsPlayerInteractManagerClass
-                    }, new Object[]{
-                    nmsServer, nmsWorldServer, this.gameProfile, playerInteractManager
-            }
-            ));
-            ReflectionUtils.getMethod("setLocation", nmsEntityClass, nmsEntityPlayer, new Group<>(
-                    new Class<?>[]{
-                            double.class,
-                            double.class,
-                            double.class,
-                            float.class,
-                            float.class,
-                    }, new Object[]{
-                    location.getX(),
-                    location.getY(),
-                    location.getZ(),
-                    location.getYaw(),
-                    location.getPitch(),
-            }
-            ));
+        Object craftServer = ReflectionUtils.cast(ClassFinder.CB.CraftServer, Bukkit.getServer());
+        Object nmsServer = ReflectionUtils.getField("console", ClassFinder.CB.CraftServer, craftServer);
+        Object craftWorldServer = ReflectionUtils.cast(ClassFinder.CB.CraftWorld, location.getWorld());
+        Object nmsWorldServer = ReflectionUtils.getMethod("getHandle", ClassFinder.CB.CraftWorld, craftWorldServer);
+        Object playerInteractManager = ReflectionUtils.getConstructor(ClassFinder.NMS.PlayerInteractManager, new Group<>(
+                new Class<?>[]{
+                        ClassFinder.NMS.World
+                }, new Object[]{nmsWorldServer}
+        ));
+        this.nmsEntityPlayer = ReflectionUtils.getConstructor(ClassFinder.NMS.EntityPlayer, new Group<>(
+                new Class<?>[]{
+                        ClassFinder.NMS.MinecraftServer, ClassFinder.NMS.WorldServer, GameProfile.class, ClassFinder.NMS.PlayerInteractManager
+                }, new Object[]{
+                nmsServer, nmsWorldServer, this.gameProfile, playerInteractManager
+        }
+        ));
+        ReflectionUtils.getMethod("setLocation", ClassFinder.NMS.Entity, nmsEntityPlayer, new Group<>(
+                new Class<?>[]{
+                        double.class,
+                        double.class,
+                        double.class,
+                        float.class,
+                        float.class,
+                }, new Object[]{
+                location.getX(),
+                location.getY(),
+                location.getZ(),
+                location.getYaw(),
+                location.getPitch(),
+        }
+        ));
 
-            this.entity = (int) ReflectionUtils.getMethod("getId", nmsEntityClass, this.nmsEntityPlayer);
-            packets.add(PlayerInfo.create(PlayerInfo.Type.ADD_PLAYER, this.nmsEntityPlayer));
-            packets.add(NamedEntitySpawn.create(this.nmsEntityPlayer));
-            if (!this.tablist) {
-                tabListPacket = PlayerInfo.create(PlayerInfo.Type.REMOVE_PLAYER, nmsEntityPlayer);
-            }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        this.entity = (int) ReflectionUtils.getMethod("getId", ClassFinder.NMS.Entity, this.nmsEntityPlayer);
+        packets.add(PlayerInfo.create(PlayerInfo.Type.ADD_PLAYER, this.nmsEntityPlayer));
+        packets.add(NamedEntitySpawn.create(this.nmsEntityPlayer));
+        if(!this.tablist) {
+            tabListPacket = PlayerInfo.create(PlayerInfo.Type.REMOVE_PLAYER, nmsEntityPlayer);
         }
         createPacketSender();
         return this;

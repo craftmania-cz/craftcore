@@ -6,6 +6,7 @@ import cz.craftmania.craftcore.spigot.internal.ServerData;
 import cz.craftmania.craftcore.spigot.utils.CoreLogger;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.temporal.TemporalField;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
@@ -109,7 +110,7 @@ public class TimeChecker {
     public boolean hasWeekChanged() {
         int prevDate = ServerData.getInstance().getPrevWeekDay();
         LocalDateTime date = getTime();
-        TemporalField woy = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
+        TemporalField woy = WeekFields.of(Locale.FRANCE).weekOfWeekBasedYear();
         int weekNumber = date.get(woy);
         ServerData.getInstance().setPrevWeekDay(weekNumber);
         if (prevDate == -1) {

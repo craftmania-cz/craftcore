@@ -35,7 +35,7 @@ task setupCIWorkspace {
     // do nothing, stub method
 }
 
-def mainVersion = "2.0.10"
+def mainVersion = "2.0.11"
 def branch = ""
 def gitId = ""
 

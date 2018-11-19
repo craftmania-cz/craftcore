@@ -24,7 +24,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class ArmorStand extends PacketBuilder<ArmorStand> {
+public class ArmorStandBuilder extends PacketBuilder<ArmorStandBuilder> {
 
     private Object entity;
     private int id = -1;
@@ -57,13 +57,13 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
      *
      * @param location the location of the armor stand
      */
-    public ArmorStand(Location location) {
+    public ArmorStandBuilder(Location location) {
         this.location = location;
         init();
     }
 
     private void init() {
-        AnnotationHandler.register(ArmorStand.class, this);
+        AnnotationHandler.register(ArmorStandBuilder.class, this);
     }
 
     /**
@@ -72,7 +72,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
      * @param player the unique id of the viewer
      * @return this object
      */
-    public ArmorStand addViewer(UUID player) {
+    public ArmorStandBuilder addViewer(UUID player) {
         Validate.notNull(packetSender, "You must use the method #buildPackets first!");
         this.viewers.add(player);
         add(player);
@@ -85,7 +85,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
      * @param player the unique id of viewer
      * @return this object
      */
-    public ArmorStand removeViewer(UUID player) {
+    public ArmorStandBuilder removeViewer(UUID player) {
         remove(player);
         this.viewers.remove(player);
         return this;
@@ -115,7 +115,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
      * @param viewers a list contains unique ids of viewers
      * @return this object
      */
-    public ArmorStand setViewers(Set<UUID> viewers) {
+    public ArmorStandBuilder setViewers(Set<UUID> viewers) {
         Validate.notNull(packetSender, "You must use the method #buildPackets first!");
         // sends armor stands to new viewers
         Set<UUID> add = new HashSet<>(viewers); // clones
@@ -139,7 +139,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
      *
      * @return this object
      */
-    public ArmorStand teleport(Location location) {
+    public ArmorStandBuilder teleport(Location location) {
         this.location = location;
         ReflectionUtils.getMethod("setLocation", ClassFinder.NMS.Entity, entity, new Group<>(
                 new Class<?>[]{
@@ -160,7 +160,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return this;
     }
 
-    private ArmorStand add(UUID uuid) {
+    private ArmorStandBuilder add(UUID uuid) {
         Player player = Bukkit.getServer().getPlayer(uuid);
         packetSender.sendPlayer(player);
         return this;
@@ -182,7 +182,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         }
         entity = null;
         id = -1;
-        AnnotationHandler.unregister(ArmorStand.class, this);
+        AnnotationHandler.unregister(ArmorStandBuilder.class, this);
     }
 
     private void remove(UUID p) {
@@ -192,7 +192,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
     @Override
     public boolean equals(Object o) {
         if (o != null && o.getClass() == this.getClass()) {
-            ArmorStand h = (ArmorStand) o;
+            ArmorStandBuilder h = (ArmorStandBuilder) o;
             return new EqualsBuilder()
                     .append(h.location, this.location)
                     .append(h.viewers, this.viewers)
@@ -210,7 +210,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return helmet;
     }
 
-    public ArmorStand setHelmet(ItemStack helmet) {
+    public ArmorStandBuilder setHelmet(ItemStack helmet) {
         this.helmet = helmet;
         return this;
     }
@@ -219,7 +219,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return chestplate;
     }
 
-    public ArmorStand setChestplate(ItemStack chestplate) {
+    public ArmorStandBuilder setChestplate(ItemStack chestplate) {
         this.chestplate = chestplate;
         return this;
     }
@@ -228,7 +228,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return leggings;
     }
 
-    public ArmorStand setLeggings(ItemStack leggings) {
+    public ArmorStandBuilder setLeggings(ItemStack leggings) {
         this.leggings = leggings;
         return this;
     }
@@ -237,7 +237,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return boots;
     }
 
-    public ArmorStand setBoots(ItemStack boots) {
+    public ArmorStandBuilder setBoots(ItemStack boots) {
         this.boots = boots;
         return this;
     }
@@ -246,7 +246,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return marker;
     }
 
-    public ArmorStand setMarker(boolean marker) {
+    public ArmorStandBuilder setMarker(boolean marker) {
         this.marker = marker;
         return this;
     }
@@ -255,7 +255,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return small;
     }
 
-    public ArmorStand setSmall(boolean small) {
+    public ArmorStandBuilder setSmall(boolean small) {
         this.small = small;
         return this;
     }
@@ -264,7 +264,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return arms;
     }
 
-    public ArmorStand setArms(boolean arms) {
+    public ArmorStandBuilder setArms(boolean arms) {
         this.arms = arms;
         return this;
     }
@@ -273,7 +273,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return visible;
     }
 
-    public ArmorStand setVisible(boolean visible) {
+    public ArmorStandBuilder setVisible(boolean visible) {
         this.visible = visible;
         return this;
     }
@@ -282,7 +282,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return headPose;
     }
 
-    public ArmorStand setHeadPose(EulerAngle headPose) {
+    public ArmorStandBuilder setHeadPose(EulerAngle headPose) {
         this.headPose = headPose;
         return this;
     }
@@ -291,7 +291,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return leftLegPose;
     }
 
-    public ArmorStand setLeftLegPose(EulerAngle leftLegPose) {
+    public ArmorStandBuilder setLeftLegPose(EulerAngle leftLegPose) {
         this.leftLegPose = leftLegPose;
         return this;
     }
@@ -300,7 +300,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return rightLegPose;
     }
 
-    public ArmorStand setRightLegPose(EulerAngle rightLegPose) {
+    public ArmorStandBuilder setRightLegPose(EulerAngle rightLegPose) {
         this.rightLegPose = rightLegPose;
         return this;
     }
@@ -309,7 +309,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return leftArmPose;
     }
 
-    public ArmorStand setLeftArmPose(EulerAngle leftArmPose) {
+    public ArmorStandBuilder setLeftArmPose(EulerAngle leftArmPose) {
         this.leftArmPose = leftArmPose;
         return this;
     }
@@ -318,7 +318,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return rightArmPose;
     }
 
-    public ArmorStand setRightArmPose(EulerAngle rightArmPose) {
+    public ArmorStandBuilder setRightArmPose(EulerAngle rightArmPose) {
         this.rightArmPose = rightArmPose;
         return this;
     }
@@ -327,7 +327,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return gravity;
     }
 
-    public ArmorStand setGravity(boolean gravity) {
+    public ArmorStandBuilder setGravity(boolean gravity) {
         this.gravity = gravity;
         return this;
     }
@@ -336,7 +336,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return basePlate;
     }
 
-    public ArmorStand setBasePlate(boolean basePlate) {
+    public ArmorStandBuilder setBasePlate(boolean basePlate) {
         this.basePlate = basePlate;
         return this;
     }
@@ -345,7 +345,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return customName;
     }
 
-    public ArmorStand setCustomName(String customName) {
+    public ArmorStandBuilder setCustomName(String customName) {
         this.customName = customName;
         return this;
     }
@@ -354,7 +354,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return showCustomName;
     }
 
-    public ArmorStand setShowCustomName(boolean showCustomName) {
+    public ArmorStandBuilder setShowCustomName(boolean showCustomName) {
         this.showCustomName = showCustomName;
         return this;
     }
@@ -363,7 +363,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return mainHand;
     }
 
-    public ArmorStand setMainHand(ItemStack mainHand) {
+    public ArmorStandBuilder setMainHand(ItemStack mainHand) {
         this.mainHand = mainHand;
         return this;
     }
@@ -372,7 +372,7 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return offHand;
     }
 
-    public ArmorStand setOffHand(ItemStack offHand) {
+    public ArmorStandBuilder setOffHand(ItemStack offHand) {
         this.offHand = offHand;
         return this;
     }
@@ -381,13 +381,13 @@ public class ArmorStand extends PacketBuilder<ArmorStand> {
         return bodyPose;
     }
 
-    public ArmorStand setBodyPose(EulerAngle bodyPose) {
+    public ArmorStandBuilder setBodyPose(EulerAngle bodyPose) {
         this.bodyPose = bodyPose;
         return this;
     }
 
     @Override
-    public ArmorStand buildPackets() {
+    public ArmorStandBuilder buildPackets() {
         Object craftWorld = ReflectionUtils.cast(ClassFinder.CB.CraftWorld, location.getWorld());
         Object nmsWorld = ReflectionUtils.getMethod("getHandle", ClassFinder.CB.CraftWorld, craftWorld);
         entity = ReflectionUtils.getConstructor(ClassFinder.NMS.EntityArmorStand, new Group<>(

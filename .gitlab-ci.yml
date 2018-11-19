@@ -59,10 +59,20 @@ pages:
   only:
   - tags
 
-packages:
+deploy:master:
   stage: deploy
   script:
   - './gradlew uploadArchives -PnexusUsername=$PACKAGES_USER -PnexusPassword=$PACKAGES_PASSWORD'
+  only:
+  - master@craftmania/crafteconomy
+  when: manual
+
+deploy:release:
+  stage: deploy
+  script:
+  - './gradlew uploadArchives -PnexusUsername=$PACKAGES_USER -PnexusPassword=$PACKAGES_PASSWORD'
+  only:
+  - tags
 
 codacy:
   stage: review

@@ -9,7 +9,6 @@ import java.util.UUID;
  * Represents an attribute modifier implementation.
  */
 public class AttributeModifier {
-
     public enum Operation {
         /**
          * Adds (or subtracts) its amount to the base value of the attribute.<br>
@@ -32,16 +31,16 @@ public class AttributeModifier {
             this.id = id;
         }
 
-        public static Operation getByID(int id) {
+        public static Operation getById(int id) {
             for (Operation o : values()) {
-                if (o.getID() == id) {
+                if (o.getId() == id) {
                     return o;
                 }
             }
             return null;
         }
 
-        public int getID() {
+        public int getId() {
             return this.id;
         }
     }
@@ -112,7 +111,7 @@ public class AttributeModifier {
      *
      * @return an unique id
      */
-    public UUID getUniqueID() {
+    public UUID getUniqueId() {
         return this.uuid;
     }
 

@@ -35,7 +35,7 @@ task setupCIWorkspace {
     // do nothing, stub method
 }
 
-def mainVersion = "2.0.10"
+def mainVersion = "2.0.11"
 def branch = ""
 def gitId = ""
 
@@ -63,7 +63,7 @@ ext {
     } catch (Throwable ignore) {
         branch = "-unknown"
     }
-}
+} 
 
 // Name-master-76735d.jar
 allprojects {

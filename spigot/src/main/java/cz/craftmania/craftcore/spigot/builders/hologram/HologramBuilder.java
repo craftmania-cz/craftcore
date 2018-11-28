@@ -1,13 +1,14 @@
 package cz.craftmania.craftcore.spigot.builders.hologram;
 
 import cz.craftmania.craftcore.core.annotations.AnnotationHandler;
-import cz.craftmania.craftcore.spigot.annotations.PlayerCleaner;
+import cz.craftmania.craftcore.core.utils.CommonUtils;
 import cz.craftmania.craftcore.core.utils.Group;
+import cz.craftmania.craftcore.spigot.annotations.PlayerCleaner;
 import cz.craftmania.craftcore.spigot.protocol.EntityDestroy;
 import cz.craftmania.craftcore.spigot.protocol.EntityTeleport;
 import cz.craftmania.craftcore.spigot.protocol.LivingEntitySpawn;
 import cz.craftmania.craftcore.spigot.protocol.PacketBuilder;
-import cz.craftmania.craftcore.core.utils.CommonUtils;
+import cz.craftmania.craftcore.spigot.utils.ClassFinder;
 import cz.craftmania.craftcore.spigot.utils.GameVersion;
 import cz.craftmania.craftcore.spigot.utils.reflections.ReflectionUtils;
 import org.apache.commons.lang3.Validate;
@@ -18,6 +19,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Represents a hologram implementation.
@@ -209,39 +211,29 @@ public class HologramBuilder extends PacketBuilder<HologramBuilder> {
     public HologramBuilder teleport(Location location) {
         this.location = location;
         LinkedHashMap<Integer, Object> a = new LinkedHashMap<>();
-        String v = GameVersion.getVersion().toString();
-        List<Player> receivers = new ArrayList<>();
-        for (UUID uuid : getViewers()) {
-            receivers.add(Bukkit.getServer().getPlayer(uuid));
-        }
-        try {
-            int i = 0;
-            for (int id : this.entities.keySet()) {
-                Object nmsArmorStand = this.entities.get(id);
-                double y = i * getLineSpacing();
-                location = location.clone().add(0, y, 0);
-                Class<?> nmsEntityClass = Class.forName("net.minecraft.server." + v + ".Entity");
-                ReflectionUtils.getMethod("setLocation", nmsEntityClass, nmsArmorStand, new Group<>(
-                        new Class<?>[]{
-                                double.class,
-                                double.class,
-                                double.class,
-                                float.class,
-                                float.class,
-                        }, new Object[]{
-                        location.getX(),
-                        location.getY(),
-                        location.getZ(),
-                        location.getYaw(),
-                        location.getPitch(),
-                }
-                ));
-                EntityTeleport.create(nmsArmorStand).sendPlayers(receivers);
-                a.put(id, nmsArmorStand);
-                i++;
+        int i = 0;
+        for (int id : this.entities.keySet()) {
+            Object nmsArmorStand = this.entities.get(id);
+            double y = i * getLineSpacing();
+            location = location.clone().add(0, y, 0);
+            ReflectionUtils.getMethod("setLocation", ClassFinder.NMS.Entity, nmsArmorStand, new Group<>(
+                    new Class<?>[]{
+                            double.class,
+                            double.class,
+                            double.class,
+                            float.class,
+                            float.class,
+                    }, new Object[]{
+                    location.getX(),
+                    location.getY(),
+                    location.getZ(),
+                    location.getYaw(),
+                    location.getPitch(),
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            ));
+            EntityTeleport.create(nmsArmorStand).sendPlayers(viewers.stream().map(uuid -> Bukkit.getServer().getPlayer(uuid)).collect(Collectors.toList()));
+            a.put(id, nmsArmorStand);
+            i++;
         }
         this.entities = a;
         return this;
@@ -297,90 +289,79 @@ public class HologramBuilder extends PacketBuilder<HologramBuilder> {
 
     @Override
     public HologramBuilder buildPackets() {
-        String v = GameVersion.getVersion().toString();
         Location location = getLocation().clone()
                 .add(0, getLineSpacing() * getLines().size(), 0);
-        try {
-            for (String line : getLines()) {
-                location = location.subtract(0, getLineSpacing(), 0);
-                Class<?> craftWorldClass = Class.forName("org.bukkit.craftbukkit." + v + ".CraftWorld");
-                Class<?> nmsWorldClass = Class.forName("net.minecraft.server." + v + ".World");
-                Class<?> nmsEntityClass = Class.forName("net.minecraft.server." + v + ".Entity");
-                Class<?> nmsArmorStandClass = Class.forName("net.minecraft.server." + v + ".EntityArmorStand");
-                Class<?> chatSerializerClass = Class.forName("net.minecraft.server." + v + "." + (v.equals(GameVersion.v1_8_R1.toString()) ? "" : "IChatBaseComponent$") + "ChatSerializer");
-                Class<?> chatBaseComponentClass = Class.forName("net.minecraft.server." + v + ".IChatBaseComponent");
-                Object craftWorld = ReflectionUtils.cast(craftWorldClass, location.getWorld());
-                Object nmsWorld = ReflectionUtils.getMethod("getHandle", craftWorldClass, craftWorld);
-                Object nmsArmorStand = ReflectionUtils.getConstructor(nmsArmorStandClass, new Group<>(
-                        new Class<?>[]{nmsWorldClass}, new Object[]{nmsWorld}
-                ));
-                ReflectionUtils.getMethod("setLocation", nmsEntityClass, nmsArmorStand, new Group<>(
-                        new Class<?>[]{
-                                double.class,
-                                double.class,
-                                double.class,
-                                float.class,
-                                float.class,
-                        }, new Object[]{
-                        location.getX(),
-                        location.getY(),
-                        location.getZ(),
-                        location.getYaw(),
-                        location.getPitch(),
-                }
-                ));
-                if (GameVersion.is1_9Above()) {
-                    ReflectionUtils.getMethod("setMarker", nmsArmorStandClass, nmsArmorStand,
-                            new Group<>(new Class<?>[]{boolean.class}, new Object[]{true})
-                    );
-                }
-                ReflectionUtils.getMethod("setBasePlate", nmsArmorStandClass, nmsArmorStand,
-                        new Group<>(new Class<?>[]{boolean.class}, new Object[]{false})
-                );
-                ReflectionUtils.getMethod("setInvisible", nmsArmorStandClass, nmsArmorStand,
-                        new Group<>(new Class<?>[]{boolean.class}, new Object[]{true})
-                );
-                if (GameVersion.is1_13Above()) {
-                    if (!CommonUtils.isValidJSON(line)) {
-                        line = "{\"text\": \"" + line + "\"}";
-                    }
-                    Object customNameComponent = ReflectionUtils.getStaticMethod("a", chatSerializerClass,
-                            new Group<>(
-                                    new Class<?>[]{String.class},
-                                    new String[]{line}
-                            ));
-                    ReflectionUtils.getMethod("setCustomName", nmsEntityClass, nmsArmorStand,
-                            new Group<>(new Class<?>[]{chatBaseComponentClass}, new Object[]{customNameComponent})
-                    );
-                } else {
-                    ReflectionUtils.getMethod("setCustomName", nmsEntityClass, nmsArmorStand,
-                            new Group<>(new Class<?>[]{String.class}, new Object[]{line})
-                    );
-                }
-                ReflectionUtils.getMethod("setCustomNameVisible", nmsEntityClass, nmsArmorStand,
-                        new Group<>(new Class<?>[]{boolean.class}, new Object[]{true})
-                );
-                ReflectionUtils.getMethod("setSmall", nmsArmorStandClass, nmsArmorStand,
-                        new Group<>(new Class<?>[]{boolean.class}, new Object[]{true})
-                );
-                if (GameVersion.is1_10Above()) {
-                    ReflectionUtils.getMethod("setNoGravity", nmsEntityClass, nmsArmorStand,
-                            new Group<>(new Class<?>[]{boolean.class}, new Object[]{true})
-                    );
-                } else {
-                    ReflectionUtils.getMethod("setGravity", nmsArmorStandClass, nmsArmorStand,
-                            new Group<>(new Class<?>[]{boolean.class}, new Object[]{true})
-                    );
-                }
-                ReflectionUtils.getMethod("setArms", nmsArmorStandClass, nmsArmorStand,
-                        new Group<>(new Class<?>[]{boolean.class}, new Object[]{false})
-                );
-                int entityId = (int) ReflectionUtils.getMethod("getId", nmsEntityClass, nmsArmorStand);
-                this.entities.put(entityId, nmsArmorStand);
-                packets.add(LivingEntitySpawn.create(nmsArmorStand));
+        for (String line : getLines()) {
+            location = location.subtract(0, getLineSpacing(), 0);
+            Object craftWorld = ReflectionUtils.cast(ClassFinder.CB.CraftWorld, location.getWorld());
+            Object nmsWorld = ReflectionUtils.getMethod("getHandle", ClassFinder.CB.CraftWorld, craftWorld);
+            Object nmsArmorStand = ReflectionUtils.getConstructor(ClassFinder.NMS.EntityArmorStand, new Group<>(
+                    new Class<?>[]{ClassFinder.NMS.World}, new Object[]{nmsWorld}
+            ));
+            ReflectionUtils.getMethod("setLocation", ClassFinder.NMS.Entity, nmsArmorStand, new Group<>(
+                    new Class<?>[]{
+                            double.class,
+                            double.class,
+                            double.class,
+                            float.class,
+                            float.class,
+                    }, new Object[]{
+                    location.getX(),
+                    location.getY(),
+                    location.getZ(),
+                    location.getYaw(),
+                    location.getPitch(),
             }
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            ));
+            if (GameVersion.is1_9Above()) {
+                ReflectionUtils.getMethod("setMarker", ClassFinder.NMS.EntityArmorStand, nmsArmorStand,
+                        new Group<>(new Class<?>[]{boolean.class}, new Object[]{true})
+                );
+            }
+            ReflectionUtils.getMethod("setBasePlate", ClassFinder.NMS.EntityArmorStand, nmsArmorStand,
+                    new Group<>(new Class<?>[]{boolean.class}, new Object[]{false})
+            );
+            ReflectionUtils.getMethod("setInvisible", ClassFinder.NMS.EntityArmorStand, nmsArmorStand,
+                    new Group<>(new Class<?>[]{boolean.class}, new Object[]{true})
+            );
+            if (GameVersion.is1_13Above()) {
+                if (!CommonUtils.isValidJSON(line)) {
+                    line = "{\"text\": \"" + line + "\"}";
+                }
+                Object customNameComponent = ReflectionUtils.getStaticMethod("a", ClassFinder.NMS.ChatSerializer,
+                        new Group<>(
+                                new Class<?>[]{String.class},
+                                new String[]{line}
+                        ));
+                ReflectionUtils.getMethod("setCustomName", ClassFinder.NMS.Entity, nmsArmorStand,
+                        new Group<>(new Class<?>[]{ClassFinder.NMS.IChatBaseComponent}, new Object[]{customNameComponent})
+                );
+            } else {
+                ReflectionUtils.getMethod("setCustomName", ClassFinder.NMS.Entity, nmsArmorStand,
+                        new Group<>(new Class<?>[]{String.class}, new Object[]{line})
+                );
+            }
+            ReflectionUtils.getMethod("setCustomNameVisible", ClassFinder.NMS.Entity, nmsArmorStand,
+                    new Group<>(new Class<?>[]{boolean.class}, new Object[]{true})
+            );
+            ReflectionUtils.getMethod("setSmall", ClassFinder.NMS.EntityArmorStand, nmsArmorStand,
+                    new Group<>(new Class<?>[]{boolean.class}, new Object[]{true})
+            );
+            if (GameVersion.is1_10Above()) {
+                ReflectionUtils.getMethod("setNoGravity", ClassFinder.NMS.Entity, nmsArmorStand,
+                        new Group<>(new Class<?>[]{boolean.class}, new Object[]{true})
+                );
+            } else {
+                ReflectionUtils.getMethod("setGravity", ClassFinder.NMS.EntityArmorStand, nmsArmorStand,
+                        new Group<>(new Class<?>[]{boolean.class}, new Object[]{true})
+                );
+            }
+            ReflectionUtils.getMethod("setArms", ClassFinder.NMS.EntityArmorStand, nmsArmorStand,
+                    new Group<>(new Class<?>[]{boolean.class}, new Object[]{false})
+            );
+            int entityId = (int) ReflectionUtils.getMethod("getId", ClassFinder.NMS.Entity, nmsArmorStand);
+            this.entities.put(entityId, nmsArmorStand);
+            packets.add(LivingEntitySpawn.create(nmsArmorStand));
         }
         createPacketSender();
         return this;

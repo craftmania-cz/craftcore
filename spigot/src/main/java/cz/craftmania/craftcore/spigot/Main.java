@@ -6,7 +6,6 @@ import cz.craftmania.craftcore.spigot.internal.listener.PlayerCleanerListener;
 import cz.craftmania.craftcore.spigot.internal.listener.ServerListener;
 import cz.craftmania.craftcore.spigot.internal.registry.ProtocolLibsRegister;
 import cz.craftmania.craftcore.spigot.internal.registry.WorldGuardRegister;
-import cz.craftmania.craftcore.spigot.inventory.InventoryManager;
 import cz.craftmania.craftcore.spigot.listener.basic.PlayerJoinListener;
 import cz.craftmania.craftcore.spigot.listener.basic.PlayerLeaveListener;
 import cz.craftmania.craftcore.spigot.listener.bungee.BungeeListener;
@@ -49,7 +48,6 @@ public final class Main extends JavaPlugin {
     private static List<Player> effectPlayers = new ArrayList<>();
     private int timeHourOffSet = 0;
     private boolean timerLoaded = false;
-    private static InventoryManager invManager;
     protected NMSPackages nms;
 
     private static Main instance;
@@ -127,10 +125,6 @@ public final class Main extends JavaPlugin {
         // Bungee register
         getServer().getMessenger().registerOutgoingPluginChannel(this, CRAFTCORE_CHANNEL);
         getServer().getMessenger().registerIncomingPluginChannel(this, CRAFTCORE_CHANNEL, new BungeeListener());
-
-        // Inventory Manager API
-        invManager = new InventoryManager(this);
-        invManager.init();
 
         if (getConfig().getBoolean("auto_renew_skin", false)) {
             new CachedSkinTask().runTaskTimerAsynchronously(this, 0, 1200);
@@ -259,10 +253,6 @@ public final class Main extends JavaPlugin {
             getCoreLogger().error("NMS (" + NMSManager.getVersion() + ") nejsou kompatibilni s touto verzi serveru! Zkontroluj update CraftCore nebo pockej na opravu.");
             getInstance().nms = null;
         }
-    }
-
-    public static InventoryManager getInvManager() {
-        return invManager;
     }
 
     /**

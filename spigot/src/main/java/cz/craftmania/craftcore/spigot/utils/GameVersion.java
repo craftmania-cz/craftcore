@@ -15,9 +15,8 @@ public enum GameVersion {
     v1_10_R1(5),
     v1_11_R1(6),
     v1_12_R1(7),
-
-    //TODO: Support 1.13.x
-    v1_13_R1(8);
+    v1_13_R1(8),
+    v1_13_R2(9);
 
     private static final GameVersion version = GameVersion.valueOf(Bukkit.getServer().getClass().getPackage()
             .getName().replace(".", ",").split(",")[3]);

@@ -156,7 +156,8 @@ public final class Main extends JavaPlugin {
         pm.registerEvents(new ServerListener(), this);
         pm.registerEvents(new PlayerCleanerListener(), this);
 
-        if (getConfig().getBoolean("packet_handler", true)) {
+        if (getConfig().getBoolean("packet_handler", false)
+                && pm.isPluginEnabled("ProtocolLib")) {
             getCoreLogger().info("Registrace Packet listeneru!");
             getServer().getPluginManager().registerEvents(new PacketListener(), this);
         }

@@ -15,6 +15,10 @@ public class WorldGuardRegister {
 
     private static WorldGuardPlugin getWGPlugin() {
         final Plugin plugin = Main.getInstance().getServer().getPluginManager().getPlugin("WorldGuard");
+        if (plugin.getDescription().getVersion().contains("7.0.0")) {
+            Main.getCoreLogger().warn("WorldGuard 7.x neni podporovany!");
+            return null;
+        }
         if (!(plugin instanceof WorldGuardPlugin)) {
             return null;
         }

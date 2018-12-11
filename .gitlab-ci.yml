@@ -62,6 +62,7 @@ pages:
 deploy:master:
   stage: deploy
   script:
+  - './gradlew build -PciBranch=$CI_COMMIT_REF_NAME'
   - './gradlew uploadArchives -PnexusUsername=$PACKAGES_USER -PnexusPassword=$PACKAGES_PASSWORD'
   only:
   - master@craftmania/crafteconomy
@@ -70,6 +71,7 @@ deploy:master:
 deploy:release:
   stage: deploy
   script:
+  - './gradlew build -PciBranch=$CI_COMMIT_REF_NAME'
   - './gradlew uploadArchives -PnexusUsername=$PACKAGES_USER -PnexusPassword=$PACKAGES_PASSWORD'
   only:
   - tags

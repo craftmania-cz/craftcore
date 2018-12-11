@@ -73,6 +73,7 @@ deploy:release:
   script:
   - './gradlew build -PciBranch=$CI_COMMIT_REF_NAME'
   - './gradlew uploadArchives -PnexusUsername=$PACKAGES_USER -PnexusPassword=$PACKAGES_PASSWORD'
+  allow_failure: true # Docasny fix
   only:
   - tags
 

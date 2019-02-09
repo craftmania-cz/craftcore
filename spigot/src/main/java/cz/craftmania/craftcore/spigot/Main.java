@@ -1,7 +1,6 @@
 package cz.craftmania.craftcore.spigot;
 
 import cz.craftmania.craftcore.spigot.internal.ServerData;
-import cz.craftmania.craftcore.spigot.internal.listener.NPCInteractEventListener;
 import cz.craftmania.craftcore.spigot.internal.listener.PlayerCleanerListener;
 import cz.craftmania.craftcore.spigot.internal.listener.ServerListener;
 import cz.craftmania.craftcore.spigot.internal.registry.ProtocolLibsRegister;
@@ -17,7 +16,6 @@ import cz.craftmania.craftcore.spigot.utils.CoreLogger;
 import cz.craftmania.craftcore.spigot.utils.effects.FireworkHandler;
 import cz.craftmania.craftcore.spigot.utils.mojang.SkinAPI;
 import cz.craftmania.craftcore.spigot.utils.time.TimeChecker;
-import cz.craftmania.craftcore.core.annotations.AnnotationHandler;
 import cz.craftmania.craftcore.spigot.bungee.BungeeAPI;
 import cz.craftmania.craftcore.spigot.internal.listener.PacketListener;
 import cz.craftmania.craftcore.core.files.DirectoryManager;
@@ -27,8 +25,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -135,8 +131,6 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
 
-        AnnotationHandler.unregister(NPCInteractEventListener.class, null);
-
         for (Player player : getServer().getOnlinePlayers()) {
             PacketListener.remove(player);
         }
@@ -161,8 +155,6 @@ public final class Main extends JavaPlugin {
             getCoreLogger().info("Registrace Packet listeneru!");
             getServer().getPluginManager().registerEvents(new PacketListener(), this);
         }
-
-        AnnotationHandler.register(NPCInteractEventListener.class, null);
 
         if (pm.isPluginEnabled("ProtocolLib")) {
             getCoreLogger().info("Registrace Packet eventu s ProtocolLibs.");

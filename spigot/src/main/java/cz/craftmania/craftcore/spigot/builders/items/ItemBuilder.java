@@ -30,31 +30,64 @@ public class ItemBuilder {
     }
 
     /**
-     * Create a new ItemBuilder from scratch.
+     * Create a new ItemBuilder from CraftCore Material.
      *
      * @param m The material to create the ItemBuilder with.
      */
+    public ItemBuilder(CustomMaterial m) {
+        this(m, 1);
+    }
+
+    /**
+     * Create a new ItemBuilder from Vanilla Material.
+     *
+     * @param m The material to create the ItemBuilder with.
+     */
+    @Deprecated
     public ItemBuilder(Material m) {
         this(m, 1);
     }
 
     /**
-     * Create a new ItemBuilder from scratch.
+     * Create a new ItemBuilder from CraftCore Material.
      *
      * @param m      The material of the item.
      * @param amount The amount of the item.
      */
+    public ItemBuilder(CustomMaterial m, int amount) {
+        is = new ItemStack(m.getMaterial(), amount);
+    }
+
+    /**
+     * Create a new ItemBuilder from Vanilla Material.
+     *
+     * @param m      The material of the item.
+     * @param amount The amount of the item.
+     */
+    @Deprecated
     public ItemBuilder(Material m, int amount) {
         is = new ItemStack(m, amount);
     }
 
     /**
-     * Create a new ItemBuilder from scratch.
+     * Create a new ItemBuilder from CraftCore Material.
      *
      * @param m      The material of the item.
      * @param amount The amount of the item.
      * @param s      The durability of the item.
      */
+    public ItemBuilder(CustomMaterial m, int amount, short s) {
+        is = new ItemStack(m.getMaterial(), amount, s);
+    }
+
+    /**
+     * Create a new ItemBuilder from Vanilla Material.
+     *
+     * @param m      The material of the item.
+     * @param amount The amount of the item.
+     * @param s      The durability of the item.
+     */
+    @Deprecated
     public ItemBuilder(Material m, int amount, short s) {
         is = new ItemStack(m, amount, s);
     }
@@ -66,8 +99,8 @@ public class ItemBuilder {
         is.setItemMeta(im);
     }
 
-    public ItemBuilder(Material m, short s) {
-        is = new ItemStack(m, 1, s);
+    public ItemBuilder(CustomMaterial m, short s) {
+        is = new ItemStack(m.getMaterial(), 1, s);
     }
 
     /**

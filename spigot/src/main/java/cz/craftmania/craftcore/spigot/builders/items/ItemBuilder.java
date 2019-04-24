@@ -269,7 +269,10 @@ public class ItemBuilder {
     public ItemBuilder addLoreLine(String line, int pos) {
         ItemMeta im = is.getItemMeta();
         List<String> lore = new ArrayList<>(im.getLore());
-        lore.set(pos, line);
+        lore.add(line);
+        for (int i = lore.size() - 1; i > pos; i--) {
+            Collections.swap(lore, i, i - 1);
+        }
         return setLore(lore);
     }
 

@@ -33,7 +33,8 @@ dependencies {
 
     // Spigot dependency
     compileOnly name: 'spigot-1.12.2'
-    compileOnly name: 'spigot-1.13.0'
+    compileOnly name: 'spigot-1.13.2'
+    compileOnly name: 'spigot-1.14.1'
 }
 
 def exportedProjects= [

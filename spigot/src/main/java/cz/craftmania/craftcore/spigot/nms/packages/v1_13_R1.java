@@ -1,13 +1,13 @@
 package cz.craftmania.craftcore.spigot.nms.packages;
 
 import cz.craftmania.craftcore.spigot.nms.NMSPackages;
-import net.minecraft.server.v1_13_R1.Advancement;
-import net.minecraft.server.v1_13_R1.AdvancementDataWorld;
-import net.minecraft.server.v1_13_R1.ChatDeserializer;
-import net.minecraft.server.v1_13_R1.MinecraftKey;
+import net.minecraft.server.v1_13_R2.Advancement;
+import net.minecraft.server.v1_13_R2.AdvancementDataWorld;
+import net.minecraft.server.v1_13_R2.ChatDeserializer;
+import net.minecraft.server.v1_13_R2.MinecraftKey;
 import org.bukkit.Bukkit;
 import org.bukkit.NamespacedKey;
-import org.bukkit.craftbukkit.v1_13_R1.util.CraftNamespacedKey;
+import org.bukkit.craftbukkit.v1_13_R2.util.CraftNamespacedKey;
 
 import java.util.Collections;
 import java.util.HashMap;

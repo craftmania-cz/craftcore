@@ -5,3 +5,4 @@ author: MrWakeCZ
 main: cz.craftmania.craftcore.spigot.Main
 depend: [Multiverse-Core]
 softdepend: [ProtocolLib,WorldGuard]
+api-version: "1.12"

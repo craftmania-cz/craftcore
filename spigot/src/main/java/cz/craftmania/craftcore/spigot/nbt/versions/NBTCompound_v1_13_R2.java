@@ -1,9 +1,9 @@
 package cz.craftmania.craftcore.spigot.nbt.versions;
 
 import cz.craftmania.craftcore.spigot.nbt.NBTCompound;
-import net.minecraft.server.v1_13_R1.*;
-import org.bukkit.craftbukkit.v1_13_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_13_R1.inventory.CraftItemStack;
+import net.minecraft.server.v1_13_R2.*;
+import org.bukkit.craftbukkit.v1_13_R2.entity.CraftEntity;
+import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
 import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 
@@ -11,10 +11,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NBTCompound_v1_13_R1 extends NBTCompound {
+public class NBTCompound_v1_13_R2 extends NBTCompound {
 
     private NBTCompound decode(NBTTagCompound c){
-        NBTCompound w = new NBTCompound_v1_13_R1();
+        NBTCompound w = new NBTCompound_v1_13_R2();
         if (c != null) {
             for(String s : c.getKeys()){
                 if(c.get(s) instanceof NBTTagByte){
@@ -74,7 +74,8 @@ public class NBTCompound_v1_13_R1 extends NBTCompound {
     }
 
     private Object decodeList(NBTBase compound) {
-        if(compound instanceof NBTTagByte){
+        //TODO: Fix in 2.1.2
+        /*if(compound instanceof NBTTagByte){
             return ((NBTTagByte) compound).g();
         }
         else if(compound instanceof NBTTagShort) {
@@ -88,8 +89,8 @@ public class NBTCompound_v1_13_R1 extends NBTCompound {
         }
         else if(compound instanceof NBTTagFloat) {
             return ((NBTTagFloat) compound).i();
-        }
-        else if(compound instanceof NBTTagDouble) {
+        }*/
+        if(compound instanceof NBTTagDouble) {
             return ((NBTTagDouble) compound).asDouble();
         }
         else if(compound instanceof NBTTagByteArray) {
@@ -98,9 +99,9 @@ public class NBTCompound_v1_13_R1 extends NBTCompound {
         else if(compound instanceof NBTTagIntArray) {
             return ((NBTTagIntArray) compound).d();
         }
-        else if(compound instanceof NBTTagString) {
+        /*else if(compound instanceof NBTTagString) {
             return compound.b_();
-        }
+        }*/
         else if(compound instanceof NBTTagList) {
             List<Object> es = new ArrayList<>();
             NBTTagList l = (NBTTagList) compound;
@@ -210,24 +211,24 @@ public class NBTCompound_v1_13_R1 extends NBTCompound {
         return null;
     }
 
-    public NBTCompound_v1_13_R1() {
+    public NBTCompound_v1_13_R2() {
         super();
     }
 
-    public NBTCompound_v1_13_R1(NBTTagCompound c){
+    public NBTCompound_v1_13_R2(NBTTagCompound c){
         tags.putAll(decode(c).tags);
     }
 
     @Override
     protected void fromItem(ItemStack item) {
-        net.minecraft.server.v1_13_R1.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
+        net.minecraft.server.v1_13_R2.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
         NBTTagCompound c = nmsItem.getTag();
         tags.putAll(decode(c).tags);
     }
 
     @Override
     public ItemStack toItem(ItemStack item) {
-        net.minecraft.server.v1_13_R1.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
+        net.minecraft.server.v1_13_R2.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
         nmsItem.setTag(encode(this));
         return CraftItemStack.asBukkitCopy(nmsItem);
     }
@@ -274,7 +275,7 @@ public class NBTCompound_v1_13_R1 extends NBTCompound {
 
     @Override
     protected void fromEntity(Entity entity) {
-        net.minecraft.server.v1_13_R1.Entity ce = ((CraftEntity) entity).getHandle();
+        net.minecraft.server.v1_13_R2.Entity ce = ((CraftEntity) entity).getHandle();
         MinecraftKey minecraftkey = EntityTypes.getName(ce.P());
         String k = minecraftkey == null ? null : minecraftkey.toString();
         NBTTagCompound tag = new NBTTagCompound();

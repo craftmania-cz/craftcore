@@ -234,7 +234,7 @@ public final class Main extends JavaPlugin {
 
     private void loadNMSPackages() {
         try {
-            final Class<?> forName = Class.forName("cz.wake.craftcore.nms.packages." + NMSManager.getVersion());
+            final Class<?> forName = Class.forName("cz.craftmania.craftcore.spigot.nms.packages." + NMSManager.getVersion());
             if (NMSPackages.class.isAssignableFrom(forName)) {
                 getInstance().nms = (NMSPackages) forName.getConstructor((Class<?>[]) new Class[0]).newInstance(new Object[0]);
                 getCoreLogger().info("Detekovana NMS verze: " + NMSManager.getVersion());

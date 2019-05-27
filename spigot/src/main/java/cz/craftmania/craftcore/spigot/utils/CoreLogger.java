@@ -93,7 +93,7 @@ public class CoreLogger {
 
         @org.jetbrains.annotations.Contract(pure = true)
         public final @NotNull String getPrefix() {
-            return org.bukkit.ChatColor.GOLD + "[CraftCore]" + org.bukkit.ChatColor.WHITE + " | " + this.prefix + " ";
+            return org.bukkit.ChatColor.GOLD + "[CraftCore] " + this.prefix + " ";
         }
 
         @Override

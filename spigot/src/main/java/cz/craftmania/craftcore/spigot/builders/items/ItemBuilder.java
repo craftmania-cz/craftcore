@@ -43,7 +43,6 @@ public class ItemBuilder {
      *
      * @param m The material to create the ItemBuilder with.
      */
-    @Deprecated
     public ItemBuilder(Material m) {
         this(m, 1);
     }
@@ -64,7 +63,6 @@ public class ItemBuilder {
      * @param m      The material of the item.
      * @param amount The amount of the item.
      */
-    @Deprecated
     public ItemBuilder(Material m, int amount) {
         is = new ItemStack(m, amount);
     }
@@ -87,7 +85,6 @@ public class ItemBuilder {
      * @param amount The amount of the item.
      * @param s      The durability of the item.
      */
-    @Deprecated
     public ItemBuilder(Material m, int amount, short s) {
         is = new ItemStack(m, amount, s);
     }
@@ -226,7 +223,6 @@ public class ItemBuilder {
      * @param lore Array of lore
      * @return ItemBuilder
      */
-    @NeedTesting
     public ItemBuilder addLore(String... lore) {
         if (lore != null) {
             List<String> finalLore = new ArrayList<>(Arrays.asList(lore));

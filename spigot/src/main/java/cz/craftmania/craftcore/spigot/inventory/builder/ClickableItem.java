@@ -10,7 +10,7 @@ public class ClickableItem {
     private ItemStack item;
     private Consumer<InventoryClickEvent> consumer;
 
-    private ClickableItem(ItemStack item, Consumer<InventoryClickEvent> consumer) {
+    public ClickableItem(ItemStack item, Consumer<InventoryClickEvent> consumer) {
         this.item = item;
         this.consumer = consumer;
     }

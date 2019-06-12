@@ -15,7 +15,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Deprecated
 public enum ParticleEffect {
 
     EXPLOSION_NORMAL("explode", 0, -1, ParticleProperty.DIRECTIONAL),

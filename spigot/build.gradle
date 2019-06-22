@@ -29,7 +29,7 @@ dependencies {
         exclude group: 'net.md-5'
     }
     compileOnly 'org.bukkit:bukkit:1.12.2-R0.1-SNAPSHOT'
-    compileOnly 'com.sk89q:worldguard:6.0.0-SNAPSHOT'
+    compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.1-SNAPSHOT'
 
     // Spigot dependency
     compileOnly name: 'spigot-1.12.2'

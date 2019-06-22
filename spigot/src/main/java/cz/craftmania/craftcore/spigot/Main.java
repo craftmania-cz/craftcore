@@ -4,11 +4,11 @@ import cz.craftmania.craftcore.spigot.internal.ServerData;
 import cz.craftmania.craftcore.spigot.internal.listener.PlayerCleanerListener;
 import cz.craftmania.craftcore.spigot.internal.listener.ServerListener;
 import cz.craftmania.craftcore.spigot.internal.registry.ProtocolLibsRegister;
-import cz.craftmania.craftcore.spigot.internal.registry.WorldGuardRegister;
 import cz.craftmania.craftcore.spigot.inventory.builder.InventoryManager;
 import cz.craftmania.craftcore.spigot.listener.basic.PlayerJoinListener;
 import cz.craftmania.craftcore.spigot.listener.basic.PlayerLeaveListener;
 import cz.craftmania.craftcore.spigot.listener.bungee.BungeeListener;
+import cz.craftmania.craftcore.spigot.listener.worldguard.WGRegionEventsListener;
 import cz.craftmania.craftcore.spigot.nms.NMSManager;
 import cz.craftmania.craftcore.spigot.nms.NMSPackages;
 import cz.craftmania.craftcore.spigot.tasks.CachedSkinTask;
@@ -108,7 +108,7 @@ public final class Main extends JavaPlugin {
 
         // WorldGuard Addons
         if (getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
-            WorldGuardRegister.registerWorldGuard();
+            WGRegionEventsListener.initialize();
             getCoreLogger().info("Detekce WorldGuard");
             getCoreLogger().info("Pridavne Eventy byly aktivovany!");
         } else {

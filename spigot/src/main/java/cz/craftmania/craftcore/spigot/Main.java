@@ -97,10 +97,11 @@ public final class Main extends JavaPlugin {
         ServerData.getInstance().setPluginVersion(this);
         new SkinAPI();
         new BungeeAPI();
-        for (String proxy : getConfig().getStringList("proxies")) {
+        //TODO: Nefunkční na 1.14.4 (java.lang.NoClassDefFoundError: org/apache/commons/lang3/builder/HashCodeBuilder)
+        /*for (String proxy : getConfig().getStringList("proxies")) {
             String[] x = proxy.split(":");
             ProxyUtils.put(x[0], Integer.parseInt(x[1]));
-        }
+        }*/
 
         // Inventory Builder
         invManager = new InventoryManager(this);

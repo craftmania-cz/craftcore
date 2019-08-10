@@ -19,7 +19,7 @@ repositories {
 dependencies {
 
     // Core modules
-    compile project(':main')
+    compile project(path: ':main')
     compile project(':bungee')
 
     // Plugin dependency
@@ -35,6 +35,9 @@ dependencies {
     compileOnly name: 'spigot-1.12.2'
     compileOnly name: 'spigot-1.13.2'
     compileOnly name: 'spigot-1.14.1'
+
+    // Chybějící libs na 1.14.4+
+    compile 'org.apache.commons:commons-lang3:3.8'
 }
 
 def exportedProjects= [

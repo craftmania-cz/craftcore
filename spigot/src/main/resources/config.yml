@@ -1,9 +1,6 @@
 # Volitelná detekce TPS
 tps-detector: false
 
-# ID serveru pro statistiky
-server: Survival
-
 # Offset pro time - NEMENIT!
 timehouroffset: 0
 

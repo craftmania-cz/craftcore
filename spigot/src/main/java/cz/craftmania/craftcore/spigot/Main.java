@@ -115,10 +115,6 @@ public final class Main extends JavaPlugin {
             getCoreLogger().error(ChatColor.RED + "WorldGuard neni detekovan! Eventy nebudou aktivni!");
         }
 
-        // Bungee ID z configu
-        idServer = getConfig().getString("server");
-        getCoreLogger().info("Server zaevidovany jako: " + idServer);
-
         //Detekce TPS
         if (getConfig().getBoolean("tps-detector", false)) {
             getCoreLogger().info("Detekce TPS byla zapnuta.");
@@ -172,10 +168,6 @@ public final class Main extends JavaPlugin {
     }
 
     private void loadCommands() {
-    }
-
-    public String getIdServer() {
-        return idServer;
     }
 
     private void startupLogo() {

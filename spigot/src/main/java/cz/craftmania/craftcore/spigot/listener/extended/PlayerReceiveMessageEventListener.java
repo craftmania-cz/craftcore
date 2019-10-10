@@ -7,6 +7,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.wrappers.EnumWrappers;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
+import cz.craftmania.craftcore.spigot.Main;
 import cz.craftmania.craftcore.spigot.events.spigot.PlayerReceiveMessageEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -24,7 +25,7 @@ public class PlayerReceiveMessageEventListener extends PacketAdapter {
         WrappedChatComponent message = packet.getChatComponents().read(0);
 
         PlayerReceiveMessageEvent receiveMessageEvent = new PlayerReceiveMessageEvent(event.getPlayer(), type, message);
-        Bukkit.getPluginManager().callEvent(receiveMessageEvent);
+        Bukkit.getScheduler().runTask(Main.getInstance(), () -> Bukkit.getPluginManager().callEvent(receiveMessageEvent));
         if (receiveMessageEvent.isCancelled()) {
             event.setCancelled(true);
         }

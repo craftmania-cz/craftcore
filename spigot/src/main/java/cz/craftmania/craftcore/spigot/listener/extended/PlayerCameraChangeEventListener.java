@@ -4,6 +4,7 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.ListenerPriority;
 import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
+import cz.craftmania.craftcore.spigot.Main;
 import cz.craftmania.craftcore.spigot.events.spigot.PlayerCameraChangeEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
@@ -37,7 +38,7 @@ public class PlayerCameraChangeEventListener extends PacketAdapter {
         }
 
         PlayerCameraChangeEvent cameraEvent = new PlayerCameraChangeEvent(event.getPlayer(), entity);
-        Bukkit.getPluginManager().callEvent(cameraEvent);
+        Bukkit.getScheduler().runTask(Main.getInstance(), () -> Bukkit.getPluginManager().callEvent(cameraEvent));
         if (cameraEvent.isCancelled()) {
             Bukkit.getScheduler().runTask(plugin, () -> player.setSpectatorTarget(null));
         }

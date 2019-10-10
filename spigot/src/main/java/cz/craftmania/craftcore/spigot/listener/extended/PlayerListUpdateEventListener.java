@@ -6,6 +6,7 @@ import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.reflect.StructureModifier;
 import com.comphenix.protocol.wrappers.WrappedChatComponent;
+import cz.craftmania.craftcore.spigot.Main;
 import cz.craftmania.craftcore.spigot.events.spigot.PlayerListUpdateEvent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.Bukkit;
@@ -23,7 +24,7 @@ public class PlayerListUpdateEventListener extends PacketAdapter {
         PlayerListUpdateEvent listUpdateEvent = new PlayerListUpdateEvent(event.getPlayer(),
                 ComponentSerializer.parse(chatComponents.read(0).getJson()),
                 ComponentSerializer.parse(chatComponents.read(1).getJson()));
-        Bukkit.getPluginManager().callEvent(listUpdateEvent);
+        Bukkit.getScheduler().runTask(Main.getInstance(), () -> Bukkit.getPluginManager().callEvent(listUpdateEvent));
         if (listUpdateEvent.isCancelled()) {
             event.setCancelled(true);
         }

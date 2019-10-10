@@ -35,9 +35,6 @@ dependencies {
     compileOnly name: 'spigot-1.12.2'
     compileOnly name: 'spigot-1.13.2'
     compileOnly name: 'spigot-1.14.1'
-
-    // Chybějící libs na 1.14.4+
-    compile 'org.apache.commons:commons-lang3:3.8'
 }
 
 def exportedProjects= [
@@ -73,6 +70,9 @@ shadowJar {
     dependencies {
         include(dependency(':main'))
         include(dependency(':bungee'))
+
+        // Include chybějící deps pro 1.14.4+
+        include(dependency('org.apache.commons:commons-lang3:3.8'))
     }
     archiveName = "${parent.name}-${parent.version}.jar"
     destinationDir = file '../target'

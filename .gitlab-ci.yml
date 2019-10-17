@@ -30,7 +30,7 @@ build:
   stage: build
   script:
   - './gradlew clean'
-  - './gradlew build -PciBranch=$CI_COMMIT_REF_NAME'
+  - './gradlew shadowJar'
   artifacts:
     expire_in: 1 week
     paths:
@@ -59,26 +59,10 @@ pages:
   only:
   - tags
 
-deploy:master:
-  stage: deploy
-  script:
-  - './gradlew build -PciBranch=$CI_COMMIT_REF_NAME'
-  - './gradlew uploadArchives -PnexusUsername=$PACKAGES_USER -PnexusPassword=$PACKAGES_PASSWORD'
-  only:
-  - master@craftmania/crafteconomy
-  when: manual
-
 deploy:release:
   stage: deploy
   script:
-  - './gradlew build -PciBranch=$CI_COMMIT_REF_NAME'
+  - './gradlew shadowJar'
   - './gradlew uploadArchives -PnexusUsername=$PACKAGES_USER -PnexusPassword=$PACKAGES_PASSWORD'
-  allow_failure: true # Docasny fix
   only:
   - tags
-
-codacy:
-  stage: review
-  script:
-  - curl https://api.codacy.com/events/push/f22629ed146d4b719b97be48589f6ab3
-  allow_failure: false

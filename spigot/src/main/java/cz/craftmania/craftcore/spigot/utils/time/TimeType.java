@@ -1,7 +1,7 @@
 package cz.craftmania.craftcore.spigot.utils.time;
 
 public enum TimeType {
-    MONTH, WEEK, DAY;
+    MONTH, WEEK, DAY, HOUR, MINUTE;
 
     public static TimeType getTimeType(String str) {
         for (TimeType time : TimeType.values()) {

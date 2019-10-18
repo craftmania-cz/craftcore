@@ -42,11 +42,7 @@ public class TimeChecker {
         PreDateChangedEvent preDateChanged = new PreDateChangedEvent(time);
         preDateChanged.setFake(fake);
         Main.getInstance().getServer().getPluginManager().callEvent(preDateChanged);
-        if (time.equals(TimeType.DAY)) {
-            DayChangeEvent dayChange = new DayChangeEvent();
-            dayChange.setFake(fake);
-            Main.getInstance().getServer().getPluginManager().callEvent(dayChange);
-        } else if (time.equals(TimeType.WEEK)) {
+        if (time.equals(TimeType.WEEK)) {
             WeekChangeEvent weekChange = new WeekChangeEvent();
             weekChange.setFake(fake);
             Main.getInstance().getServer().getPluginManager().callEvent(weekChange);
@@ -67,6 +63,38 @@ public class TimeChecker {
         return LocalDateTime.now().plusHours(Main.getInstance().getTimeHourOffSet());
     }
 
+    public boolean hasMinuteChanged() {
+        int prevMinute = ServerData.getInstance().getPrevMinute();
+        int minute = getTime().getMinute();
+        ServerData.getInstance().setPrevMinute(minute);
+        if (prevMinute == -1) {
+            return false;
+        }
+        if (prevMinute != minute) {
+            MinuteChangedEvent minuteChange = new MinuteChangedEvent(minute);
+            minuteChange.setFake(false);
+            Main.getInstance().getServer().getPluginManager().callEvent(minuteChange);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasHourChanged() {
+        int prevHour = ServerData.getInstance().getPrevHour();
+        int hour = getTime().getHour();
+        ServerData.getInstance().setPrevHour(hour);
+        if (prevHour == -1) {
+            return false;
+        }
+        if (prevHour != hour) {
+            HourChangedEvent hourChange = new HourChangedEvent(hour);
+            hourChange.setFake(false);
+            Main.getInstance().getServer().getPluginManager().callEvent(hourChange);
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Checks for day changed.
      *
@@ -80,6 +108,9 @@ public class TimeChecker {
             return false;
         }
         if (prevDay != day) {
+            DayChangeEvent dayChange = new DayChangeEvent(day);
+            dayChange.setFake(false);
+            Main.getInstance().getServer().getPluginManager().callEvent(dayChange);
             return true;
         }
         return false;
@@ -130,22 +161,36 @@ public class TimeChecker {
             //plugin.extraDebug(getTime().getHour() + ":" + getTime().getMinute());
         }
 
+        System.out.println(getTime().getHour() + ":" + getTime().getMinute());
+
+        boolean minuteChanged = false;
+        boolean hourChanged = false;
         boolean dayChanged = false;
         boolean weekChanged = false;
         boolean monthChanged = false;
+
+        if (hasMinuteChanged()) {
+            minuteChanged = true;
+        }
+        if (hasHourChanged()) {
+            hourChanged = true;
+        }
         if (hasDayChanged()) {
-            //plugin.debug("Day changed");
             dayChanged = true;
         }
         if (hasWeekChanged()) {
-            //plugin.debug("Week Changed");
             weekChanged = true;
         }
         if (hasMonthChanged()) {
-            //plugin.debug("Month Changed");
             monthChanged = true;
         }
 
+        if (minuteChanged) {
+            forceChanged(TimeType.MINUTE, false);
+        }
+        if (hourChanged) {
+            forceChanged(TimeType.HOUR, false);
+        }
         if (dayChanged) {
             forceChanged(TimeType.DAY, false);
         }

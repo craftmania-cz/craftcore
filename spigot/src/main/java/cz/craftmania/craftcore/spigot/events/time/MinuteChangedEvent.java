@@ -3,7 +3,7 @@ package cz.craftmania.craftcore.spigot.events.time;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class DayChangeEvent extends Event {
+public class MinuteChangedEvent extends Event {
 
     /**
      * The Constant handlers.
@@ -20,14 +20,11 @@ public class DayChangeEvent extends Event {
     }
 
     private boolean fake = false;
-    private int day;
+    private int minute;
 
-    /**
-     * Instantiates a new day change event.
-     */
-    public DayChangeEvent(int day) {
+    public MinuteChangedEvent(int minute) {
         super(true);
-        this.day = day;
+        this.minute = minute;
     }
 
     /*
@@ -48,7 +45,7 @@ public class DayChangeEvent extends Event {
         this.fake = fake;
     }
 
-    public int getDay() {
-        return day;
+    public int getMinute() {
+        return minute;
     }
 }

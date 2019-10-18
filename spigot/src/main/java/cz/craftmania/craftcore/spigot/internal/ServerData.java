@@ -4,6 +4,10 @@ import cz.craftmania.craftcore.spigot.Main;
 import cz.craftmania.craftcore.spigot.utils.files.YMLFile;
 
 import java.io.File;
+import java.time.LocalDateTime;
+import java.time.temporal.TemporalField;
+import java.time.temporal.WeekFields;
+import java.util.Locale;
 
 public class ServerData extends YMLFile {
 
@@ -17,6 +21,10 @@ public class ServerData extends YMLFile {
      */
     public static ServerData getInstance() {
         return instance;
+    }
+
+    public LocalDateTime getTime() {
+        return LocalDateTime.now().plusHours(Main.getInstance().getTimeHourOffSet());
     }
 
     /**
@@ -34,6 +42,18 @@ public class ServerData extends YMLFile {
      */
     public String getPluginVersion(Main plugin) {
         return getData().getString("PluginVersions." + plugin.getName(), "");
+    }
+
+    public int getPrevHour() {
+        return getData().getInt("PrevHour");
+    }
+
+    public int getPrevMinute() {
+        return getData().getInt("PrevMinute");
+    }
+
+    public int getPrevSecond() {
+        return getTime().getSecond() - 1;
     }
 
     /**
@@ -79,6 +99,16 @@ public class ServerData extends YMLFile {
      */
     public void setPluginVersion(Main plugin) {
         getData().set("PluginVersions." + plugin.getName(), plugin.getDescription().getVersion());
+        saveData();
+    }
+
+    public void setPrevMinute(int minute) {
+        getData().set("PrevMinute", minute);
+        saveData();
+    }
+
+    public void setPrevHour(int hour) {
+        getData().set("PrevHour", hour);
         saveData();
     }
 

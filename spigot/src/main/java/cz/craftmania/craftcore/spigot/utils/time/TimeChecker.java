@@ -38,15 +38,16 @@ public class TimeChecker {
     }
 
     public void forceChanged(TimeType time, boolean fake) {
-        Main.getCoreLogger().info("Vyzadana zmena casu: " + time.toString());
         PreDateChangedEvent preDateChanged = new PreDateChangedEvent(time);
         preDateChanged.setFake(fake);
         Main.getInstance().getServer().getPluginManager().callEvent(preDateChanged);
         if (time.equals(TimeType.WEEK)) {
+            Main.getCoreLogger().info("Vyzadana zmena casu: " + time.toString());
             WeekChangeEvent weekChange = new WeekChangeEvent();
             weekChange.setFake(fake);
             Main.getInstance().getServer().getPluginManager().callEvent(weekChange);
         } else if (time.equals(TimeType.MONTH)) {
+            Main.getCoreLogger().info("Vyzadana zmena casu: " + time.toString());
             MonthChangeEvent monthChange = new MonthChangeEvent();
             monthChange.setFake(fake);
             Main.getInstance().getServer().getPluginManager().callEvent(monthChange);
@@ -55,8 +56,6 @@ public class TimeChecker {
         DateChangedEvent dateChanged = new DateChangedEvent(time);
         dateChanged.setFake(fake);
         Main.getInstance().getServer().getPluginManager().callEvent(dateChanged);
-
-        Main.getCoreLogger().info("Zmena casu byla dokoncena: " + time.toString());
     }
 
     public LocalDateTime getTime() {
@@ -160,8 +159,6 @@ public class TimeChecker {
         if (hasTimeOffSet()) {
             //plugin.extraDebug(getTime().getHour() + ":" + getTime().getMinute());
         }
-
-        System.out.println(getTime().getHour() + ":" + getTime().getMinute());
 
         boolean minuteChanged = false;
         boolean hourChanged = false;

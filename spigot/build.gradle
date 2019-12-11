@@ -35,6 +35,7 @@ dependencies {
     compileOnly name: 'spigot-1.12.2'
     compileOnly name: 'spigot-1.13.2'
     compileOnly name: 'spigot-1.14.1'
+    compileOnly name: 'spigot-1.15'
 }
 
 def exportedProjects= [

@@ -1,6 +1,7 @@
 package cz.craftmania.craftcore.spigot.utils.effects;
 
 import cz.craftmania.craftcore.spigot.Main;
+import org.bukkit.Color;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -26,7 +27,7 @@ public class UtilParticles {
             step++;
             loc.add(v);
             if (effect == ParticleEffect.REDSTONE)
-                effect.display(new ParticleEffect.OrdinaryColor(r, g, b), loc, 128);
+                ParticleEffect.REDSTONE.display(loc, Color.fromBGR(r, g, b), 128);
             else
                 effect.display(0, 0, 0, 0, 1, loc, 128);
         }
@@ -82,7 +83,7 @@ public class UtilParticles {
 
     public static void display(ParticleEffect effect, int red, int green, int blue, Location location, int amount) {
         for (int i = 0; i < amount; i++)
-            effect.display(new ParticleEffect.OrdinaryColor(red, green, blue), location, Main.getInstance().getEffectPlayers());
+            effect.display(location, Color.fromBGR(red, green, blue), 64);
     }
 
     public static void display(int red, int green, int blue, Location location) {
@@ -98,7 +99,8 @@ public class UtilParticles {
     }
 
     public static void play(Location location, Effect effect, int id, int data, float offsetX, float offsetY, float offsetZ, float speed, int amount) {
-        location.getWorld().spigot().playEffect(location, effect, id, data, offsetX, offsetY, offsetZ, speed, amount, 128);
+        //location.getWorld().playEffect(location, effect, id, data, offsetX, offsetY, offsetZ, speed, amount, 128);
+        location.getWorld().playEffect(location, effect, data, 128);
     }
 
     public static void play(Location location, Effect effect) {

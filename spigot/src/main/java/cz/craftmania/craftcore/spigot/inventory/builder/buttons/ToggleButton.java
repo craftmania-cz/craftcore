@@ -26,7 +26,7 @@ public class ToggleButton extends ClickableItem {
     }
 
     static {
-        off = new ItemStack(Material.INK_SACK, 1, (short) 14);
-        on = new ItemStack(Material.INK_SACK, 1, (short) 5);
+        off = new ItemStack(Material.INK_SAC, 1, (short) 14);
+        on = new ItemStack(Material.INK_SAC, 1, (short) 5);
     }
 }

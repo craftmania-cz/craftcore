@@ -14,7 +14,7 @@ public class BannerBuilder extends ItemBuilder {
      * Create new instance of banner
      */
     public BannerBuilder() {
-        super(Material.BANNER);
+        super(Material.WHITE_BANNER);
     }
 
     /**
@@ -30,7 +30,7 @@ public class BannerBuilder extends ItemBuilder {
      * @param amount Amount of crated banners
      */
     public BannerBuilder(final int amount) {
-        super(Material.BANNER, amount);
+        super(Material.WHITE_BANNER, amount);
     }
 
     /**

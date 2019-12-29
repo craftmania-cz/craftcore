@@ -14,6 +14,7 @@ import cz.craftmania.craftcore.spigot.nms.NMSPackages;
 import cz.craftmania.craftcore.spigot.tasks.CachedSkinTask;
 import cz.craftmania.craftcore.spigot.tasks.TpsPollerTask;
 import cz.craftmania.craftcore.spigot.utils.CoreLogger;
+import cz.craftmania.craftcore.spigot.utils.GameVersion;
 import cz.craftmania.craftcore.spigot.utils.effects.FireworkHandler;
 import cz.craftmania.craftcore.spigot.utils.mojang.SkinAPI;
 import cz.craftmania.craftcore.spigot.utils.time.TimeChecker;
@@ -107,12 +108,14 @@ public final class Main extends JavaPlugin {
         invManager.init();
 
         // WorldGuard Addons
-        if (getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
-            WGRegionEventsListener.initialize();
-            getCoreLogger().info("Detekce WorldGuard");
-            getCoreLogger().info("Pridavne Eventy byly aktivovany!");
-        } else {
-            getCoreLogger().error(ChatColor.RED + "WorldGuard neni detekovan! Eventy nebudou aktivni!");
+        if (GameVersion.is1_13Above()) {
+            if (getServer().getPluginManager().isPluginEnabled("WorldGuard")) {
+                WGRegionEventsListener.initialize();
+                getCoreLogger().info("Detekce WorldGuard");
+                getCoreLogger().info("Pridavne Eventy byly aktivovany!");
+            } else {
+                getCoreLogger().error(ChatColor.RED + "WorldGuard neni detekovan! Eventy nebudou aktivni!");
+            }
         }
 
         //Detekce TPS

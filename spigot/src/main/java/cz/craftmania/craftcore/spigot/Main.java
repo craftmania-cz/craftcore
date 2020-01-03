@@ -18,10 +18,10 @@ import cz.craftmania.craftcore.spigot.utils.GameVersion;
 import cz.craftmania.craftcore.spigot.utils.effects.FireworkHandler;
 import cz.craftmania.craftcore.spigot.utils.mojang.SkinAPI;
 import cz.craftmania.craftcore.spigot.utils.time.TimeChecker;
-import cz.craftmania.craftcore.spigot.bungee.BungeeAPI;
 import cz.craftmania.craftcore.spigot.internal.listener.PacketListener;
 import cz.craftmania.craftcore.core.files.DirectoryManager;
 import cz.craftmania.craftcore.core.utils.ProxyUtils;
+import cz.craftmania.craftcore.spigot.utils.vault.EconomyWrapperRegister;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -173,6 +173,12 @@ public final class Main extends JavaPlugin {
             ProtocolLibsRegister.registerPacketListeners();
         } else {
             getCoreLogger().error("Registrace Packet eventu je deaktivovana! Chybi ProtocolLibs!");
+        }
+
+        // Vault Events
+        if (pm.isPluginEnabled("Vault")) {
+            EconomyWrapperRegister economyWrapperRegister = new EconomyWrapperRegister();
+            economyWrapperRegister.register();
         }
     }
 

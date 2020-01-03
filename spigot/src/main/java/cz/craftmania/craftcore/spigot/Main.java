@@ -46,6 +46,7 @@ public final class Main extends JavaPlugin {
     private static List<Player> effectPlayers = new ArrayList<>();
     private int timeHourOffSet = 0;
     private boolean timerLoaded = false;
+    private boolean packetHanderEnabled = false;
     protected NMSPackages nms;
 
     private static InventoryManager invManager;
@@ -120,6 +121,7 @@ public final class Main extends JavaPlugin {
 
         //Detekce TPS
         if (getConfig().getBoolean("tps-detector", false)) {
+            this.packetHanderEnabled = true;
             getCoreLogger().info("Detekce TPS byla zapnuta.");
             Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new TpsPollerTask(), 100L, 1L);
         }
@@ -137,8 +139,12 @@ public final class Main extends JavaPlugin {
     @Override
     public void onDisable() {
 
-        for (Player player : getServer().getOnlinePlayers()) {
-            PacketListener.remove(player);
+        if (this.packetHanderEnabled) {
+            try {
+                for (Player player : getServer().getOnlinePlayers()) {
+                    PacketListener.remove(player);
+                }
+            } catch (Exception ignored) {}
         }
 
         instance = null;
@@ -260,5 +266,9 @@ public final class Main extends JavaPlugin {
      */
     public static CoreLogger getCoreLogger() {
         return coreLogger;
+    }
+
+    public boolean isPacketHanderEnabled() {
+        return packetHanderEnabled;
     }
 }

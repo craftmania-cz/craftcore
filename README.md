@@ -1,4 +1,4 @@
-# CraftCore [![License](https://img.shields.io/github/license/mashape/apistatus.svg?style=square)](LICENSE) [![Maintenance](https://img.shields.io/maintenance/yes/2018.svg?style=square)]() [![pipeline status](https://git.craftmania.cz/craftmania/CraftCore/badges/master/pipeline.svg)](https://git.craftmania.cz/craftmania/CraftCore/commits/master) 
+# CraftCore [![License](https://img.shields.io/github/license/mashape/apistatus.svg?style=square)](LICENSE) [![Maintenance](https://img.shields.io/maintenance/yes/2020.svg?style=square)]() 
 
 Tento plugin je používán jako základní knihovna API pro pluginy na serveru. Vyžaduje Java 1.8+ a Maven k správné funkčnosti.
 

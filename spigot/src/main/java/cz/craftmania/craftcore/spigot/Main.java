@@ -1,7 +1,6 @@
 package cz.craftmania.craftcore.spigot;
 
 import cz.craftmania.craftcore.spigot.internal.ServerData;
-import cz.craftmania.craftcore.spigot.internal.listener.PlayerCleanerListener;
 import cz.craftmania.craftcore.spigot.internal.listener.ServerListener;
 import cz.craftmania.craftcore.spigot.inventory.builder.InventoryManager;
 import cz.craftmania.craftcore.spigot.listener.basic.PlayerJoinListener;
@@ -17,7 +16,6 @@ import cz.craftmania.craftcore.spigot.utils.GameVersion;
 import cz.craftmania.craftcore.spigot.utils.effects.FireworkHandler;
 import cz.craftmania.craftcore.spigot.utils.mojang.SkinAPI;
 import cz.craftmania.craftcore.spigot.utils.time.TimeChecker;
-import cz.craftmania.craftcore.spigot.internal.listener.PacketListener;
 import cz.craftmania.craftcore.core.files.DirectoryManager;
 import cz.craftmania.craftcore.core.utils.ProxyUtils;
 import org.bukkit.Bukkit;
@@ -136,15 +134,6 @@ public final class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
-        if (this.packetHanderEnabled) {
-            try {
-                for (Player player : getServer().getOnlinePlayers()) {
-                    PacketListener.remove(player);
-                }
-            } catch (Exception ignored) {}
-        }
-
         instance = null;
     }
 
@@ -158,7 +147,6 @@ public final class Main extends JavaPlugin {
         pm.registerEvents(new PlayerLeaveListener(), this);
         pm.registerEvents(new FireworkHandler(), this);
         pm.registerEvents(new ServerListener(), this);
-        pm.registerEvents(new PlayerCleanerListener(), this);
     }
 
     private void loadCommands() {

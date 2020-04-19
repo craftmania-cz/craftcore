@@ -6,7 +6,6 @@ import com.google.common.io.ByteStreams;
 import cz.craftmania.craftcore.spigot.Main;
 import cz.craftmania.craftcore.spigot.bungee.responses.*;
 import cz.craftmania.craftcore.spigot.utils.ChatUtils;
-import cz.craftmania.craftcore.spigot.utils.mojang.Skin;
 import cz.craftmania.craftcore.spigot.events.bungee.BungeeForwardEvent;
 import cz.craftmania.craftcore.core.utils.CommonUtils;
 import org.bukkit.Bukkit;
@@ -321,25 +320,6 @@ public class BungeeAPI implements PluginMessageListener {
         out.write(bytedata);
         Bukkit.getServer().getOnlinePlayers().iterator().next()
                 .sendPluginMessage(Main.getInstance(), BUNGEE_CHANNEL, out.toByteArray());
-    }
-
-    /**
-     * Requests the CraftCore plugin (on proxy-side) to change the skin of a player
-     *
-     * @param player a player
-     * @param skin   a skin
-     */
-    public static void requestChangeSkin(String player, Skin skin) {
-        if (Bukkit.getServer().getOnlinePlayers().size() == 0) {
-            return;
-        }
-        ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.writeUTF("skin");
-        out.writeUTF(player);
-        out.writeUTF(skin.getValue());
-        out.writeUTF(skin.getSignature());
-        Bukkit.getServer().getOnlinePlayers().iterator().next()
-                .sendPluginMessage(Main.getInstance(), Main.CRAFTCORE_CHANNEL, out.toByteArray());
     }
 
     /**

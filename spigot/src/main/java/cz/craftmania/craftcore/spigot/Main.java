@@ -9,12 +9,10 @@ import cz.craftmania.craftcore.spigot.listener.bungee.BungeeListener;
 import cz.craftmania.craftcore.spigot.listener.worldguard.WGRegionEventsListener;
 import cz.craftmania.craftcore.spigot.nms.NMSManager;
 import cz.craftmania.craftcore.spigot.nms.NMSPackages;
-import cz.craftmania.craftcore.spigot.tasks.CachedSkinTask;
 import cz.craftmania.craftcore.spigot.tasks.TpsPollerTask;
 import cz.craftmania.craftcore.spigot.utils.CoreLogger;
 import cz.craftmania.craftcore.spigot.utils.GameVersion;
 import cz.craftmania.craftcore.spigot.utils.effects.FireworkHandler;
-import cz.craftmania.craftcore.spigot.utils.mojang.SkinAPI;
 import cz.craftmania.craftcore.spigot.utils.time.TimeChecker;
 import cz.craftmania.craftcore.core.files.DirectoryManager;
 import cz.craftmania.craftcore.core.utils.ProxyUtils;
@@ -93,7 +91,6 @@ public final class Main extends JavaPlugin {
         getCoreLogger().info("Nacitani internich API...");
         ServerData.getInstance().setup();
         ServerData.getInstance().setPluginVersion(this);
-        new SkinAPI();
         //new BungeeAPI(); //TODO: 1.13+ java.lang.IllegalStateException: java.io.EOFException
         for (String proxy : getConfig().getStringList("proxies")) {
             String[] x = proxy.split(":");
@@ -125,10 +122,6 @@ public final class Main extends JavaPlugin {
         // Bungee register
         getServer().getMessenger().registerOutgoingPluginChannel(this, CRAFTCORE_CHANNEL);
         getServer().getMessenger().registerIncomingPluginChannel(this, CRAFTCORE_CHANNEL, new BungeeListener());
-
-        if (getConfig().getBoolean("auto_renew_skin", false)) {
-            new CachedSkinTask().runTaskTimerAsynchronously(this, 0, 1200);
-        }
 
     }
 

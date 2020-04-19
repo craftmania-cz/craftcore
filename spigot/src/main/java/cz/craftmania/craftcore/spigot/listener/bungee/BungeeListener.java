@@ -1,7 +1,6 @@
 package cz.craftmania.craftcore.spigot.listener.bungee;
 
 import cz.craftmania.craftcore.spigot.Main;
-import cz.craftmania.craftcore.spigot.entity.PlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;

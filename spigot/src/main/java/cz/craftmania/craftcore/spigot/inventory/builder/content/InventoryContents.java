@@ -61,14 +61,14 @@ public interface InventoryContents {
 
     class Impl implements InventoryContents {
 
-        private SmartInventory inv;
-        private Player player;
+        private final SmartInventory inv;
+        private final Player player;
 
-        private ClickableItem[][] contents;
+        private final ClickableItem[][] contents;
 
-        private Pagination pagination = new Pagination.Impl();
-        private Map<String, SlotIterator> iterators = new HashMap<>();
-        private Map<String, Object> properties = new HashMap<>();
+        private final Pagination pagination = new Pagination.Impl();
+        private final Map<String, SlotIterator> iterators = new HashMap<>();
+        private final Map<String, Object> properties = new HashMap<>();
 
         public Impl(SmartInventory inv, Player player) {
             this.inv = inv;

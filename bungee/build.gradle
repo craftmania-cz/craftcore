@@ -4,6 +4,7 @@ apply plugin: 'com.github.johnrengelman.shadow'
 
 repositories {
     flatDir {dirs 'lib'}
+    mavenCentral();
     maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
     maven { url "http://repo.dmulloy2.net/nexus/repository/public/" }
     maven { url "http://maven.sk89q.com/repo/" }
@@ -16,7 +17,7 @@ repositories {
 
 dependencies {
     compileOnly project(':main')
-    compile 'org.apache.commons:commons-lang3:3.8'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8'
     compileOnly 'net.md-5:bungeecord-api:1.12-SNAPSHOT'
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
     compileOnly name: 'bungeecord-1-12'

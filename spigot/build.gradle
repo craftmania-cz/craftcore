@@ -6,6 +6,7 @@ apply plugin: 'com.github.johnrengelman.shadow'
 
 repositories {
     flatDir {dirs 'lib'}
+    mavenCentral();
     maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
     maven { url "http://repo.dmulloy2.net/nexus/repository/public/" }
     maven { url "http://maven.sk89q.com/repo/" }

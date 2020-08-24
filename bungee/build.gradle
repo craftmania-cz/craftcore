@@ -13,12 +13,12 @@ repositories {
     maven { url "http://ci.emc.gs/nexus/content/groups/aikar/" }
     maven { url "http://repo.md-5.net/content/repositories/snapshots/" }
     maven { url "https://packages.craftmania.cz/service/rest/repository/browse/craftmania/" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 }
 
 dependencies {
     compileOnly project(':main')
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8'
-    compileOnly 'net.md-5:bungeecord-api:1.12-SNAPSHOT'
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
     compileOnly name: 'bungeecord-1-12'
 }

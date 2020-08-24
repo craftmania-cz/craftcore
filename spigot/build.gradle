@@ -15,6 +15,7 @@ repositories {
     maven { url "http://ci.emc.gs/nexus/content/groups/aikar/" }
     maven { url "http://repo.md-5.net/content/repositories/snapshots/" }
     maven { url "https://packages.craftmania.cz/service/rest/repository/browse/craftmania/" }
+    maven { url "https://repo.dmulloy2.net/nexus/repository/public/" }
     maven { url 'https://jitpack.io' }
 }
 
@@ -26,13 +27,12 @@ dependencies {
 
     // Plugin dependency
     compile 'org.jetbrains:annotations:16.0.3'
-    compileOnly 'com.comphenix.protocol:ProtocolLib-API:4.4.0-SNAPSHOT'
+    compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.5.0";
     compileOnly ('org.spigotmc:spigot-api:1.14.2-R0.1-SNAPSHOT') {
         exclude group: 'net.md-5'
     }
     compileOnly 'org.bukkit:bukkit:1.14.2-R0.1-SNAPSHOT'
     compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.1-SNAPSHOT'
-    compileOnly 'com.github.MilkBowl:VaultAPI:1.7'
 
     // Spigot dependency
     compileOnly name: 'spigot-1.12.2'

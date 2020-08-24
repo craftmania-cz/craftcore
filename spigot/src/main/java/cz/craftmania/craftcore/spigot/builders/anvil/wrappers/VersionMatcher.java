@@ -1,6 +1,5 @@
 package cz.craftmania.craftcore.spigot.builders.anvil.wrappers;
 
-import cz.craftmania.craftcore.spigot.builders.anvil.versions.Wrapper1_14_R1;
 import cz.craftmania.craftcore.spigot.builders.anvil.versions.Wrapper1_15_R1;
 import org.bukkit.Bukkit;
 
@@ -23,7 +22,6 @@ public class VersionMatcher {
      * All available {@link VersionWrapper}s
      */
     private final List<Class<? extends VersionWrapper>> versions = Arrays.asList(
-            Wrapper1_14_R1.class,
             Wrapper1_15_R1.class
     );
 

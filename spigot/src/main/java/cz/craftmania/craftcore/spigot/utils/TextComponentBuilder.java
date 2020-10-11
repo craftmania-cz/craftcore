@@ -18,6 +18,7 @@ import java.util.Objects;
  * This object is {@link Cloneable}.
  * @version 1.0.0
  * @author jacobbordas / igniss
+ * @deprecated Use TextComponentBuilder from Craftlibs
  */
 public class TextComponentBuilder implements Cloneable {
 

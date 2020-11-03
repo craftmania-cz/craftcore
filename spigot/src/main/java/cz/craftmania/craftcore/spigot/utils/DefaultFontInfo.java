@@ -1,5 +1,8 @@
 package cz.craftmania.craftcore.spigot.utils;
 
+/**
+ * @deprecated Use DefaultFontInfo from Craftlibs
+ */
 public enum DefaultFontInfo {
     A('A', 5),
     a('a', 5),

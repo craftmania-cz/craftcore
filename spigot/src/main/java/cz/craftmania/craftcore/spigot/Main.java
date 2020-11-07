@@ -7,8 +7,6 @@ import cz.craftmania.craftcore.spigot.listener.basic.PlayerJoinListener;
 import cz.craftmania.craftcore.spigot.listener.basic.PlayerLeaveListener;
 import cz.craftmania.craftcore.spigot.listener.bungee.BungeeListener;
 import cz.craftmania.craftcore.spigot.listener.worldguard.WGRegionEventsListener;
-import cz.craftmania.craftcore.spigot.nms.NMSManager;
-import cz.craftmania.craftcore.spigot.nms.NMSPackages;
 import cz.craftmania.craftcore.spigot.tasks.TpsPollerTask;
 import cz.craftmania.craftcore.spigot.utils.CoreLogger;
 import cz.craftmania.craftcore.spigot.utils.GameVersion;
@@ -23,7 +21,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -40,7 +37,6 @@ public final class Main extends JavaPlugin {
     private static List<Player> effectPlayers = new ArrayList<>();
     private int timeHourOffSet = 0;
     private boolean timerLoaded = false;
-    protected NMSPackages nms;
 
     private static InventoryManager invManager;
 
@@ -194,10 +190,6 @@ public final class Main extends JavaPlugin {
         } else {
             getCoreLogger().warn("Timer je jiz nacten!");
         }
-    }
-
-    public NMSPackages getNMS() {
-        return this.nms;
     }
 
     public static InventoryManager getInventoryManager() {

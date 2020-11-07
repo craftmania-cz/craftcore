@@ -1,5 +1,8 @@
 package cz.craftmania.craftcore.spigot.utils;
 
+/**
+ * @deprecated Use StringUtils from Craftlibs
+ */
 public class StringUtils {
 
     /**

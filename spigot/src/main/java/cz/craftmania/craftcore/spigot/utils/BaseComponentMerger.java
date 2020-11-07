@@ -12,6 +12,7 @@ import java.util.ListIterator;
  * merge several {@link BaseComponent} together.
  * @version 1.0.0
  * @author jacobbordas / igniss
+ * @deprecated Use BaseComponentMerger from Craftlibs
  */
 public class BaseComponentMerger {
 

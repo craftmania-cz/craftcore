@@ -40,7 +40,6 @@ public final class Main extends JavaPlugin {
     private static List<Player> effectPlayers = new ArrayList<>();
     private int timeHourOffSet = 0;
     private boolean timerLoaded = false;
-    private boolean packetHanderEnabled = false;
     protected NMSPackages nms;
 
     private static InventoryManager invManager;
@@ -79,10 +78,6 @@ public final class Main extends JavaPlugin {
         loadListeners();
         loadCommands();
 
-        // Load NMS Packages
-        getCoreLogger().info("Nacitani NMS Packages...");
-        loadNMSPackages();
-
         // Timer + events
         timeHourOffSet = getConfig().getInt("timehouroffset", 0);
         loadBackgroundTimer(2);
@@ -114,7 +109,6 @@ public final class Main extends JavaPlugin {
 
         //Detekce TPS
         if (getConfig().getBoolean("tps-detector", false)) {
-            this.packetHanderEnabled = true;
             getCoreLogger().info("Detekce TPS byla zapnuta.");
             Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new TpsPollerTask(), 100L, 1L);
         }
@@ -206,22 +200,6 @@ public final class Main extends JavaPlugin {
         return this.nms;
     }
 
-    private void loadNMSPackages() {
-        try {
-            final Class<?> forName = Class.forName("cz.craftmania.craftcore.spigot.nms.packages." + NMSManager.getVersion());
-            if (NMSPackages.class.isAssignableFrom(forName)) {
-                getInstance().nms = (NMSPackages) forName.getConstructor((Class<?>[]) new Class[0]).newInstance(new Object[0]);
-                getCoreLogger().info("Detekovana NMS verze: " + NMSManager.getVersion());
-            } else {
-                getCoreLogger().warn("Nepodarilo se detekovat verzi NMS! Nektere funkce budou vypnuty!");
-                getInstance().nms = null;
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex5) {
-            getCoreLogger().error("NMS (" + NMSManager.getVersion() + ") nejsou kompatibilni s touto verzi serveru! Zkontroluj update CraftCore nebo pockej na opravu.");
-            getInstance().nms = null;
-        }
-    }
-
     public static InventoryManager getInventoryManager() {
         return invManager;
     }
@@ -232,9 +210,5 @@ public final class Main extends JavaPlugin {
      */
     public static CoreLogger getCoreLogger() {
         return coreLogger;
-    }
-
-    public boolean isPacketHanderEnabled() {
-        return packetHanderEnabled;
     }
 }

@@ -536,6 +536,22 @@ public class ItemBuilder {
     }
 
     /**
+     * Add custom model data for resource packs
+     *
+     * @param data  Data
+     * @return      ItemBuilder
+     */
+    public ItemBuilder setCustomModelData(int data) {
+        try {
+            ItemMeta im = is.getItemMeta();
+            im.setCustomModelData(data);
+            is.setItemMeta(im);
+            return this;
+        } catch (ClassCastException ignored) {}
+        return this;
+    }
+
+    /**
      * Build Item from ItemBuilder to ItemStack
      *
      * @return ItemStack of create item

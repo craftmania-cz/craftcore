@@ -1,4 +1,0 @@
-name: CraftCore
-version: ${version}
-main: cz.craftmania.craftcore.bungee.Main
-author: MrWakeCZ

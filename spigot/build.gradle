@@ -23,7 +23,6 @@ dependencies {
 
     // Core modules
     compile project(path: ':main')
-    compile project(':bungee')
 
     // Plugin dependency
     compile 'org.jetbrains:annotations:16.0.3'
@@ -40,7 +39,6 @@ dependencies {
 }
 
 def exportedProjects= [
-        ":bungee",
         ":spigot",
         ":main"
 ]
@@ -71,7 +69,6 @@ task alljavadoc(type: Javadoc) {
 shadowJar {
     dependencies {
         include(dependency(':main'))
-        include(dependency(':bungee'))
 
         // Include chybějící deps pro 1.14.4+
         include(dependency('org.apache.commons:commons-lang3:3.8'))

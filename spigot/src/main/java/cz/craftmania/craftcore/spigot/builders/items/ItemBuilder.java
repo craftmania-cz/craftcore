@@ -1,5 +1,6 @@
 package cz.craftmania.craftcore.spigot.builders.items;
 
+import cz.craftmania.craftcore.spigot.nbt.NBTEdit;
 import cz.craftmania.craftcore.spigot.nms.NMSManager;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
@@ -11,6 +12,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -325,6 +328,7 @@ public class ItemBuilder {
         return "";
     }
 
+    @Nullable
     public OfflinePlayer getSkullOwner() {
         try {
             SkullMeta im = (SkullMeta) is.getItemMeta();
@@ -551,11 +555,40 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder setInfinitePickUpDelay() {
+        try {
+            is = NBTEdit.setNBTInteger(is, "PickupDelay", 32767);
+        } catch (ClassCastException ignored) {}
+        return this;
+    }
+
+    public ItemBuilder setPickUpDelay(int value) {
+        try {
+            is = NBTEdit.setNBTInteger(is, "PickupDelay", value);
+        } catch (ClassCastException ignored) {}
+        return this;
+    }
+
+    public ItemBuilder setNonDespawnable() {
+        try {
+            is = NBTEdit.setNBTInteger(is, "Age", -32768);
+        } catch (ClassCastException ignored) {}
+        return this;
+    }
+
+    public ItemBuilder setDespawnableDelay(int value) {
+        try {
+            is = NBTEdit.setNBTInteger(is, "Age", value);
+        } catch (ClassCastException ignored) {}
+        return this;
+    }
+
     /**
      * Build Item from ItemBuilder to ItemStack
      *
      * @return ItemStack of create item
      */
+    @NotNull
     public ItemStack build() {
         return is;
     }

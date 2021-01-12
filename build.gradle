@@ -39,32 +39,6 @@ def mainVersion = "2.5.0"
 def branch = ""
 def gitId = ""
 
-ext {
-    try {
-        git = org.ajoberstar.grgit.Grgit.open(file(".git"))
-        date = git.head().date.format("yy.MM.dd")
-        //gitId = "-${git.head().abbreviatedId}"
-        gitId = "-SNAPSHOT"
-    } catch (Throwable ignore) {
-        gitId = "-unknown"
-    }
-    try {
-        git = org.ajoberstar.grgit.Grgit.open(file(".git"))
-        date = git.head().date.format("yy.MM.dd")
-        if (ciBranch.isEmpty() || ciBranch.equalsIgnoreCase("master") || ciBranch.equalsIgnoreCase("head")) {
-            branch = "-${git.branch.current.fullName}".replace("refs/heads/", "")
-            if (branch.toString().equalsIgnoreCase("-master") || branch.toString().equalsIgnoreCase("-head")) {
-                branch = ""
-                gitId = ""
-            }
-        } else {
-            branch = "-" + ciBranch
-        }
-    } catch (Throwable ignore) {
-        branch = "-unknown"
-    }
-} 
-
 // Name-master-76735d.jar
 allprojects {
     version = mainVersion + branch + gitId

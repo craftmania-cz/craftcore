@@ -1,8 +1,8 @@
 buildscript {
     repositories {
         mavenCentral()
+        gradlePluginPortal()
         maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
-        jcenter()
     }
     dependencies {
         classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
@@ -16,8 +16,6 @@ apply plugin: 'signing'
 
 clean { delete './target' }
 clean { delete './build' }
-
-apply plugin: 'maven'
 
 group = 'cz.craftmania.craftcore'
 
@@ -50,7 +48,6 @@ artifacts {
 subprojects {
 
     apply plugin: 'java'
-    apply plugin: 'maven'
     apply plugin: 'eclipse'
     apply plugin: 'idea'
     apply plugin: 'signing'
@@ -75,7 +72,7 @@ subprojects {
     build.dependsOn(sourcesJar)
 }
 
-uploadArchives {
+/*uploadArchives {
     repositories {
         mavenDeployer {
             repository(url: "${nexusUrl}/repository/release") {
@@ -86,4 +83,4 @@ uploadArchives {
             }
         }
     }
-}
+}*/

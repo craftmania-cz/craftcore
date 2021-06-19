@@ -1,6 +1,5 @@
 apply plugin: 'idea'
 apply plugin: 'java'
-apply plugin: 'maven'
 apply plugin: 'com.github.johnrengelman.shadow'
 
 
@@ -8,12 +7,12 @@ repositories {
     flatDir {dirs 'lib'}
     mavenCentral();
     maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
-    maven { url "http://repo.dmulloy2.net/nexus/repository/public/" }
-    maven { url "http://maven.sk89q.com/repo/" }
-    maven { url "http://repo.maven.apache.org/maven2" }
+    maven { url "https://repo.dmulloy2.net/nexus/repository/public/" }
+    maven { url "https://maven.sk89q.com/repo/" }
+    maven { url "https://repo.maven.apache.org/maven2" }
     maven { url "https://repo.destroystokyo.com/repository/maven-public//" }
-    maven { url "http://ci.emc.gs/nexus/content/groups/aikar/" }
-    maven { url "http://repo.md-5.net/content/repositories/snapshots/" }
+    maven { url "https://ci.emc.gs/nexus/content/groups/aikar/" }
+    maven { url "https://repo.md-5.net/content/repositories/snapshots/" }
     maven { url "https://packages.craftmania.cz/service/rest/repository/browse/craftmania/" }
     maven { url "https://repo.dmulloy2.net/nexus/repository/public/" }
     maven { url 'https://jitpack.io' }
@@ -22,11 +21,11 @@ repositories {
 dependencies {
 
     // Core modules
-    compile project(path: ':main')
+    implementation project(path: ':main')
 
     // Plugin dependency
-    compile 'org.jetbrains:annotations:16.0.3'
-    compile 'com.github.cryptomorin:XSeries:7.6.0'
+    implementation 'org.jetbrains:annotations:16.0.3'
+    implementation 'com.github.cryptomorin:XSeries:7.6.0'
     compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.5.0";
     compileOnly ('org.spigotmc:spigot-api:1.16.4-R0.1-SNAPSHOT') {
         exclude group: 'net.md-5'

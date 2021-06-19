@@ -46,9 +46,6 @@ allprojects {
 
 artifacts {
     archives file("./target/craftcore-" + version + ".jar")
-    //archives file("./target/craftcore-bungee-" + version + "-sources.jar")
-    //archives file("./target/craftcore-main-" + version + "-sources.jar")
-    //archives file("./target/craftcore-spigot-" + version + "-sources.jar")
 }
 
 subprojects {

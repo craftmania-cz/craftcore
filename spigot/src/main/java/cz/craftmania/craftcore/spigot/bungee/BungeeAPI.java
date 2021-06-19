@@ -5,9 +5,9 @@ import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import cz.craftmania.craftcore.spigot.Main;
 import cz.craftmania.craftcore.spigot.bungee.responses.*;
-import cz.craftmania.craftcore.spigot.utils.ChatUtils;
 import cz.craftmania.craftcore.spigot.events.bungee.BungeeForwardEvent;
 import cz.craftmania.craftcore.core.utils.CommonUtils;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
@@ -178,7 +178,7 @@ public class BungeeAPI implements PluginMessageListener {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("Message");
         out.writeUTF(player);
-        out.writeUTF(ChatUtils.color(message));
+        out.writeUTF(message);
         Bukkit.getServer().getOnlinePlayers().iterator().next()
                 .sendPluginMessage(Main.getInstance(), BUNGEE_CHANNEL, out.toByteArray());
     }
@@ -260,7 +260,7 @@ public class BungeeAPI implements PluginMessageListener {
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF("KickPlayer");
         out.writeUTF(player);
-        out.writeUTF(ChatUtils.color(reason));
+        out.writeUTF(reason);
         Bukkit.getServer().getOnlinePlayers().iterator().next()
                 .sendPluginMessage(Main.getInstance(), BUNGEE_CHANNEL, out.toByteArray());
     }

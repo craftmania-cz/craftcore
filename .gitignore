@@ -12,3 +12,5 @@ dependency-reduced-pom\.xml
 \.idea/
 
 \.DS_Store
+
+gradle.properties

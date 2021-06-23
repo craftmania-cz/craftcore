@@ -13,6 +13,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'nebula-aggregate-javadocs'
 apply plugin: 'signing'
+apply plugin: 'maven-publish'
 
 clean { delete './target' }
 clean { delete './build' }
@@ -72,15 +73,20 @@ subprojects {
     build.dependsOn(sourcesJar)
 }
 
-/*uploadArchives {
+publishing {
     repositories {
-        mavenDeployer {
-            repository(url: "${nexusUrl}/repository/release") {
-                authentication(userName: nexusUsername, password: nexusPassword)
-            }
-            snapshotRepository(url: "${nexusUrl}/repository/snapshots") {
-                authentication(userName: nexusUsername, password: nexusPassword)
+        maven {
+            name = "craftcore"
+            url = uri("https://maven.pkg.github.com/craftmania-cz/craftcore")
+            credentials {
+                username = GPR_USER
+                password = GPR_TOKEN
             }
         }
     }
-}*/
+    publications {
+        gpr(MavenPublication) {
+            from(components.java)
+        }
+    }
+}

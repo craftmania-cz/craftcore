@@ -1,26 +1,12 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        gradlePluginPortal()
-        maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
-    }
-    dependencies {
-        classpath 'com.github.jengelman.gradle.plugins:shadow:5.2.0'
-        classpath 'com.netflix.nebula:gradle-aggregate-javadocs-plugin:2.2.+'
-    }
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
 apply plugin: 'java'
-apply plugin: 'nebula-aggregate-javadocs'
-apply plugin: 'signing'
 apply plugin: 'maven-publish'
 
-clean { delete './target' }
-clean { delete './build' }
-
-group = 'cz.craftmania.craftcore'
-
-description = """"""
+group 'cz.craftmania.craftcore'
+def mainVersion = "2.6.0-beta"
 
 sourceCompatibility = 16
 targetCompatibility = 16
@@ -29,49 +15,67 @@ tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
-task setupCIWorkspace {
-    // do nothing, stub method
-}
-
-def mainVersion = "2.6.0-beta"
-def branch = ""
-def gitId = ""
+clean { delete "./build" }
 
 // Name-master-76735d.jar
-allprojects {
-    version = mainVersion + branch + gitId
+version = mainVersion
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
 }
 
 artifacts {
-    archives file("./target/craftcore-" + version + ".jar")
+    archives sourcesJar
 }
 
-subprojects {
-
-    apply plugin: 'java'
-    apply plugin: 'eclipse'
-    apply plugin: 'idea'
-    apply plugin: 'signing'
-
-    sourceCompatibility = 16
-    targetCompatibility = 16
-
-    compileJava {
-        options.compilerArgs += ["-parameters"]
-    }
-
-    task sourcesJar(type: Jar, dependsOn: classes) {
-        classifier = 'sources'
-        archiveName = "${parent.name}-${project.name}-${parent.version}-sources.jar"
-        from sourceSets.main.allSource
-        destinationDir = file '../target'
-    }
-
-    artifacts {
-        archives sourcesJar
-    }
-    build.dependsOn(sourcesJar)
+task compilePlugin(type: Jar) {
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
+
+task generateJavadocs(type: Javadoc) {
+    source = sourceSets.main.allJava
+    classpath = sourceSets.main.compileClasspath
+}
+
+repositories {
+    mavenCentral();
+    maven { url "https://hub.spigotmc.org/nexus/content/repositories/snapshots/" }
+    maven { url "https://repo.dmulloy2.net/nexus/repository/public/" }
+    maven { url "https://maven.sk89q.com/repo/" }
+    maven { url "https://repo.maven.apache.org/maven2" }
+    maven { url "https://repo.destroystokyo.com/repository/maven-public//" }
+    maven { url "https://ci.emc.gs/nexus/content/groups/aikar/" }
+    maven { url "https://repo.md-5.net/content/repositories/snapshots/" }
+    maven { url "https://repo.dmulloy2.net/nexus/repository/public/" }
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    compileOnly fileTree(include: ['*.jar'], dir: 'libs') // Add everything in the lib folder.
+
+    // Plugin dependency
+    implementation 'org.jetbrains:annotations:16.0.3'
+    implementation 'com.github.cryptomorin:XSeries:7.6.0'
+    compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.5.0";
+    compileOnly ('org.spigotmc:spigot-api:1.16.4-R0.1-SNAPSHOT') {
+        exclude group: 'net.md-5'
+    }
+    compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.1-SNAPSHOT'
+}
+
+shadowJar {
+    dependencies {
+        // Include chybějící deps pro 1.14.4+
+        include(dependency('org.apache.commons:commons-lang3:3.8'))
+        include(dependency('commons-io:commons-io:2.4'))
+        include(dependency('com.github.cryptomorin:XSeries:7.6.0'))
+        relocate 'com.cryptomorin.xseries', "spigot.xseries"
+    }
+}
+
+build.dependsOn(shadowJar)
 
 publishing {
     repositories {

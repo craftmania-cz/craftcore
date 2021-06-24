@@ -1,0 +1,8 @@
+name: CraftCore
+version: ${version}
+description: API for Craftmania.cz
+author: MrWakeCZ
+main: spigot.Main
+depend: [Multiverse-Core]
+softdepend: [ProtocolLib,WorldGuard]
+api-version: "1.16"

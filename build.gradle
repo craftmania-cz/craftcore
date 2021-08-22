@@ -20,23 +20,13 @@ clean { delete "./build" }
 // Name-master-76735d.jar
 version = mainVersion
 
-task sourcesJar(type: Jar, dependsOn: classes) {
-    classifier = 'sources'
-    from sourceSets.main.allSource
-}
-
-artifacts {
-    archives sourcesJar
-}
-
-task compilePlugin(type: Jar) {
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
-    with jar
-}
-
 task generateJavadocs(type: Javadoc) {
     source = sourceSets.main.allJava
     classpath = sourceSets.main.compileClasspath
+}
+
+artifacts {
+    shadowJar
 }
 
 repositories {
@@ -67,6 +57,7 @@ dependencies {
 }
 
 shadowJar {
+    setClassifier(null)
     dependencies {
         // Include chybějící deps pro 1.14.4+
         include(dependency('org.apache.commons:commons-lang3:3.8'))
@@ -92,8 +83,8 @@ publishing {
         }
     }
     publications {
-        gpr(MavenPublication) {
-            from(components.java)
+        shadow(MavenPublication) { publication ->
+            project.shadow.component(publication)
         }
     }
 }

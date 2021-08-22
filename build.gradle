@@ -58,6 +58,7 @@ dependencies {
     // Plugin dependency
     implementation 'org.jetbrains:annotations:16.0.3'
     implementation 'com.github.cryptomorin:XSeries:7.6.0'
+    implementation 'fr.mrmicky:fastboard:1.2.0'
     compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.5.0";
     compileOnly ('org.spigotmc:spigot-api:1.16.4-R0.1-SNAPSHOT') {
         exclude group: 'net.md-5'
@@ -71,7 +72,9 @@ shadowJar {
         include(dependency('org.apache.commons:commons-lang3:3.8'))
         include(dependency('commons-io:commons-io:2.4'))
         include(dependency('com.github.cryptomorin:XSeries:7.6.0'))
+        include(dependency('fr.mrmicky:fastboard:1.2.0'))
         relocate 'com.cryptomorin.xseries', "cz.craftmania.craftcore.xseries"
+        relocate 'fr.mrmicky.fastboard', 'cz.craftmania.craftcore.fastboard'
     }
 }
 

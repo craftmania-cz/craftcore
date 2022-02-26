@@ -47,7 +47,7 @@ dependencies {
 
     // Plugin dependency
     implementation 'org.jetbrains:annotations:22.0.0'
-    implementation 'com.github.cryptomorin:XSeries:8.5.0.1'
+    implementation 'com.github.cryptomorin:XSeries:8.6.1'
     implementation 'fr.mrmicky:fastboard:1.2.1'
     compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.5.0";
     compileOnly ('org.spigotmc:spigot-api:1.16.4-R0.1-SNAPSHOT') {
@@ -62,7 +62,7 @@ shadowJar {
         // Include chybějící deps pro 1.14.4+
         include(dependency('org.apache.commons:commons-lang3:3.8'))
         include(dependency('commons-io:commons-io:2.4'))
-        include(dependency('com.github.cryptomorin:XSeries:8.5.0.1'))
+        include(dependency('com.github.cryptomorin:XSeries:8.6.1'))
         include(dependency('fr.mrmicky:fastboard:1.2.1'))
         relocate 'com.cryptomorin.xseries', "cz.craftmania.craftcore.xseries"
         relocate 'fr.mrmicky.fastboard', 'cz.craftmania.craftcore.fastboard'

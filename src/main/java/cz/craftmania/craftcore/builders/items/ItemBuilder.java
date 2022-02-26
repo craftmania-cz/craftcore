@@ -1,7 +1,7 @@
 package cz.craftmania.craftcore.builders.items;
 
-import cz.craftmania.craftcore.nbt.NBTEdit;
 import cz.craftmania.craftcore.nms.NMSManager;
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -557,28 +557,36 @@ public class ItemBuilder {
 
     public ItemBuilder setInfinitePickUpDelay() {
         try {
-            is = NBTEdit.setNBTInteger(is, "PickupDelay", 32767);
+            NBTItem nbtItem = new NBTItem(is);
+            nbtItem.setInteger("PickupDelay", 32767);
+            nbtItem.applyNBT(is);
         } catch (ClassCastException ignored) {}
         return this;
     }
 
     public ItemBuilder setPickUpDelay(int value) {
         try {
-            is = NBTEdit.setNBTInteger(is, "PickupDelay", value);
+            NBTItem nbtItem = new NBTItem(is);
+            nbtItem.setInteger("PickupDelay", value);
+            nbtItem.applyNBT(is);
         } catch (ClassCastException ignored) {}
         return this;
     }
 
     public ItemBuilder setNonDespawnable() {
         try {
-            is = NBTEdit.setNBTInteger(is, "Age", -32768);
+            NBTItem nbtItem = new NBTItem(is);
+            nbtItem.setInteger("Age", -32768);
+            nbtItem.applyNBT(is);
         } catch (ClassCastException ignored) {}
         return this;
     }
 
     public ItemBuilder setDespawnableDelay(int value) {
         try {
-            is = NBTEdit.setNBTInteger(is, "Age", value);
+            NBTItem nbtItem = new NBTItem(is);
+            nbtItem.setInteger("Age", value);
+            nbtItem.applyNBT(is);
         } catch (ClassCastException ignored) {}
         return this;
     }

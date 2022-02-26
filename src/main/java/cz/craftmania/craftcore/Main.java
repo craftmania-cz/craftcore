@@ -1,7 +1,6 @@
 package cz.craftmania.craftcore;
 
 import cz.craftmania.craftcore.internal.ServerData;
-import cz.craftmania.craftcore.internal.listener.ServerListener;
 import cz.craftmania.craftcore.inventory.builder.InventoryManager;
 import cz.craftmania.craftcore.listener.basic.PlayerJoinListener;
 import cz.craftmania.craftcore.listener.basic.PlayerLeaveListener;
@@ -120,7 +119,6 @@ public final class Main extends JavaPlugin {
         pm.registerEvents(new PlayerJoinListener(), this);
         pm.registerEvents(new PlayerLeaveListener(), this);
         pm.registerEvents(new FireworkHandler(), this);
-        pm.registerEvents(new ServerListener(), this);
     }
 
     private void loadCommands() {

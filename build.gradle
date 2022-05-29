@@ -52,6 +52,7 @@ dependencies {
     implementation 'fr.mrmicky:fastboard:1.2.1'
     implementation 'de.tr7zw:item-nbt-api:2.9.2'
     implementation 'de.tr7zw:nbt-injector:2.9.2'
+    implementation 'org.quartz-scheduler:quartz:2.3.2'
     compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.5.0";
     compileOnly ('org.spigotmc:spigot-api:1.16.4-R0.1-SNAPSHOT') {
         exclude group: 'net.md-5'
@@ -69,10 +70,13 @@ shadowJar {
         include(dependency('fr.mrmicky:fastboard:1.2.1'))
         include(dependency('de.tr7zw:item-nbt-api:2.9.2'))
         include(dependency('de.tr7zw:nbt-injector:2.9.2'))
+        include(dependency('org.quartz-scheduler:quartz:2.3.2'))
         relocate 'com.cryptomorin.xseries', "cz.craftmania.craftcore.xseries"
         relocate 'fr.mrmicky.fastboard', 'cz.craftmania.craftcore.fastboard'
         relocate 'de.tr7zw.changeme.nbtapi', 'cz.craftmania.craftcore.nbtapi'
         relocate 'de.tr7zw.nbtinjector', 'cz.craftmania.craftcore.nbtapi'
+        relocate 'org.quartz', 'cz.craftmania.craftcore.quartz'
+        relocate 'org.terracotta', 'cz.craftmania.craftcore.terracotta'
     }
 }
 

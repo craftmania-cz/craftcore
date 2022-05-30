@@ -6,7 +6,7 @@ apply plugin: 'java'
 apply plugin: 'maven-publish'
 
 group 'cz.craftmania.craftcore'
-def mainVersion = "2.8"
+def mainVersion = "2.9"
 
 sourceCompatibility = 16
 targetCompatibility = 16

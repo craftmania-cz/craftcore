@@ -54,7 +54,7 @@ dependencies {
     implementation 'org.quartz-scheduler:quartz:2.3.2'
     implementation 'club.minnced:discord-webhooks:0.8.0'
     compileOnly group: "com.comphenix.protocol", name: "ProtocolLib", version: "4.5.0";
-    compileOnly ('org.spigotmc:spigot-api:1.16.4-R0.1-SNAPSHOT') {
+    compileOnly ('org.spigotmc:spigot-api:1.19.2-R0.1-SNAPSHOT') {
         exclude group: 'net.md-5'
     }
     compileOnly 'com.sk89q.worldguard:worldguard-bukkit:7.0.1-SNAPSHOT'

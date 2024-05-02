@@ -2,6 +2,9 @@ package cz.craftmania.craftcore.builders.items;
 
 import cz.craftmania.craftcore.nms.NMSManager;
 import de.tr7zw.changeme.nbtapi.NBTItem;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -182,66 +185,6 @@ public class ItemBuilder {
         } catch (Exception ex) {
             //TODO: Main.getInstance().debug("Invalid flag: " + flag);
         }
-        return this;
-    }
-
-    /**
-     * Adds array of lore on the item
-     *
-     * @param lore Array of lore
-     * @return ItemBuilder
-     */
-    public ItemBuilder addLore(String... lore) {
-        if (lore != null) {
-            List<String> finalLore = new ArrayList<>(Arrays.asList(lore));
-            ItemMeta meta = is.getItemMeta();
-            meta.setLore(finalLore);
-            is.setItemMeta(meta);
-        }
-        return this;
-    }
-
-    /**
-     * Add a lore line.
-     * <b>\n</b> will create new line
-     *
-     * @param line The lore line to add.
-     * @return ItemBuilder
-     */
-    public ItemBuilder addLoreLine(String line) {
-        if (line != null) {
-            ItemMeta im = is.getItemMeta();
-            List<String> lore = new ArrayList<>();
-            if (im.hasLore()) {
-                lore = new ArrayList<>(im.getLore());
-            }
-            for (String str : line.split("\n")) {
-                lore.add(str);
-            }
-            setLore(lore);
-        }
-        return this;
-    }
-
-    /**
-     * Add a lore line.
-     *
-     * @param line The lore line to add.
-     * @param pos  The index of where to put it.
-     * @return ItemBuilder
-     */
-    public ItemBuilder addLoreLine(String line, int pos) {
-        ItemMeta im = is.getItemMeta();
-        List<String> lore = new ArrayList<>(im.getLore());
-        lore.add(line);
-        for (int i = lore.size() - 1; i > pos; i--) {
-            Collections.swap(lore, i, i - 1);
-        }
-        return setLore(lore);
-    }
-
-    public ItemBuilder addPlaceholder(String toReplace, String replaceWith) {
-        placeholders.put(toReplace, replaceWith);
         return this;
     }
 
@@ -435,9 +378,19 @@ public class ItemBuilder {
      * @param lore The lore to set it to.
      * @return ItemBuilder
      */
+    @Deprecated
     public ItemBuilder setLore(List<String> lore) {
         ItemMeta im = is.getItemMeta();
         im.setLore(lore);
+        is.setItemMeta(im);
+        return this;
+    }
+
+    public ItemBuilder setLore_New(List<String> lore) {
+        ItemMeta im = is.getItemMeta();
+        List<Component> components = new ArrayList<>();
+        lore.forEach(line -> components.add(MiniMessage.miniMessage().deserialize(line)));
+        im.lore(components);
         is.setItemMeta(im);
         return this;
     }
@@ -448,8 +401,20 @@ public class ItemBuilder {
      * @param lore The lore to set it to.
      * @return ItemBuilder
      */
+    @Deprecated
     public ItemBuilder setLore(String... lore) {
         return setLore(Arrays.asList(lore));
+    }
+
+    public ItemBuilder setLore_New(String... lore) {
+        return setLore_New(Arrays.asList(lore));
+    }
+
+    public ItemBuilder setLore_New(Component... lore) {
+        ItemMeta im = is.getItemMeta();
+        im.lore(Arrays.asList(lore));
+        is.setItemMeta(im);
+        return this;
     }
 
     /**
@@ -458,9 +423,24 @@ public class ItemBuilder {
      * @param name The name to change it to.
      * @return ItemBuilder
      */
+    @Deprecated
     public ItemBuilder setName(String name) {
         ItemMeta im = is.getItemMeta();
         im.setDisplayName(name);
+        is.setItemMeta(im);
+        return this;
+    }
+
+    public ItemBuilder setName_New(String name) {
+        ItemMeta im = is.getItemMeta();
+        im.displayName(MiniMessage.miniMessage().deserialize(name));
+        is.setItemMeta(im);
+        return this;
+    }
+
+    public ItemBuilder setName_New(Component name) {
+        ItemMeta im = is.getItemMeta();
+        im.displayName(name);
         is.setItemMeta(im);
         return this;
     }

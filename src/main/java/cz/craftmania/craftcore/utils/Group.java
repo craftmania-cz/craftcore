@@ -1,7 +1,7 @@
 package cz.craftmania.craftcore.utils;
 
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.builder.EqualsBuilder;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 /**
  * A group is a group of two objects (A and B).<br>

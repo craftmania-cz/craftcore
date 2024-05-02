@@ -32,31 +32,12 @@ public class ItemBuilder {
     }
 
     /**
-     * Create a new ItemBuilder from CraftCore Material.
-     *
-     * @param m The material to create the ItemBuilder with.
-     */
-    public ItemBuilder(CustomMaterial m) {
-        this(m, 1);
-    }
-
-    /**
      * Create a new ItemBuilder from Vanilla Material.
      *
      * @param m The material to create the ItemBuilder with.
      */
     public ItemBuilder(Material m) {
         this(m, 1);
-    }
-
-    /**
-     * Create a new ItemBuilder from CraftCore Material.
-     *
-     * @param m      The material of the item.
-     * @param amount The amount of the item.
-     */
-    public ItemBuilder(CustomMaterial m, int amount) {
-        is = new ItemStack(m.getMaterial(), amount);
     }
 
     /**
@@ -67,17 +48,6 @@ public class ItemBuilder {
      */
     public ItemBuilder(Material m, int amount) {
         is = new ItemStack(m, amount);
-    }
-
-    /**
-     * Create a new ItemBuilder from CraftCore Material.
-     *
-     * @param m      The material of the item.
-     * @param amount The amount of the item.
-     * @param s      The durability of the item.
-     */
-    public ItemBuilder(CustomMaterial m, int amount, short s) {
-        is = new ItemStack(m.getMaterial(), amount, s);
     }
 
     /**
@@ -96,10 +66,6 @@ public class ItemBuilder {
         ItemMeta im = is.getItemMeta();
         im.setDisplayName(name);
         is.setItemMeta(im);
-    }
-
-    public ItemBuilder(CustomMaterial m, short s) {
-        is = new ItemStack(m.getMaterial(), 1, s);
     }
 
     /**

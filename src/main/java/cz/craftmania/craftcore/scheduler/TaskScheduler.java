@@ -1,7 +1,7 @@
 package cz.craftmania.craftcore.scheduler;
 
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.builder.EqualsBuilder;
-import org.bukkit.craftbukkit.libs.org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public abstract class TaskScheduler {
 

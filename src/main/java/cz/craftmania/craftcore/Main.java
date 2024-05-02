@@ -4,7 +4,6 @@ import cz.craftmania.craftcore.internal.ServerData;
 import cz.craftmania.craftcore.inventory.builder.InventoryManager;
 import cz.craftmania.craftcore.listener.basic.PlayerJoinListener;
 import cz.craftmania.craftcore.listener.basic.PlayerLeaveListener;
-import cz.craftmania.craftcore.listener.bungee.BungeeListener;
 import cz.craftmania.craftcore.listener.worldguard.WGRegionEventsListener;
 import cz.craftmania.craftcore.tasks.TpsPollerTask;
 import cz.craftmania.craftcore.utils.CoreLogger;
@@ -98,11 +97,6 @@ public final class Main extends JavaPlugin {
             getCoreLogger().info("Detekce TPS byla zapnuta.");
             Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new TpsPollerTask(), 100L, 1L);
         }
-
-        // Bungee register
-        getServer().getMessenger().registerOutgoingPluginChannel(this, CRAFTCORE_CHANNEL);
-        getServer().getMessenger().registerIncomingPluginChannel(this, CRAFTCORE_CHANNEL, new BungeeListener());
-
     }
 
     @Override

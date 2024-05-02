@@ -1,5 +1,5 @@
 name: CraftCore
-version: '2.11'
+version: '2.12-beta.1'
 description: Core API for Craftmania.cz
 author: MrWakeCZ
 main: cz.craftmania.craftcore.Main
